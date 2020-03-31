@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR : Administration - accueil' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="text-center">
+            <div class="container mt-4">
+                <h1>ADMINISTRATION MAGASIN</h1>
+            </div>
+        </div>
+        <br>
+        <br>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Courriel</th>
+                <th>Telephone</th>
+                <th>Adresse</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for magasin in magasins %}
+                <tr>
+                    <td>{{ magasin.id }}</td>
+                    <td>{{ magasin.nom }}</td>
+                    <td>{{ magasin.courriel }}</td>
+                    <td>{{ magasin.telephone }}</td>
+                    <td>{{ magasin.adresse }}</td>
+                    <td>
+                        <a href="{{ path('admin.magasin.edit', {id : magasin.id}) }}" class="btn btn-secondary">Editer</a>
+                        <form method="post" action="{{ path('admin.magasin.delete', {id: magasin.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ magasin.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-right">
+            <a href="{{ path('admin.magasin.new') }}" class="btn btn-primary">Créer un nouveau magasin</a>
+        </div>
+    </div>
+{% endblock %}

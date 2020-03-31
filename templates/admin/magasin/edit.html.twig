@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR : Administration - modification' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="text-center">
+                <h1>MODIFICATION DES MAGASINS</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        {{ include ('admin/magasin/_form.html.twig', {form: form, button: 'Modifier un magasin'}) }}
+    </div>
+
+{% endblock %}

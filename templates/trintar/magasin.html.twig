@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR - Magasin' %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        {{ form_start(form) }}
+        <div class="form-row">
+            <div class="col-md-4">
+                {{ form_row(form.nom) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.options) }}
+            </div>
+            &nbsp;
+            <div class="col-md-4">
+                <button class="btn btn-primary">Rechercher</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                {% for magasin in magasins %}
+                    <div class="col-md-4">
+                        {% include 'trintar/_magasin.html.twig' %}
+                    </div>
+                {% endfor %}
+            </div>
+            <br>
+            <div class="pagination">
+                {{ knp_pagination_render(magasins) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

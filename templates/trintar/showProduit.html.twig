@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR - page produit' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    {% if produit.filename %}
+                        <img src="../images/produits/{{ produit.filename }}" alt="Symfony!" style="width: 100%; height:auto;">
+                    {% else %}
+                        <img src="{{ 'images/produits/db.jpg' }}" alt="Symfony!" class="image-display" style="width: 100%; height:auto;" />
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <strong>Description :</strong><br> {{ produit.description | nl2br }}
+            </div>
+            <br>
+            <div class="row">
+                <strong>Synopsis :</strong><br> {{ produit.synopsis | nl2br }}
+            </div>
+        </div>
+    </div>
+    <div class="container margin-top : 4;">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <strong><p>CARACTERISTIQUE DU MANGA : {{ produit.libelle }}</p></strong>
+                </div>
+                <table class="table table-striped">
+                    <tr>
+                        <td>NOM</td>
+                        <td>{{ produit.libelle }}</td>
+                    </tr>
+                    <tr>
+                        <td>AUTEUR(S)</td>
+                        <td>{{ produit.auteur }}</td>
+                    </tr>
+                    <tr>
+                        <td>PRIX DU TOMES</td>
+                        <td>{{ produit.prixht }}</td>
+                    </tr>
+                    <tr>
+                        <td>STOCK</td>
+                        <td>{{ produit.stock }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center">
+                    <strong><p>TOMES DISPONIBLES</p></strong>
+                </div>
+                <ul class="list-group">
+                    {% for tomes in produit.idTomes %}
+                        <li class="list-group-item">{{ tomes.libelle }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="jumbotron">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <a href="{{ path ('trintar.produit')}}" class="btn btn-primary">Revenir à la page produit</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="" class="btn btn-secondary">Commander ce manga</a>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+{
+  "name": "webMarchandSymfony",
+  "version": "1.0.0",
+  "dependencies": {
+    "places.js": "latest"
+  }
+}

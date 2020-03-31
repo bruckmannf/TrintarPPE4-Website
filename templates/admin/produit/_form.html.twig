@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-md-3">{{ form_row(form.libelle) }}</div>
+    <div class="col-md-3">{{ form_row(form.auteur) }}</div>
+    <div class="col-md-3">{{ form_row(form.prixht) }}</div>
+    <div class="col-md-3">{{ form_row(form.stock) }}</div>
+</div>
+<div class="row">
+    <div class="col">{{ form_row(form.description) }}</div>
+    <div class="col">{{ form_row(form.imageFile) }}</div>
+</div>
+<div class="row">
+    <div class="col">{{ form_row(form.synopsis) }}</div>
+</div>
+{{ form_rest(form) }}
+<button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+{{ form_end(form) }}
+<br>

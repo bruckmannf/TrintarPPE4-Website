@@ -1,0 +1,15 @@
+<div class="content">
+    <div class="row">
+        <div class="bg-light m-2 p-3" style="border-radius:10px;">
+            <div class="text-center">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ path('magasin.show', {id: magasin.id, slug: magasin.slug}) }}">{{ magasin.nom }}</a>
+                        <p>{{ magasin.adresse }}, {{ magasin.pays }} </p>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>

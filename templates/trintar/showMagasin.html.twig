@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR - page magasin' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                </div>
+                <div class="col-md-4">
+                    <h1>{{ magasin.nom }}</h1>
+                    <h1>{{ magasin.adresse }}, {{ magasin.ville }}, {{ magasin.departement }}, {{ magasin.pays }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container margin-top : 4;">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Caracteristiques</h2>
+                <table class="table table-striped">
+                    <tr>
+                        <td>ID</td>
+                        <td>{{ magasin.id }}</td>
+                    </tr>
+                    <tr>
+                        <td>NOM</td>
+                        <td>{{ magasin.nom }}</td>
+                    </tr>
+                    <tr>
+                        <td>HORAIRE OUVERTURE</td>
+                        <td>{{ magasin.horaireOuverture }}</td>
+                    </tr>
+                    <tr>
+                        <td>EMAIL</td>
+                        <td>{{ magasin.courriel }}</td>
+                    </tr>
+                    <tr>
+                        <td>TELEPHONE</td>
+                        <td>{{ magasin.telephone }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <h2>Spécificités</h2>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

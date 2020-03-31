@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR : Administration - création' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Créer un nouveau produit</h1>
+        {{ include ('admin/produit/_form.html.twig', {button: 'Enregistrer'}) }}
+    </div>
+
+{% endblock %}
