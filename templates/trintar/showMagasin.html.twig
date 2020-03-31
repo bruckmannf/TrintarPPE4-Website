@@ -7,6 +7,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
+                    {% if magasin.filename %}
+                        <img src="../images/magasins/{{ magasin.filename }}" alt="Symfony!" style="width: 100%; height:auto;">
+                    {% else %}
+                        <img src="{{ '../images/magasins/db.jpg' }}" alt="Symfony!" class="image-display" style="width: 100%; height:auto;" />
+                    {% endif %}
                 </div>
                 <div class="col-md-4">
                     <h1>{{ magasin.nom }}</h1>

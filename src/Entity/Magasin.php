@@ -117,7 +117,7 @@ class Magasin
     private $imageFile;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="datetime")
      */
     private $updated_at;
 

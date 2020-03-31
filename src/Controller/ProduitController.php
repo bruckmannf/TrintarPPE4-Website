@@ -78,6 +78,5 @@ class ProduitController extends AbstractController
             'produit' => $produit,
             'current_menu' => 'produits'
         ]);
-
     }
 }
