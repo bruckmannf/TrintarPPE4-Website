@@ -1,13 +1,15 @@
 {{ form_start(form) }}
 <div class="row">
     <div class="col-md-3">{{ form_row(form.libelle) }}</div>
-    <div class="col-md-3">{{ form_row(form.auteur) }}</div>
     <div class="col-md-3">{{ form_row(form.prixht) }}</div>
     <div class="col-md-3">{{ form_row(form.stock) }}</div>
 </div>
 <div class="row">
-    <div class="col">{{ form_row(form.description) }}</div>
-    <div class="col">{{ form_row(form.imageFile) }}</div>
+    <div class="col-md-4">{{ form_row(form.description) }}</div>
+    <div class="col-md-4">{{ form_row(form.imageFile) }}</div>
+    <div class="col-md-4" style="width: 200px; flex: none; margin: 5px;">
+        <img src="../images/produits/{{ produit.filename }}" alt="Symfony!" style="width: 100%; height:auto;">
+    </div>
 </div>
 <div class="row">
     <div class="col">{{ form_row(form.synopsis) }}</div>

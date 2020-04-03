@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Auteur;
 use App\Entity\Categorie;
+use App\Entity\Magasin;
 use App\Entity\Produit;
 use App\Entity\Tomes;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -19,7 +21,6 @@ class ProduitType extends AbstractType
             ->add('libelle')
             ->add('description')
             ->add('synopsis')
-            ->add('auteur')
             ->add('prixht')
             ->add('stock')
             ->add('idCategorie', EntityType::class, [
@@ -32,6 +33,18 @@ class ProduitType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'class' => Tomes::class,
+                'multiple' => true
+            ])
+            ->add('idAuteur', EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'class' => Auteur::class,
+                'multiple' => true
+            ])
+            ->add('idMagasin', EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'class' => Magasin::class,
                 'multiple' => true
             ])
             ->add('imageFile', FileType::class, [

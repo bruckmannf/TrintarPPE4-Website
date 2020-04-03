@@ -58,13 +58,6 @@ class Produit
     /**
      * @var string|null
      *
-     * @ORM\Column(name="auteur", type="string", length=255, nullable=true)
-     */
-    private $auteur;
-
-    /**
-     * @var string|null
-     *
      * @ORM\Column(name="prixht", type="string", length=50, nullable=true)
      */
     private $prixht;
@@ -85,6 +78,11 @@ class Produit
      * @ORM\ManyToMany(targetEntity="App\Entity\Tomes", inversedBy="produits")
      */
     private $idTomes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Auteur", inversedBy="produits")
+     */
+    private $idAuteur;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Magasin", inversedBy="produits")
@@ -141,11 +139,6 @@ class Produit
         return $this->synopsis;
     }
 
-    public function getAuteur(): ?string
-    {
-        return $this->auteur;
-    }
-
     public function getPrixht(): ?string
     {
         return $this->prixht;
@@ -185,13 +178,6 @@ class Produit
     public function setSynopsis(?string $synopsis): self
     {
         $this->synopsis = $synopsis;
-
-        return $this;
-    }
-
-    public function setAuteur(?string $auteur): self
-    {
-        $this->auteur = $auteur;
 
         return $this;
     }
@@ -364,7 +350,60 @@ class Produit
         return $this;
     }
 
+    /**
+     * @return Collection|Auteur[]
+     */
+    public function getIdAuteur(): ?Collection
+    {
+        return $this->idAuteur;
+    }
 
+    public function setIdAuteur(?Collection $idAuteur): self
+    {
+        $this->idAuteur = $idAuteur;
+
+        return $this;
+    }
+
+    public function removeIdAuteur(Auteur $auteur): self
+    {
+        if ($this->idAuteur->contains($auteur)) {
+            $this->idAuteur->removeElement($auteur);
+            $auteur->removeProduit($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Magasin[]
+     */
+    public function getIdMagasin(): ?Collection
+    {
+        return $this->idMagasin;
+    }
+
+    public function setIdMagasin(?Collection $idMagasin): self
+    {
+        $this->idMagasin = $idMagasin;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getLibelle();
+    }
+
+    public function removeIdMagasin(Magasin $magasin): self
+    {
+        if ($this->idMagasin->contains($magasin)) {
+            $this->idMagasin->removeElement($magasin);
+            $magasin->removeProduit($this);
+        }
+
+        return $this;
+    }
 
 
 }

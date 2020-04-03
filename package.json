@@ -2,6 +2,6 @@
   "name": "webMarchandSymfony",
   "version": "1.0.0",
   "dependencies": {
-    "places.js": "latest"
+    "places.js": "^1.18.1"
   }
 }

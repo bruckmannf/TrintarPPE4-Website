@@ -11,8 +11,7 @@
                     <h5 class="card-title">
                         Licence : <a href="{{ path('produit.show', {id: produit.id, slug: produit.slug}) }}">{{ produit.libelle }}</a>
                         <br>
-                        <p>Manga crée par le/les auteur(s) {{ produit.auteur }}</p>
-                        <p style="font-weight: bold; font-size : 2rem;">Prix : {{ produit.prixht }} euros</p>
+                        <p style="font-weight: bold; font-size : 2rem;">{{ produit.prixht }} euros / Tome</p>
                     </h5>
                 </div>
             </div>

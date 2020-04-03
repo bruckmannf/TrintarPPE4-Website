@@ -56,6 +56,13 @@ class Magasin
     /**
      * @var string|null
      *
+     * @ORM\Column(name="code_postal", type="string", length=250, nullable=true)
+     */
+    private $codePostal;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="ville", type="string", length=250, nullable=true)
      */
     private $ville;
@@ -117,6 +124,11 @@ class Magasin
     private $imageFile;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Produit", inversedBy="magasins")
+     */
+    private $idProduit;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
@@ -170,6 +182,18 @@ class Magasin
     public function setLat(?float $lat): self
     {
         $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?string
+    {
+        return $this->codePostal;
+    }
+
+    public function setCodePostal(?string $codePostal): self
+    {
+        $this->codePostal = $codePostal;
 
         return $this;
     }
@@ -324,6 +348,36 @@ class Magasin
         if ($this->imageFile instanceof UploadedFile) {
             $this->updated_at = new \DateTime('now');
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection|Categorie[]
+     */
+    public function getIdProduit(): ?Collection
+    {
+        return $this->idProduit;
+    }
+
+    public function setIdProduit(?Collection $idProduit): self
+    {
+        $this->idProduit = $idProduit;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
+    public function removeIdProduit(Produit $produit): self
+    {
+        if ($this->idProduit->contains($produit)) {
+            $this->idProduit->removeElement($produit);
+            $produit->removeMagasin($this);
+        }
+
         return $this;
     }
 

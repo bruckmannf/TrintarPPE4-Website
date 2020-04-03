@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Auteur;
 use App\Entity\Categorie;
 use App\Entity\ProduitSearch;
 use Symfony\Component\Form\AbstractType;
@@ -30,9 +31,11 @@ class ProduitSearchType extends AbstractType
                 'label' => false,
                 'required' => false,
             ])
-            ->add('auteur', null, [
-                'label' => false,
+            ->add('auteurs', EntityType::class, [
                 'required' => false,
+                'label' => false,
+                'class' => Auteur::class,
+                'multiple' => true
             ])
         ;
     }

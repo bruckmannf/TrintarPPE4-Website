@@ -71,6 +71,8 @@ Encore
     //.addEntry('admin', './assets/js/admin.js')
 ;
 
+module.exports = Encore.addExternals({ jquery: 'jQuery' }).getWebpackConfig();
+
 var config = Encore.getWebpackConfig();
 
 config.externals.jquery = 'jQuery'

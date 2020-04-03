@@ -61,6 +61,14 @@ class ProduitRepository extends ServiceEntityRepository
                 ->setParameter('libelle', $search->getLibelle());
         }
 
+        if ($search->getAuteurs()->count()>0){
+            foreach($search->getAuteurs() as $k => $auteur){
+                $query=$query
+                    ->andWhere(":auteur$k MEMBER OF p.idAuteur")
+                    ->setParameter("auteur$k",$auteur);
+            }
+        }
+
         return $query->getQuery();
     }
 

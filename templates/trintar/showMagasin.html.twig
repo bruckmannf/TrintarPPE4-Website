@@ -6,51 +6,68 @@
     <div class="jumbotron">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col">
                     {% if magasin.filename %}
                         <img src="../images/magasins/{{ magasin.filename }}" alt="Symfony!" style="width: 100%; height:auto;">
                     {% else %}
                         <img src="{{ '../images/magasins/db.jpg' }}" alt="Symfony!" class="image-display" style="width: 100%; height:auto;" />
                     {% endif %}
                 </div>
-                <div class="col-md-4">
-                    <h1>{{ magasin.nom }}</h1>
-                    <h1>{{ magasin.adresse }}, {{ magasin.ville }}, {{ magasin.departement }}, {{ magasin.pays }}</h1>
-                </div>
             </div>
         </div>
     </div>
-    <div class="container margin-top : 4;">
-        <div class="row">
-            <div class="col-md-8">
-                <h2>Caracteristiques</h2>
-                <table class="table table-striped">
-                    <tr>
-                        <td>ID</td>
-                        <td>{{ magasin.id }}</td>
-                    </tr>
-                    <tr>
-                        <td>NOM</td>
-                        <td>{{ magasin.nom }}</td>
-                    </tr>
-                    <tr>
-                        <td>HORAIRE OUVERTURE</td>
-                        <td>{{ magasin.horaireOuverture }}</td>
-                    </tr>
-                    <tr>
-                        <td>EMAIL</td>
-                        <td>{{ magasin.courriel }}</td>
-                    </tr>
-                    <tr>
-                        <td>TELEPHONE</td>
-                        <td>{{ magasin.telephone }}</td>
-                    </tr>
-                </table>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <strong>Intitulé :&nbsp;</strong><br> {{ magasin.nom | nl2br }}
             </div>
-            <div class="col-md-4">
-                <h2>Spécificités</h2>
+            <br>
+            <div class="row">
+                <strong>Adresse :&nbsp;</strong><br> {{ magasin.adresse | nl2br }}, {{ magasin.codePostal | nl2br }}, {{ magasin.ville | nl2br }}
+            </div>
+            <br>
+            <div class="row">
+                <strong>Département :&nbsp;</strong><br> {{ magasin.departement | nl2br }}
+            </div>
+            <br>
+            <div class="row">
+                <strong>Pays :&nbsp;</strong><br> {{ magasin.pays | nl2br }}
+            </div>
+            <br>
+            <div class="row">
+                <strong>Téléphone :&nbsp;</strong><br> {{ magasin.telephone | nl2br }}
+            </div>
+            <br>
+            <div class="row">
+                <strong>Courriel :&nbsp;</strong><br> {{ magasin.courriel | nl2br }}
+            </div>
+            <br>
+            <div class="row">
+                <strong>Option(s) du magasin :&nbsp;</strong><br>{% for optionMagasin in magasin.idOptionMagasin %} {{ optionMagasin.libelle | nl2br }},{% endfor %}
+            </div>
+            <br>
+            <div class="row">
+                <strong>Licence(s) disponible dans ce magasin :&nbsp;</strong><br>
+                {% for produit in magasin.idProduit %}
+                    <a href="{{ path('produit.show', {id: produit.id, slug: produit.slug}) }}">{{ produit.libelle | nl2br }} ({% for tomes in produit.idTomes %}{{ tomes.libelle | nl2br }},{% endfor %})</a>,
+                {% endfor %}
+            </div>
+            <br>
+        </div>
+    </div>
+    <br>
+    <div class="jumbotron">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <a href="{{ path ('trintar.magasin')}}" class="btn btn-primary">Revenir à la page produit</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="" class="btn btn-secondary">Commander un produit</a>
+                </div>
+                <div class="col-md-3"></div>
             </div>
         </div>
-
     </div>
 {% endblock %}

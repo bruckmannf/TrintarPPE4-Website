@@ -25,43 +25,32 @@
             <div class="row">
                 <strong>Synopsis :</strong><br> {{ produit.synopsis | nl2br }}
             </div>
-        </div>
-    </div>
-    <div class="container margin-top : 4;">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="text-center">
-                    <strong><p>CARACTERISTIQUE DU MANGA : {{ produit.libelle }}</p></strong>
+            <br>
+            {% for auteur in produit.idAuteur %}
+                <div class="row">
+                    <strong>Auteur(s) :&nbsp;</strong><br> {{ auteur.libelle | nl2br }}
                 </div>
-                <table class="table table-striped">
-                    <tr>
-                        <td>NOM</td>
-                        <td>{{ produit.libelle }}</td>
-                    </tr>
-                    <tr>
-                        <td>AUTEUR(S)</td>
-                        <td>{{ produit.auteur }}</td>
-                    </tr>
-                    <tr>
-                        <td>PRIX DU TOMES</td>
-                        <td>{{ produit.prixht }}</td>
-                    </tr>
-                    <tr>
-                        <td>STOCK</td>
-                        <td>{{ produit.stock }}</td>
-                    </tr>
-                </table>
+            {% endfor %}
+            <br>
+            <div class="row">
+                <strong>Stock disponible :&nbsp;</strong><br> {{ produit.stock | nl2br }}
             </div>
-            <div class="col-md-6">
-                <div class="text-center">
-                    <strong><p>TOMES DISPONIBLES</p></strong>
-                </div>
-                <ul class="list-group">
-                    {% for tomes in produit.idTomes %}
-                        <li class="list-group-item">{{ tomes.libelle }}</li>
-                    {% endfor %}
-                </ul>
+            <br>
+            <div class="row">
+                <strong>Prix du tome :&nbsp;</strong><br> {{ produit.prixht | nl2br }} euros
             </div>
+            <br>
+            <div class="row">
+                <strong>Tome(s) en stock :&nbsp;</strong><br>{% for tomes in produit.idTomes %} {{ tomes.libelle | nl2br }},{% endfor %}
+            </div>
+            <br>
+            <div class="row">
+                <strong>Magasin(s) disposant cet/ces article(s) :&nbsp;</strong><br>
+                {% for magasin in produit.idMagasin %}
+                    <a href="{{ path('magasin.show', {id: magasin.id, slug: magasin.slug}) }}">{{ magasin.nom | nl2br }}</a>,
+                {% endfor %}
+            </div>
+            <br>
         </div>
     </div>
     <br>

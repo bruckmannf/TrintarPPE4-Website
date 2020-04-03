@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Magasin;
 use App\Entity\optionMagasin;
+use App\Entity\Produit;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -21,6 +22,7 @@ class MagasinType extends AbstractType
             ->add('adresse')
             ->add('lng', HiddenType::class)
             ->add('lat', HiddenType::class)
+            ->add('codePostal')
             ->add('ville')
             ->add('departement')
             ->add('pays')
@@ -33,8 +35,14 @@ class MagasinType extends AbstractType
                 'class' => optionMagasin::class,
                 'multiple' => true
             ])
+            ->add('idProduit', EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'class' => Produit::class,
+                'multiple' => true
+            ])
             ->add('imageFile', FileType::class, [
-                'required' => false
+                'required' => false,
             ])
         ;
     }

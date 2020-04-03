@@ -19,15 +19,16 @@ class ProduitSearch {
     private $libelle;
 
     /**
-     * @var string|null
+     * @var ArrayCollection
      */
 
-    private $auteur;
+    private $auteurs;
 
     public function __construct()
 
     {
         $this->categories = new ArrayCollection();
+        $this->auteurs = new ArrayCollection();
     }
 
     /**
@@ -67,20 +68,20 @@ class ProduitSearch {
     }
 
     /**
-     * @return null|string
+     * @return ArrayCollection $auteurs
      */
-    public function getAuteur(): ?string
+
+    public function getAuteurs(): ArrayCollection
     {
-        return $this->auteur;
+        return $this->auteurs;
     }
 
     /**
-     * @param null|string $auteur
-     * @return ProduitSearch
+     * @param ArrayCollection $auteurs
      */
-    public function setAuteur(?string $auteur): ProduitSearch
+
+    public function setAuteurs (ArrayCollection $auteurs): void
     {
-        $this->auteur = $auteur;
-        return $this;
+        $this->auteurs = $auteurs;
     }
 }

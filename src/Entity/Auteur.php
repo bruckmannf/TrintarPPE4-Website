@@ -2,18 +2,17 @@
 
 namespace App\Entity;
 
-use App\Entity\Magasin;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * Categorie
+ * Tomes
  *
- * @ORM\Table(name="optionMagasin")
- * @ORM\Entity(repositoryClass="App\Repository\OptionMagasinRepository")
+ * @ORM\Table(name="auteur")
+ * @ORM\Entity(repositoryClass="App\Repository\AuteurRepository")
  */
-class optionMagasin
+class Auteur
 {
     /**
      * @var int
@@ -32,9 +31,9 @@ class optionMagasin
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Magasin", mappedBy="options")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Produit", inversedBy="auteurs")
      */
-    private $idMagasin;
+    private $idProduit;
 
     public function getId(): ?int
     {
@@ -56,14 +55,14 @@ class optionMagasin
     /**
      * @return Collection|Produit[]
      */
-    public function getIdMagasin(): Collection
+    public function getIdProduit(): Collection
     {
-        return $this->idMagasin;
+        return $this->idProduit;
     }
 
-    public function setIdMagasin(?Collection $idMagasin): self
+    public function setIdProduit(?Collection $idProduit): self
     {
-        $this->idMagasin = $idMagasin;
+        $this->idProduit = $idProduit;
 
         return $this;
     }
@@ -73,11 +72,11 @@ class optionMagasin
         return $this->getLibelle();
     }
 
-    public function removeIdMagasin(Magasin $magasin): self
+    public function removeIdProduit(Produit $produit): self
     {
-        if ($this->idMagasin->contains($magasin)) {
-            $this->idMagasin->removeElement($magasin);
-            $magasin->removeOptionMagasin($this);
+        if ($this->idProduit->contains($produit)) {
+            $this->idProduit->removeElement($produit);
+            $produit->removeAuteur($this);
         }
 
         return $this;
