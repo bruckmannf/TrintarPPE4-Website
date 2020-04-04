@@ -18,6 +18,25 @@ class MagasinSearch {
 
     private $options;
 
+    /**
+     * @var integer|null
+     */
+
+    private $distance;
+
+    /**
+     * @var float|null
+     */
+
+    private $lat;
+
+    /**
+     * @var float|null
+     */
+
+    private $lng;
+
+
     public function __construct()
     {
         $this->options = new ArrayCollection();
@@ -58,4 +77,59 @@ class MagasinSearch {
     {
         $this->options = $options;
     }
+
+    /**
+     * @return int|null
+     */
+    public function getDistance(): ?int
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @param int|null $distance
+     * @return MagasinSearch
+     */
+    public function setDistance(?int $distance): MagasinSearch
+    {
+        $this->distance = $distance;
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getLat(): ?float
+    {
+        return $this->lat;
+    }
+
+    /**
+     * @param float|null $lat
+     * @return MagasinSearch
+     */
+    public function setLat(?float $lat): MagasinSearch
+    {
+        $this->lat = $lat;
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getLng(): ?float
+    {
+        return $this->lng;
+    }
+
+    /**
+     * @param float|null $lng
+     * @return MagasinSearch
+     */
+    public function setLng(?float $lng): MagasinSearch
+    {
+        $this->lng = $lng;
+        return $this;
+    }
+
 }

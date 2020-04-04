@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Form\ProduitType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
@@ -95,11 +96,6 @@ class Produit
     private $idCommande;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="produits", orphanRemoval=true, cascade={"persist"})
-     */
-    private $idImage;
-
-    /**
      * @var string|null
      * @ORM\Column(name="filename", type="string", length=255)
      */
@@ -119,6 +115,11 @@ class Produit
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
+
+    public function __construct()
+    {
+        $this->idImage = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -269,31 +270,6 @@ class Produit
         if ($this->idCommande->contains($idCommande)) {
             $this->idCommande->removeElement($idCommande);
             $idCommande->removeProduit($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Image[]
-     */
-    public function getIdImage(): ?Collection
-    {
-        return $this->idImage;
-    }
-
-    public function setIdImage(?Collection $idImage): self
-    {
-        $this->idImage = $idImage;
-
-        return $this;
-    }
-
-    public function removeIdImage(Image $image): self
-    {
-        if ($this->idImage->contains($image)) {
-            $this->idImage->removeElement($image);
-            $image->removeProduit($this);
         }
 
         return $this;

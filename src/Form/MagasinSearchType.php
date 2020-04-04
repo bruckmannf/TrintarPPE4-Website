@@ -2,20 +2,14 @@
 
 namespace App\Form;
 
-use App\Entity\Categorie;
 use App\Entity\MagasinSearch;
 use App\Entity\optionMagasin;
-use App\Entity\ProduitSearch;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class MagasinSearchType extends AbstractType
 {
@@ -32,6 +26,16 @@ class MagasinSearchType extends AbstractType
                 'class' => optionMagasin::class,
                 'multiple' => true
             ])
+            ->add('distance', ChoiceType::class, [
+                'choices' => [
+                    '10 km' => 10,
+                    '100 km' => 100,
+                    '1000 km' => 1000
+                ]
+            ])
+            ->add('lat', HiddenType::class)
+            ->add('lng', HiddenType::class)
+
         ;
     }
 

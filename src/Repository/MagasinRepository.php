@@ -4,13 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Magasin;
 use App\Entity\MagasinSearch;
-use App\Entity\Produit;
-use App\Entity\ProduitSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Bundle\MakerBundle\Maker\MakeFixtures;
 
 /**
  * @method Magasin|null find($id, $lockMode = null, $lockVersion = null)
@@ -62,6 +59,15 @@ class MagasinRepository extends ServiceEntityRepository
                     ->andWhere(":option$k MEMBER OF m.idOptionMagasin")
                     ->setParameter("option$k",$option);
             }
+        }
+
+        if($search->getLat() && $search->getLng() && $search->getDistance()){
+            $query = $query
+                ->select('p')
+                ->andWhere('(6353 * 2 * ASIN(SQRT( POWER(SIN((p.lat - :lat) *  pi()/180 / 2), 2) +COS(p.lat * pi()/180) * COS(:lat * pi()/180) * POWER(SIN((p.lng - :lng) * pi()/180 / 2), 2) ))) <= :distance')
+                ->setParameter('lng', $search->getLng())
+                ->setParameter('lat', $search->getLat())
+                ->setParameter('distance', $search->getDistance());
         }
 
         return $query->getQuery();

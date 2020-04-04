@@ -6,15 +6,22 @@
     <br>
     <div class="container">
         {{ form_start(form) }}
-        <div class="form-row">
-            <div class="col-md-4">
+        <div class="form-row align-items-end">
+            <div class="col">
                 {{ form_row(form.nom) }}
             </div>
-            <div class="col-md-4">
+            <div class="col">
                 {{ form_row(form.options) }}
             </div>
-            &nbsp;
-            <div class="col-md-4">
+            &nbsp;<div class="col">
+                <div class="form-group">
+                    <input type="text" value="" id="search_address" class="form-control" />
+                </div>
+            </div>
+            <div class="col">
+                {{ form_row(form.distance) }}
+            </div>
+            <div class="col">
                 <button class="btn btn-primary">Rechercher</button>
             </div>
         </div>

@@ -15,8 +15,9 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
         <!-- Material Design Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.0/css/mdb.min.css" rel="stylesheet">
-
-
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+              integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+              crossorigin=""/>
     {% endblock %}
 </head>
 <body>
@@ -245,9 +246,43 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.0/js/mdb.min.js"></script>
-    <script src="{{ asset('build/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/places.js@1.18.1"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
     <script>
         $('select').select2();
+    </script>
+    <script>
+        let inputAddress = document.querySelector('#magasin_adresse')
+        if (inputAddress !== null) {
+            let placesAutocomplete = places({
+                appId: 'plB1R5LFAXKE',
+                apiKey: '21c517e1e92e4acf7923fbdf25718e54',
+                container: inputAddress
+            })
+            placesAutocomplete.on('change', e => {
+                document.querySelector('#magasin_ville').value = e.suggestion.city
+                document.querySelector('#magasin_departement').value = e.suggestion.county
+                document.querySelector('#magasin_pays').value = e.suggestion.country
+                document.querySelector('#magasin_codePostal').value = e.suggestion.postcode
+                document.querySelector('#magasin_lat').value = e.suggestion.latlng.lat
+                document.querySelector('#magasin_lng').value = e.suggestion.latlng.lng
+            })
+        }
+
+        let searchAddress = document.querySelector('#search_address')
+        if (searchAddress !== null) {
+            let place = places({
+                container: searchAddress
+            })
+            place.on('change', e => {
+                document.querySelector('#lat').value = e.suggestion.latlng.lat
+                document.querySelector('#lng').value = e.suggestion.latlng.lng
+            })
+        }
+
+
     </script>
 {% endblock %}
 </body>
