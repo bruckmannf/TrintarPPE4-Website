@@ -126,6 +126,9 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v5.1.1"
     },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.0.3"
+    },
     "liip/imagine-bundle": {
         "version": "1.8",
         "recipe": {

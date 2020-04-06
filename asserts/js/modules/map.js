@@ -1,5 +1,4 @@
 import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'
 
 export default class Map {
 
@@ -10,7 +9,7 @@ export default class Map {
         }
         let center = [map.dataset.lat, map.dataset.lng]
         map = L.map('map').setView(center, 13)
-        let token = 'pk.eyJ1IjoiZ3JhZmlrYXJ0IiwiYSI6ImNqaHoxancyOTBxNXkzcW10MHI3NXZrNjkifQ.yWqQe1qK_RtMA2Z4qABvmg'
+        let token = 'pk.eyJ1IjoiZ2VsZWV0eiIsImEiOiJjazVpMmF1ZDYwOWFpM2xtbTJ6cGo5OTEwIn0.nq6hywv7r9NikPv5ynGVRg'
         L.tileLayer(`https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=${token}`, {
             maxZoom: 18,
             minZoom: 12,
@@ -18,7 +17,7 @@ export default class Map {
         }).addTo(map)
         L.marker(center).addTo(map)
     }
-
 }
+
 
 
