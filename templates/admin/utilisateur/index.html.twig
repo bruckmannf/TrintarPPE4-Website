@@ -20,8 +20,8 @@
                 <th>Prenom</th>
                 <th>Courriel</th>
                 <th>Telephone</th>
-                <th>DateNaissance</th>
-                <th>MotDePasse</th>
+                <th>Date de naissance</th>
+                <th>Mot de passe</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -31,10 +31,10 @@
                 <td>{{ utilisateur.id }}</td>
                 <td>{{ utilisateur.nom }}</td>
                 <td>{{ utilisateur.prenom }}</td>
-                <td>{{ utilisateur.courriel }}</td>
+                <td>{{ utilisateur.email }}</td>
                 <td>{{ utilisateur.telephone }}</td>
                 <td>{{ utilisateur.dateNaissance ? utilisateur.dateNaissance|date('Y-m-d') : '' }}</td>
-                <td>{{ utilisateur.motDePasse }}</td>
+                <td>{{ utilisateur.password }}</td>
                 <td>
                     <a href="{{ path('admin.utilisateur.edit', {id : utilisateur.id}) }}" class="btn btn-secondary">Editer</a>
                     <form method="post" action="{{ path('admin.utilisateur.delete', {id: utilisateur.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer ?')">

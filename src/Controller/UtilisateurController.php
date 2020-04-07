@@ -1,94 +1,98 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-/**
- * @Route("/utilisateur")
- */
-class UtilisateurController extends AbstractController
-{
+class UtilisateurController extends AbstractController {
+
     /**
-     * @Route("/", name="utilisateur_index", methods={"GET"})
+     * @var EntityManagerInterface
      */
-    public function index(UtilisateurRepository $utilisateurRepository): Response
+
+    private $em;
+
+    /**
+     * @var UtilisateurRepository
+     */
+
+    private $repository;
+
+    public function __construct(UtilisateurRepository $repository, EntityManagerInterface $em)
     {
-        return $this->render('utilisateur/produit.html.twig', [
-            'utilisateurs' => $utilisateurRepository->findAll(),
+        $this->repository = $repository;
+        $this->em = $em;
+    }
+
+    /**
+     * @Route ("/utilisateur/profil", name="user.profil", requirements={"slug": "[a-z0-9\-]*"})
+     * @return Response
+     */
+
+    public function profil(Request $request): Response
+    {
+        return $this->render('trintar/profil.html.twig', [
+            'current_menu' => 'users',
         ]);
     }
 
     /**
-     * @Route("/new", name="utilisateur_new", methods={"GET","POST"})
+     * @Route("/utilisateur/{id}", name="user.editProfil", methods="GET|POST")
+     * @param Utilisateur $user
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request): Response
+    public function editProfil(Utilisateur $user, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $utilisateur = new Utilisateur();
-        $form = $this->createForm(UtilisateurType::class, $utilisateur);
+        $form = $this->createForm(UtilisateurType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($utilisateur);
-            $entityManager->flush();
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+            $this->em->persist($user);
+            $this->em->flush();
+            return $this->redirectToRoute('user.profil');
 
-            return $this->redirectToRoute('utilisateur_index');
         }
 
-        return $this->render('utilisateur/new.html.twig', [
-            'utilisateur' => $utilisateur,
-            'form' => $form->createView(),
+        return $this->render('trintar/editProfil.html.twig', [
+            'user' => $user,
+            'form'     => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/{id}", name="utilisateur_show", methods={"GET"})
+     * @Route("utilisateur/{id}", name="user.deleteProfil", methods="DELETE")
+     * @param Utilisateur $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function show(Utilisateur $utilisateur): Response
+
+    public function deleteProfil(Utilisateur $user, Request $request,TokenStorageInterface $tokenStorage, SessionInterface $session)
     {
-        return $this->render('utilisateur/show.html.twig', [
-            'utilisateur' => $utilisateur,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="utilisateur_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Utilisateur $utilisateur): Response
-    {
-        $form = $this->createForm(UtilisateurType::class, $utilisateur);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('utilisateur_index');
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token'))) {
+            $this->em->remove($user);
+            $tokenStorage->setToken(null);
+            $session->invalidate();
+            $this->em->flush();
         }
-
-        return $this->render('utilisateur/edit.html.twig', [
-            'utilisateur' => $utilisateur,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="utilisateur_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Utilisateur $utilisateur): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$utilisateur->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($utilisateur);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('utilisateur_index');
+        return $this->redirectToRoute('app_logout');
     }
 }
+
+
+
+

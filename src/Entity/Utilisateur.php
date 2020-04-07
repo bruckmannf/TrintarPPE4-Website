@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * Utilisateur
@@ -18,7 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @Vich\Uploadable()
  */
-class Utilisateur
+class Utilisateur implements UserInterface, \Serializable
+
 {
     /**
      * @var int
@@ -46,9 +47,17 @@ class Utilisateur
     /**
      * @var string|null
      *
-     * @ORM\Column(name="courriel", type="string", length=50, nullable=true)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
-    private $courriel;
+    private $description;
+
+    /**
+     * @Assert\Length(min=4, max=255)
+     * @Assert\Email()
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $email;
+
 
     /**
      * @var string|null
@@ -65,11 +74,15 @@ class Utilisateur
     private $dateNaissance;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="mot_de_passe", type="string", length=255, nullable=true)
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
-    private $motDePasse;
+    private $password;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     /**
      * @var string|null
@@ -91,22 +104,6 @@ class Utilisateur
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="utilisateurs", orphanRemoval=true, cascade={"persist"})
-     */
-    private $idImage;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Role", inversedBy="utilisateurs")
-     */
-    private $idRole;
-
-    public function __construct()
-    {
-        $this->idRole = new ArrayCollection();
-    }
-
 
     public function getId(): ?int
     {
@@ -137,17 +134,30 @@ class Utilisateur
         return $this;
     }
 
-    public function getCourriel(): ?string
+    public function getDescription(): ?string
     {
-        return $this->courriel;
+        return $this->description;
     }
 
-    public function setCourriel(?string $courriel): self
+    public function setDescription(?string $description): self
     {
-        $this->courriel = $courriel;
+        $this->description = $description;
 
         return $this;
     }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
 
     public function getTelephone(): ?string
     {
@@ -173,17 +183,67 @@ class Utilisateur
         return $this;
     }
 
-    public function getMotDePasse(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->motDePasse;
+        return (string) $this->email;
     }
 
-    public function setMotDePasse(?string $motDePasse): self
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        $this->motDePasse = $motDePasse;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
@@ -237,54 +297,20 @@ class Utilisateur
     }
 
     /**
-     * @return Collection|Image[]
+     * {@inheritdoc}
      */
-    public function getIdImage(): ?Collection
+    public function serialize(): string
     {
-        return $this->idImage;
+        // add $this->salt too if you don't use Bcrypt or Argon2i
+        return serialize([$this->id, $this->email, $this->password]);
     }
-
-    public function setIdImage(?Collection $idImage): self
-    {
-        $this->idImage = $idImage;
-
-        return $this;
-    }
-
-    public function removeIdImage(Image $image): self
-    {
-        if ($this->idImage->contains($image)) {
-            $this->idImage->removeElement($image);
-            $image->removeUtilisateur($this);
-        }
-
-        return $this;
-    }
-
     /**
-     * @return Collection|Role[]
+     * {@inheritdoc}
      */
-    public function getIdRole(): ?Collection
+    public function unserialize($serialized): void
     {
-        return $this->idRole;
+        // add $this->salt too if you don't use Bcrypt or Argon2i
+        [$this->id, $this->email, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
     }
-
-    public function setIdRole(?Collection $idRole): self
-    {
-        $this->idRole = $idRole;
-
-        return $this;
-    }
-
-    public function removeIdRole(Role $role): self
-    {
-        if ($this->idRole->contains($role)) {
-            $this->idRole->removeElement($role);
-            $role->removeUtilisateur($this);
-        }
-
-        return $this;
-    }
-
 
 }

@@ -1,0 +1,45 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}TRINTAR.com - Inscription{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container py-5">
+            <div class="headline">
+                <h1>CREER SON COMPTE</h1>
+                <br>
+                <p>Avez-vous déjà un compte ? <a href="{{ path('app_login') }}">Connectez-vous ! </a></p>
+                <p>Rejoignez la communauté la plus polyvalente des mangas français en vous inscrivant dès maintenant !</p>
+                <br>
+            </div>
+            {{ form_start(registrationForm) }}
+            <div class="form-row">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    {{ form_row(registrationForm.nom) }}
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    {{ form_row(registrationForm.prenom) }}
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    {{ form_row(registrationForm.email) }}
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    {{ form_row(registrationForm.plainPassword) }}
+                </div>
+            </div>
+            {{form_widget( registrationForm )}}
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <button class="btn btn-lg btn-outline-primary">
+                    S'inscrire
+                </button>
+            </div>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR.com - profil' %}
+
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="col-md-12">
+            </div>
+        </div>
+    </div>
+    <div class="container margin-top : 4;">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>NOM ET PRENOM</td>
+                                    <td>{{ app.user.nom }} {{ app.user.prenom }}</td>
+                                </tr>
+                                <tr>
+                                    <td>EMAIL</td>
+                                    <td>{{ app.user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>TELEPHONE</td>
+                                    <td>{{ app.user.telephone }}</td>
+                                </tr>
+                                <tr>
+                                    <td>DATE DE NAISSANCE</td>
+                                    <td>{{ app.user.dateNaissance|date("m/d/Y") }}</td>
+                                </tr>
+                                <tr>
+                                    <td>DESCRIPTION</td>
+                                    <td>{{ app.user.description }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            {% if app.user.filename %}
+                                <img src="../images/utilisateurs/{{ app.user.filename }}" alt="Symfony!" style="width: 60%; height:auto;">
+                            {% else %}
+                                <img src="{{ '../images/utilisateurs/db.jpg' }}" alt="Symfony!" class="image-display" style="width: 60%;width: 100px;" />
+                            {% endif %}
+                        </div>
+                        </div>
+                        <br>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jumbotron">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <form method="post" action="{{ path('user.deleteProfil', {id: app.user.id}) }}" style="float: left;" onsubmit="return confirm('Êtes-vous certain(e) de supprimer votre compte ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.id) }}">
+                            <button class="btn btn-outline-danger my-2 my-sm-0">Supprimer votre compte</button>
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{ path('user.editProfil', {id : app.user.id}) }}" class="btn btn-outline-primary my-2 my-sm-0" style="float: right;">Modifier mes informations</a>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+{% endblock %}
+
+

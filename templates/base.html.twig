@@ -65,11 +65,11 @@
                     </a>
                     <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <a class="dropdown-item" href="#">Profil</a>
-                        <a class="dropdown-item" href="#">Déconnexion</a>
+                        <a class="dropdown-item" href="{{ path ('user.profil')}}">Profil</a>
+                        <a class="dropdown-item" href="{{ path ('app_logout')}}">Déconnexion</a>
                         {% else %}
-                        <a class="dropdown-item" href="#">Inscription</a>
-                        <a class="dropdown-item" href="#">Connexion</a>
+                        <a class="dropdown-item" href="{{ path ('app_register')}}">Inscription</a>
+                        <a class="dropdown-item" href="{{ path ('app_login')}}">Connexion</a>
                         {% endif %}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Paramètres</a>

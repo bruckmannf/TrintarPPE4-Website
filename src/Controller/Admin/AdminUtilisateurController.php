@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminUtilisateurController extends AbstractController
 {
@@ -49,12 +50,18 @@ class AdminUtilisateurController extends AbstractController
      * @param Utilisateur $utilisateur
      */
 
-    public function new (Request $request)
+    public function new (Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $utilisateur = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $utilisateur->setPassword(
+                $passwordEncoder->encodePassword(
+                    $utilisateur,
+                    $form->get('password')->getData()
+                )
+            );
             $this->em->persist($utilisateur);
             $this->em->flush();
             $this->addFlash('success', 'Bien crée avec succès !');
@@ -74,12 +81,19 @@ class AdminUtilisateurController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    public function edit(Utilisateur $utilisateur, Request $request)
+    public function edit(Utilisateur $utilisateur, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $utilisateur->setPassword(
+                $passwordEncoder->encodePassword(
+                    $utilisateur,
+                    $form->get('password')->getData()
+                )
+            );
+
             $this->em->flush();
             $this->addFlash('success', 'Bien modifié avec succès !');
             return $this->redirectToRoute('admin.utilisateur.index');

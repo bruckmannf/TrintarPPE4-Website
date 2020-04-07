@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="jumbotron">
+        <div class="container">
+            <div class="text-center">
+                <h1>MODIFICATION DE VOS INFORMATIONS</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        {{ include ('trintar/_form.html.twig', {form: form, button: 'Enregistrer'}) }}
+    </div>
+{% endblock %}
+
+

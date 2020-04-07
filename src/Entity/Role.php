@@ -29,11 +29,6 @@ class Role
      */
     private $libelle;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Utilisateur", inversedBy="roles")
-     */
-    private $idUtilisateur;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -50,35 +45,4 @@ class Role
 
         return $this;
     }
-
-    /**
-     * @return Collection|Utilisateur[]
-     */
-    public function getIdUtilisateur(): Collection
-    {
-        return $this->idUtilisateur;
-    }
-
-    public function setIdUtilisateur(?Collection $idUtilisateur): self
-    {
-        $this->idUtilisateur = $idUtilisateur;
-
-        return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->getLibelle();
-    }
-
-    public function removeIdUtilisateur(Utilisateur $utilisateur): self
-    {
-        if ($this->idUtilisateur->contains($utilisateur)) {
-            $this->idUtilisateur->removeElement($utilisateur);
-            $utilisateur->removeRole($this);
-        }
-
-        return $this;
-    }
-
 }

@@ -7,6 +7,7 @@ use App\Entity\Utilisateur;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,16 +20,15 @@ class UtilisateurType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('courriel')
+            ->add('description')
+            ->add('email')
             ->add('telephone')
-            ->add('dateNaissance', BirthdayType::class)
-            ->add('motDePasse', PasswordType::class)
-            ->add('idRole', EntityType::class, [
-                'required' => false,
-                'label' => false,
-                'class' => Role::class,
-                'multiple' => true
+            ->add('dateNaissance', DateType::class, [
+                'widget' => 'single_text',
+                // this is actually the default format for single_text
+                'format' => 'yyyy-MM-dd',
             ])
+            ->add('password', PasswordType::class)
             ->add('imageFile', FileType::class, [
                 'required' => false
             ])
