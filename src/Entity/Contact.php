@@ -25,34 +25,17 @@ class Contact {
     /**
      * @var string|null
      * @Assert\NotBlank()
-     * @Assert\Regex(
-     *  pattern="/[0-9]{10}/"
-     * )
-     */
-
-    private $telephone;
-
-    /**
-     * @var string|null
-     * @Assert\NotBlank()
      * @Assert\Email()
      */
 
     private $email;
 
-    /**
-     * @var string|null
-     * @Assert\NotBlank()
-     * @Assert\Length(min=10)
-     */
-
-    private $message;
 
     /**
-     * @var Magasin|null
+     * @var Utilisateur|null
      */
 
-    private $magasin;
+    private $utilisateur;
 
     public function getPrenom(): ?string
     {
@@ -90,24 +73,6 @@ class Contact {
     /**
      * @return null|string
      */
-    public function getTelephone(): ?string
-    {
-        return $this->telephone;
-    }
-
-    /**
-     * @param null|string $telephone
-     * @return Contact
-     */
-    public function setTelephone(?string $telephone): Contact
-    {
-        $this->telephone = $telephone;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
     public function getEmail(): ?string
     {
         return $this->email;
@@ -124,38 +89,20 @@ class Contact {
     }
 
     /**
-     * @return null|string
+     * @return Utilisateur|null
      */
-    public function getMessage(): ?string
+    public function getUtilisateur(): ?Utilisateur
     {
-        return $this->message;
+        return $this->utilisateur;
     }
 
     /**
-     * @param null|string $message
+     * @param Utilisateur|null $utilisateur
      * @return Contact
      */
-    public function setMessage(?string $message): Contact
+    public function setUtilisateur(?Utilisateur $utilisateur): Contact
     {
-        $this->message = $message;
-        return $this;
-    }
-
-    /**
-     * @return Magasin|null
-     */
-    public function getMagasin(): ?Magasin
-    {
-        return $this->magasin;
-    }
-
-    /**
-     * @param Magasin|null $magasin
-     * @return Contact
-     */
-    public function setMagasin(?Magasin $magasin): Contact
-    {
-        $this->magasin = $magasin;
+        $this->utilisateur = $utilisateur;
         return $this;
     }
 }

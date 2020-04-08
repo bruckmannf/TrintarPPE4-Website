@@ -77,24 +77,9 @@ class MagasinController extends AbstractController
             ], 301);
         }
 
-        $contact = new Contact();
-        $contact->setMagasin($magasin);
-        $form = $this->createForm(ContactType::class, $contact);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $notification->notify($contact);
-            $this->addFlash('success', 'Votre email a bien été envoyé.');
-            return $this->redirectToRoute('magasin.show', [
-                'id' => $magasin->getId(),
-                'slug' => $magasin->getSlug()
-            ]);
-        }
-
         return $this->render('trintar/showMagasin.html.twig', [
             'magasin' => $magasin,
-            'current_menu' => 'magasins',
-            'form'=>$form->createView()
+            'current_menu' => 'magasins'
         ]);
     }
 

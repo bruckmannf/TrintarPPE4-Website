@@ -59,6 +59,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Panier</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">Mon compte
@@ -75,9 +78,24 @@
                         <a class="dropdown-item" href="#">Paramètres</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Panier</a>
-                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">Interface Administration
+                        </a>
+                        <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+                                <a class="dropdown-item" href="{{ path ('admin.produit.index')}}">Gestion - Produit</a>
+                                <a class="dropdown-item" href="{{ path ('admin.auteur.index')}}">Gestion - Auteur</a>
+                                <a class="dropdown-item" href="{{ path ('admin.tomes.index')}}">Gestion - Tomes</a>
+                                <a class="dropdown-item" href="{{ path ('admin.categorie.index')}}">Gestion - Categorie</a>
+                            <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path ('admin.magasin.index')}}">Gestion - Magasin</a>
+                                <a class="dropdown-item" href="{{ path ('admin.option.index')}}">Gestion - Options</a>
+                            <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path ('admin.utilisateur.index')}}">Gestion - Utilisateur</a>
+                        </div>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </nav>
