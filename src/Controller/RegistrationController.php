@@ -19,7 +19,7 @@ class RegistrationController extends AbstractController
      * @Route("/register", name="app_register")
      * @Route ("/inscription", name="worker.register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginAuthenticator $authenticator, \Swift_Mailer $mailer): Response
     {
         $user = new Utilisateur();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -33,6 +33,18 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $message = (new \Swift_Message('TRINTAR.com : Mail de confirmation'))
+                ->setFrom('send@example.com')
+                ->setTo('florian.bruckmann66@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/registration.html.twig'
+                ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
