@@ -118,31 +118,22 @@
 
                     <!-- Grid column -->
                     <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-                        <h6 class="mb-0">Get connected with us on social networks!</h6>
+                        <h6 class="mb-0">Restez connecté en nous rejoingnant sur les réseaux sociaux !</h6>
                     </div>
                     <!-- Grid column -->
 
                     <!-- Grid column -->
                     <div class="col-md-6 col-lg-7 text-center text-md-right">
-
-                        <!-- Facebook -->
-                        <a class="fb-ic">
-                            <i class="fab fa-facebook-f white-text mr-4"> </i>
-                        </a>
                         <!-- Twitter -->
-                        <a class="tw-ic">
+                        <a class="tw-ic" href="https://twitter.com/xGeleetz">
                             <i class="fab fa-twitter white-text mr-4"> </i>
                         </a>
-                        <!-- Google +-->
-                        <a class="gplus-ic">
-                            <i class="fab fa-google-plus-g white-text mr-4"> </i>
-                        </a>
                         <!--Linkedin -->
-                        <a class="li-ic">
+                        <a class="li-ic" href="https://www.linkedin.com/in/florian-bruckmann-4ba76b1a2/">
                             <i class="fab fa-linkedin-in white-text mr-4"> </i>
                         </a>
                         <!--Instagram-->
-                        <a class="ins-ic">
+                        <a class="ins-ic" href="https://www.instagram.com/xgeleetz/">
                             <i class="fab fa-instagram white-text"> </i>
                         </a>
 
@@ -165,11 +156,9 @@
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
 
                     <!-- Content -->
-                    <h6 class="text-uppercase font-weight-bold">Company name</h6>
+                    <h6 class="text-uppercase font-weight-bold">TRINTAR.com</h6>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                    <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-                        consectetur
-                        adipisicing elit.</p>
+                    <p>TRINTAR.com est un site web fictif réalisé pour le projet de PPE de la seconde année du BTS SIO. Son but est de simuler un site web marchand sur le thème de son choix.</p>
 
                 </div>
                 <!-- Grid column -->
@@ -178,43 +167,25 @@
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
                     <!-- Links -->
-                    <h6 class="text-uppercase font-weight-bold">Products</h6>
+                    <h6 class="text-uppercase font-weight-bold">Produits</h6>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
-                        <a href="#!">MDBootstrap</a>
+                        <a href="{{ path ('trintar.produit')}}">S'informer sur nos produits</a>
                     </p>
                     <p>
-                        <a href="#!">MDWordPress</a>
+                        <a href="{{ path ('trintar.magasin')}}">S'informer sur nos magasins</a>
                     </p>
-                    <p>
-                        <a href="#!">BrandFlow</a>
-                    </p>
-                    <p>
-                        <a href="#!">Bootstrap Angular</a>
-                    </p>
-
                 </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-
                     <!-- Links -->
-                    <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+                    <h6 class="text-uppercase font-weight-bold">Liens utiles</h6>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
-                        <a href="#!">Your Account</a>
+                        <a href="{{ path ('app_register')}}">Nous rejoindre</a>
                     </p>
                     <p>
-                        <a href="#!">Become an Affiliate</a>
+                        <a href="{{ path ('front.index')}}">En apprendre plus sur TRINTAR.com</a>
                     </p>
-                    <p>
-                        <a href="#!">Shipping Rates</a>
-                    </p>
-                    <p>
-                        <a href="#!">Help</a>
-                    </p>
-
                 </div>
                 <!-- Grid column -->
 
@@ -225,14 +196,11 @@
                     <h6 class="text-uppercase font-weight-bold">Contact</h6>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
-                        <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+                        <i class="fas fa-home mr-3"></i>12 rue de la méditerranée, 66450</p>
                     <p>
-                        <i class="fas fa-envelope mr-3"></i> info@example.com</p>
+                        <i class="fas fa-envelope mr-3"></i>florian.bruckmann66@gmail.com</p>
                     <p>
-                        <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                    <p>
-                        <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
-
+                        <i class="fas fa-phone mr-3"></i> +33 6 11 36 50 07</p>
                 </div>
                 <!-- Grid column -->
 
@@ -244,7 +212,7 @@
 
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+            <a href="https://mdbootstrap.com/">TRINTAR.com</a>
         </div>
         <!-- Copyright -->
 
@@ -274,7 +242,7 @@
         if (inputAddress !== null) {
             let placesAutocomplete = places({
                 appId: 'plB1R5LFAXKE',
-                apiKey: '21c517e1e92e4acf7923fbdf25718e54',
+                apiKey: '91053d35e44353cf6d622e910324ffb1',
                 container: inputAddress
             })
             placesAutocomplete.on('change', e => {
@@ -297,7 +265,8 @@
                 document.querySelector('#lng').value = e.suggestion.latlng.lng
             })
         }
-
+    </script>
+    <script>
         import 'leaflet/dist/leaflet.css'
 
         Map.init()

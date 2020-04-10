@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Gérer les biens' %}
+{% block title 'TRINTAR.com : Administration - accueil' %}
 
 {% block body %}
     <div class="jumbotron">
-        <div class="text-center">
-            <div class="container mt-4">
-                <h1>ADMINISTRATION OPTION</h1>
+        <div class="container">
+            <div class="text-center">
+                <h1>ADMINISTRATION DES OPTIONS</h1>
             </div>
         </div>
+    </div>
+    <br>
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
@@ -38,8 +40,9 @@
             {% endfor %}
             </tbody>
         </table>
+    <div class="jumbotron">
         <div class="text-right">
-            <a href="{{ path('admin.option.new') }}" class="btn btn-primary">Créer une nouvelle categorie</a>
+            <a href="{{ path('admin.option.new') }}" class="btn btn-primary">Créer une nouvelle option</a>
         </div>
     </div>
 {% endblock %}

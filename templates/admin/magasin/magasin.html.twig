@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'TRINTAR : Administration - accueil' %}
+{% block title 'TRINTAR.com : Administration - accueil' %}
 
 {% block body %}
     <div class="jumbotron">
-        <div class="text-center">
-            <div class="container mt-4">
-                <h1>ADMINISTRATION MAGASIN</h1>
+        <div class="container">
+            <div class="text-center">
+                <h1>ADMINISTRATION DES MAGASINS</h1>
             </div>
         </div>
-        <br>
-        <br>
+    </div>
+    <br>
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
@@ -47,6 +47,7 @@
             {% endfor %}
             </tbody>
         </table>
+    <div class="jumbotron">
         <div class="text-right">
             <a href="{{ path('admin.magasin.new') }}" class="btn btn-primary">Créer un nouveau magasin</a>
         </div>

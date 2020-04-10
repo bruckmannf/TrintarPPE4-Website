@@ -1,0 +1,5 @@
+<p>Sujet : {{ contact.subject }}</p>
+<p>Nom : {{ contact.name }}</p>
+<p>Email : {{ contact.email }}</p>
+{# Le filtre nl2br permet de remplacer les sauts de ligne par des <br/> #}
+<p>Message : {{ contact.message|nl2br }}</p>

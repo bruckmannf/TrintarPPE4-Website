@@ -1,10 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Produit{% endblock %}
+{% block title 'TRINTAR.com : Administration - création' %}
 
 {% block body %}
+        <div class="jumbotron">
+            <div class="container">
+                <div class="text-center">
+                    <h1>CREATION DES AUTEURS</h1>
+                </div>
+            </div>
+        </div>
+        <br>
     <div class="container mt-4">
-        <h1>Créer un nouvel auteur</h1>
         {{ include ('admin/auteur/_form.html.twig', {button: 'Enregistrer'}) }}
     </div>
 
