@@ -38,13 +38,33 @@
                                     <td>DESCRIPTION</td>
                                     <td>{{ app.user.description }}</td>
                                 </tr>
+                                <tr>
+                                    <td>ADRESSE</td>
+                                    <td>{{ app.user.adresse }}</td>
+                                </tr>
+                                <tr>
+                                    <td>CODE POSTAL</td>
+                                    <td>{{ app.user.codePostal }}</td>
+                                </tr>
+                                <tr>
+                                    <td>VILLE</td>
+                                    <td>{{ app.user.ville }}</td>
+                                </tr>
+                                <tr>
+                                    <td>DEPARTEMENT</td>
+                                    <td>{{ app.user.departement }}</td>
+                                </tr>
+                                <tr>
+                                    <td>PAYS</td>
+                                    <td>{{ app.user.pays }}</td>
+                                </tr>
                             </table>
                         </div>
                         <div class="col-md-6">
                             {% if app.user.filename %}
                                 <img src="../images/utilisateurs/{{ app.user.filename }}" alt="Symfony!" style="width: 60%; height:auto;">
                             {% else %}
-                                <img src="{{ '../images/utilisateurs/db.jpg' }}" alt="Symfony!" class="image-display" style="width: 60%;width: 100px;" />
+                                <img src="{{ '../images/utilisateurs/pp.jpg' }}" alt="Symfony!" class="image-display" style="width: 50%;" />
                             {% endif %}
                         </div>
                         </div>

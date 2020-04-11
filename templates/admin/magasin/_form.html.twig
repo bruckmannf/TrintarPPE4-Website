@@ -6,17 +6,15 @@
     <div class="col-md-3">{{ form_row(form.horaireOuverture) }}</div>
 </div>
 <div class="row">
-    <div class="col-md-4">
-        {{ form_row(form.adresse) }}
-    </div>
-    <div class="col-md-4">{{ form_row(form.ville) }}</div>
-    <div class="col-md-4">{{ form_row(form.departement) }}</div>
+    <div class="col-md-6">{{ form_row(form.adresse) }}</div>
+    <div class="col-md-3">{{ form_row(form.ville) }}</div>
+    <div class="col-md-3">{{ form_row(form.departement) }}</div>
 </div>
 <div class="row">
     <div class="col-md-3">{{ form_row(form.pays) }}</div>
     <div class="col-md-3">{{ form_row(form.codePostal) }}</div>
-    <div class="col-md-3">{{ form_row(form.lng) }}</div>
-    <div class="col-md-3">{{ form_row(form.lat) }}</div>
+    <div class="col">{{ form_row(form.lng) }}</div>
+    <div class="col">{{ form_row(form.lat) }}</div>
 </div>
 <div class="row">
     <div class="col-md-4">{{ form_row(form.imageFile) }}</div>

@@ -234,7 +234,9 @@
     <script src="https://cdn.jsdelivr.net/npm/places.js@1.18.1"></script>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
             integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-            crossorigin=""></script>    <script>
+            crossorigin=""></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script>
         $('select').select2();
     </script>
     <script>
@@ -252,6 +254,23 @@
                 document.querySelector('#magasin_codePostal').value = e.suggestion.postcode
                 document.querySelector('#magasin_lat').value = e.suggestion.latlng.lat
                 document.querySelector('#magasin_lng').value = e.suggestion.latlng.lng
+            })
+        }
+
+        let inputAddress2 = document.querySelector('#utilisateur_adresse')
+        if (inputAddress2 !== null) {
+            let placesAutocomplete = places({
+                appId: 'plB1R5LFAXKE',
+                apiKey: '91053d35e44353cf6d622e910324ffb1',
+                container: inputAddress2
+            })
+            placesAutocomplete.on('change', e => {
+                document.querySelector('#utilisateur_ville').value = e.suggestion.city
+                document.querySelector('#utilisateur_departement').value = e.suggestion.county
+                document.querySelector('#utilisateur_pays').value = e.suggestion.country
+                document.querySelector('#utilisateur_codePostal').value = e.suggestion.postcode
+                document.querySelector('#utilisateur_lat').value = e.suggestion.latlng.lat
+                document.querySelector('#utilisateur_lng').value = e.suggestion.latlng.lng
             })
         }
 
