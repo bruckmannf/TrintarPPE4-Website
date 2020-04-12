@@ -25,19 +25,17 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
-    }
-
-    public function mysubmitedAction(Request $request){
         $recaptcha = new ReCaptcha('6Lc-uugUAAAAALwwhmBFddPy3HbcdO5gN1-tJFUX');
-        $resp = $recaptcha->verify($request->request->get('g-recaptcha-response', array('required' => false)), $request->getClientIp());
+        $resp = $recaptcha->verify($request->request->get('g-recaptcha-response', array('required' => true)), $request->getClientIp());
 
         if (!$resp->isSuccess()) {
             // Do something if the submit wasn't valid ! Use the message to show something
-            $message = "The reCAPTCHA wasn't entered correctly. Go back and try it again." . "(reCAPTCHA said: " . $resp->error . ")";
+            $message = "The reCAPTCHA wasn't entered correctly. Go back and try it again.";
         }else{
             // Everything works good ;) your contact has been saved.
         }
+
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
 
