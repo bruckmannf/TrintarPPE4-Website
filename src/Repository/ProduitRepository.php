@@ -29,7 +29,7 @@ class ProduitRepository extends ServiceEntityRepository
     public function findLatest(): array
     {
         return $this->findVisibleQuery()
-            ->setMaxResults(3)
+            ->setMaxResults(6)
             ->getQuery()
             ->getResult();
     }
@@ -66,6 +66,14 @@ class ProduitRepository extends ServiceEntityRepository
                 $query=$query
                     ->andWhere(":auteur$k MEMBER OF p.idAuteur")
                     ->setParameter("auteur$k",$auteur);
+            }
+        }
+
+        if ($search->getLicences()->count()>0){
+            foreach($search->getLicences() as $k => $licence){
+                $query=$query
+                    ->andWhere(":licence$k MEMBER OF p.idLicence")
+                    ->setParameter("licence$k",$licence);
             }
         }
 

@@ -6,7 +6,7 @@
     <div class="jumbotron">
         <div class="container">
             <div class="text-center">
-                <h1>CREATION DES TOMES</h1>
+                <h1>CREATION DES LICENCES</h1>
             </div>
         </div>
     </div>
@@ -24,15 +24,15 @@
             </tr>
             </thead>
             <tbody>
-            {% for tomes in tomes %}
+            {% for licence in licences %}
                 <tr>
-                    <td>{{ tomes.id }}</td>
-                    <td>{{ tomes.libelle }}</td>
+                    <td>{{ licence.id }}</td>
+                    <td>{{ licence.libelle }}</td>
                     <td>
-                        <a href="{{ path('admin.tomes.edit', {id : tomes.id}) }}" class="btn btn-secondary">Editer</a>
-                        <form method="post" action="{{ path('admin.tomes.delete', {id: tomes.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer ?')">
+                        <a href="{{ path('admin.licence.edit', {id : licence.id}) }}" class="btn btn-secondary">Editer</a>
+                        <form method="post" action="{{ path('admin.licence.delete', {id: licence.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer ?')">
                             <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tomes.id) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ licence.id) }}">
                             <button class="btn btn-danger">Supprimer</button>
                         </form>
                     </td>
@@ -42,7 +42,7 @@
         </table>
         <div class="jumbotron">
         <div class="text-right">
-            <a href="{{ path('admin.tomes.new') }}" class="btn btn-primary">Créer un nouveau tome</a>
+            <a href="{{ path('admin.licence.new') }}" class="btn btn-primary">Créer un nouvelle licence</a>
         </div>
         </div>
 {% endblock %}

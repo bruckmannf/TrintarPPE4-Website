@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * Tomes
+ * Licence
  *
  * @ORM\Table(name="auteur")
  * @ORM\Entity(repositoryClass="App\Repository\AuteurRepository")

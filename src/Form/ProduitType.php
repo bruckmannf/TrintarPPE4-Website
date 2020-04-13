@@ -6,7 +6,7 @@ use App\Entity\Auteur;
 use App\Entity\Categorie;
 use App\Entity\Magasin;
 use App\Entity\Produit;
-use App\Entity\Tomes;
+use App\Entity\Licence;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -29,10 +29,10 @@ class ProduitType extends AbstractType
                 'class' => Categorie::class,
                 'multiple' => true
             ])
-            ->add('idTomes', EntityType::class, [
+            ->add('idLicence', EntityType::class, [
                 'required' => false,
                 'label' => false,
-                'class' => Tomes::class,
+                'class' => Licence::class,
                 'multiple' => true
             ])
             ->add('idAuteur', EntityType::class, [

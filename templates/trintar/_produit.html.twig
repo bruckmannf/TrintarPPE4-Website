@@ -9,9 +9,9 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">
-                        Licence : <a href="{{ path('produit.show', {id: produit.id, slug: produit.slug}) }}">{{ produit.libelle }}</a>
+                        <a href="{{ path('produit.show', {id: produit.id, slug: produit.slug}) }}">{{ produit.libelle }}</a>
                         <br>
-                        <p style="font-weight: bold; font-size : 2rem;">{{ produit.prixht }} euros / Tome</p>
+                        <p style="font-weight: bold; font-size : 2rem;">{{ produit.prixht }} euros</p>
                     </h5>
                 </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Auteur;
 use App\Entity\Categorie;
+use App\Entity\Licence;
 use App\Entity\ProduitSearch;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,6 +30,12 @@ class ProduitSearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'class' => Auteur::class,
+                'multiple' => true
+            ])
+            ->add('licences', EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'class' => Licence::class,
                 'multiple' => true
             ])
         ;

@@ -7,16 +7,19 @@
     <div class="container">
         {{ form_start(form) }}
         <div class="form-row">
-            <div class="col-md-3">
-                {{ form_row(form.categories) }}
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 {{ form_row(form.libelle) }}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
+                {{ form_row(form.categories) }}
+            </div>
+            <div class="col-md-2">
                 {{ form_row(form.auteurs) }}
             </div>
-            &nbsp;
+            <br>
+            &nbsp;<div class="col-md-2">
+                {{ form_row(form.licences) }}
+            </div>
             <div class="col-md-3">
                 <button class="btn btn-primary">Rechercher</button>
             </div>

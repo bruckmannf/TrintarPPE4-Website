@@ -76,9 +76,9 @@ class Produit
     private $idCategorie;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tomes", inversedBy="produits")
+     * @ORM\ManyToMany(targetEntity="Licence", inversedBy="produits")
      */
-    private $idTomes;
+    private $idLicence;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Auteur", inversedBy="produits")
@@ -223,25 +223,25 @@ class Produit
     }
 
     /**
-     * @return Collection|Tomes[]
+     * @return Collection|Licence[]
      */
-    public function getIdTomes(): ?Collection
+    public function getIdLicence(): ?Collection
     {
-        return $this->idTomes;
+        return $this->idLicence;
     }
 
-    public function setIdTomes(?Collection $idTomes): self
+    public function setIdLicence(?Collection $idLicence): self
     {
-        $this->idTomes = $idTomes;
+        $this->idLicence = $idLicence;
 
         return $this;
     }
 
-    public function removeIdTomes(Tomes $tomes): self
+    public function removeIdLicence(Licence $licence): self
     {
-        if ($this->idTomes->contains($tomes)) {
-            $this->idTomes->removeElement($tomes);
-            $tomes->removeProduit($this);
+        if ($this->idLicence->contains($licence)) {
+            $this->idLicence->removeElement($licence);
+            $licence->removeProduit($this);
         }
 
         return $this;

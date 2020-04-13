@@ -2,12 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\Tomes;
+use App\Entity\Licence;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TomesType extends AbstractType
+class LicenceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,7 +19,7 @@ class TomesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Tomes::class,
+            'data_class' => Licence::class,
         ]);
     }
 }

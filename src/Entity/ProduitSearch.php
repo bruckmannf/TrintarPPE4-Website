@@ -24,11 +24,18 @@ class ProduitSearch {
 
     private $auteurs;
 
+    /**
+     * @var ArrayCollection
+     */
+
+    private $licences;
+
     public function __construct()
 
     {
         $this->categories = new ArrayCollection();
         $this->auteurs = new ArrayCollection();
+        $this->licences = new ArrayCollection();
     }
 
     /**
@@ -83,5 +90,23 @@ class ProduitSearch {
     public function setAuteurs (ArrayCollection $auteurs): void
     {
         $this->auteurs = $auteurs;
+    }
+
+    /**
+     * @return ArrayCollection $licences
+     */
+
+    public function getLicences(): ArrayCollection
+    {
+        return $this->licences;
+    }
+
+    /**
+     * @param ArrayCollection $licences
+     */
+
+    public function setLicences (ArrayCollection $licences): void
+    {
+        $this->licences = $licences;
     }
 }
