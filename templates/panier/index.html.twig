@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR.com : au royaume des mangas' %}
+
+{% block body %}
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="jumbotron">
+            <div class="container text-center">
+                <h1>Votre panier :</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="jumbotron">
+            <div class="container text-center">
+                {% if items | length > 0 %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Prix</th>
+                                <th>Quantité</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                                <tr>
+                                    <td>{{ item.produit.libelle }}</td>
+                                    <td>{{ item.produit.prixht }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.produit.prixht * item.quantity }}</td>
+                                    <td>
+                                        <a href="{{ path('panier.remove', {'id': item.produit.id}) }}" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('panier.unAjout', {'id': item.produit.id}) }}" class="btn btn-green btn-sm"> +
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('panier.uneSuppresion', {'id': item.produit.id}) }}" class="btn btn-primary btn-sm"> -
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-right">Total :
+                                </td>
+                                <td>{{ total }}</td>
+                                <td>
+                                    <a href="" class="btn btn-primary">Commander</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                {% else %}
+                    <p>Surprise, c'est vide !</p>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="jumbotron">
+            <div class="container text-center">
+                <h3>Oups, il n'y a rien par ici. Veuillez vous connectez avant d'accéder au panier : <a href="{{ path('app_login') }}">Connexion </a></h3>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
