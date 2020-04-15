@@ -24,6 +24,9 @@ class ProduitSearchType extends AbstractType
             ])
             ->add('libelle', null, [
                 'label' => false,
+                'attr' => [
+                    'placeholder' => 'nom ...'
+                ],
                 'required' => false,
             ])
             ->add('auteurs', EntityType::class, [

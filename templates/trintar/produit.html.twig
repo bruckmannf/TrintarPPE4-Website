@@ -3,7 +3,7 @@
 {% block title 'TRINTAR.com - Produits' %}
 
 {% block body %}
-    <div class="jumbotron">
+    <div class="jumbotron" style="background-color: darkgrey;">
         <div class="container">
             {{ form_start(form) }}
             <div class="form-row">
@@ -17,11 +17,11 @@
                     {{ form_row(form.auteurs) }}
                 </div>
                 <br>
-                &nbsp;<div class="col-md-2">
+                &nbsp;<div class="col-md-4">
                     {{ form_row(form.licences) }}
                 </div>
-                <div class="col-md-3">
-                    <button class="btn btn-primary">Rechercher</button>
+                <div class="col">
+                    <button class="btn btn-green">Rechercher</button>
                 </div>
             </div>
             {{ form_end(form) }}

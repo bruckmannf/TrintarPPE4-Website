@@ -3,31 +3,31 @@
 {% block title 'TRINTAR.com - Magasins' %}
 
 {% block body %}
-    <br>
-    <div class="container">
-        {{ form_start(form) }}
-        <div class="form-row align-items-end">
-            <div class="col">
-                {{ form_row(form.nom) }}
-            </div>
-            <div class="col">
-                {{ form_row(form.options) }}
-            </div>
-            &nbsp;<div class="col">
-                <div class="form-group">
-                    <input type="text" value="" id="search_address" class="form-control" placeholder="Adresse"/>
+    <div class="jumbotron" style="background-color: darkgrey;">
+        <div class="container">
+            {{ form_start(form) }}
+            <div class="form-row align-items-end">
+                <div class="col-md-2">
+                    {{ form_row(form.nom) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.options) }}
+                </div>
+                &nbsp;<div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" value="" id="search_address" class="form-control" placeholder="Adresse"/>
+                    </div>
+                </div>
+                <div class="col">
+                    {{ form_row(form.distance) }}
+                </div>
+                <div class="col">
+                    <button class="btn btn-green">Rechercher</button>
                 </div>
             </div>
-            <div class="col">
-                {{ form_row(form.distance) }}
-            </div>
-            <div class="col">
-                <button class="btn btn-primary">Rechercher</button>
-            </div>
+            {{ form_end(form) }}
         </div>
-        {{ form_end(form) }}
     </div>
-    <div class="jumbotron">
         <div class="container">
             <div class="row">
                 {% for magasin in magasins %}
@@ -41,5 +41,4 @@
                 {{ knp_pagination_render(magasins) }}
             </div>
         </div>
-    </div>
 {% endblock %}

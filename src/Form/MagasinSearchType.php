@@ -18,6 +18,9 @@ class MagasinSearchType extends AbstractType
         $builder
             ->add('nom', null, [
                 'label' => false,
+                'attr' => [
+                    'placeholder' => 'nom ...'
+                ],
                 'required' => false,
             ])
             ->add('options', EntityType::class, [
@@ -25,6 +28,7 @@ class MagasinSearchType extends AbstractType
                 'label' => false,
                 'class' => optionMagasin::class,
                 'multiple' => true
+
             ])
             ->add('distance', ChoiceType::class, [
                 'choices' => [
