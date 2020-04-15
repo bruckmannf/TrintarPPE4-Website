@@ -67,7 +67,7 @@
                                             {% endif %}
                                         </td>
                                         <td><a href="{{ path('produit.show', {id: produit.id, slug: produit.slug}) }}">{{ produit.libelle }}</a></td>
-                                        <td>{{ produit.prixht }}</td>
+                                        <td>{{ produit.prixht }} €</td>
                                         <td>{{ produit.stock }}</td>
                                     </tr>
                                 {% endfor %}

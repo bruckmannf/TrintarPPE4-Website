@@ -31,7 +31,7 @@
                                         <tr>
                                             <td>
                                                 {% if item.produit.filename %}
-                                                    <img src="../images/produits/{{ item.produit.filename }}" alt="Symfony!" style="width: 20%; height:auto; ">
+                                                    <img src="images/produits/{{ item.produit.filename }}" alt="Symfony!" style="width: 120px; height:auto; float: left;">
                                                 {% else %}
                                                     <img src="{{ '../images/produits/db.jpg' }}" alt="Symfony!" class="image-display" style="width: 20%; height:auto;" />
                                                 {% endif %}
@@ -65,7 +65,7 @@
                     <div class="col-md-4">
                         <div class="jumbotron">
                             <p style="font-weight: bold; float: left;">Total : </p>
-                            <p style="float: right;">{{ total }}</p><br><br><br>
+                            <p style="float: right;">{{ total }} €</p><br><br><br>
                             <div class="text-center">
                                 <td>
                                     <a href="" class="btn btn-green">Valider ma commande</a>
