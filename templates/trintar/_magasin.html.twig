@@ -9,8 +9,9 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">
-                        Intitulé : <a href="{{ path('magasin.show', {id: magasin.id, slug: magasin.slug}) }}">{{ magasin.nom }}</a>
+                        <a href="{{ path('magasin.show', {id: magasin.id, slug: magasin.slug}) }}">{{ magasin.nom }}</a>
                         <p>{{ magasin.ville }}, {{ magasin.pays }}</p>
+                        <p style="font-weight: bold; font-size : 2rem;">{{ magasin.horaireOuverture }}</p>
                     </h5>
                 </div>
             </div>

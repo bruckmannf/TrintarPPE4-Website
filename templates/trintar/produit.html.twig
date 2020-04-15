@@ -3,30 +3,30 @@
 {% block title 'TRINTAR.com - Produits' %}
 
 {% block body %}
-    <br>
-    <div class="container">
-        {{ form_start(form) }}
-        <div class="form-row">
-            <div class="col-md-2">
-                {{ form_row(form.libelle) }}
-            </div>
-            <div class="col-md-2">
-                {{ form_row(form.categories) }}
-            </div>
-            <div class="col-md-2">
-                {{ form_row(form.auteurs) }}
-            </div>
-            <br>
-            &nbsp;<div class="col-md-2">
-                {{ form_row(form.licences) }}
-            </div>
-            <div class="col-md-3">
-                <button class="btn btn-primary">Rechercher</button>
-            </div>
-        </div>
-        {{ form_end(form) }}
-    </div>
     <div class="jumbotron">
+        <div class="container">
+            {{ form_start(form) }}
+            <div class="form-row">
+                <div class="col-md-2">
+                    {{ form_row(form.libelle) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.categories) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.auteurs) }}
+                </div>
+                <br>
+                &nbsp;<div class="col-md-2">
+                    {{ form_row(form.licences) }}
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary">Rechercher</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
         <div class="container">
             <div class="row">
                 {% for produit in produits %}
@@ -40,7 +40,7 @@
             <div class="pagination" style="margin: auto">
                 {{ knp_pagination_render(produits) }}
             </div>
+                <br>
         </div>
         </div>
-    </div>
 {% endblock %}

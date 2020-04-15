@@ -21,8 +21,11 @@
 {% block header %}
 
     <!--Navbar -->
-    <nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color purple-gradient">
-    <a class="navbar-brand" href="{{ path ('front.index')}}">TRINTAR.com</a>
+<nav class="navbar justify-content-center black lighten-4 py-4">
+    <a class="navbar-brand" href="#" style="color: white;"><i class="fas fa-headset"></i> SERVICE CLIENT : 06 11 36 50 07</a>
+</nav>
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark red darken-4">
+    <a class="navbar-brand" href="{{ path ('front.index')}}"><i class="fas fa-globe"></i> TRINTAR.COM</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
                 aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,19 +33,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ path ('front.index')}}">Accueil
+                    <a class="nav-link" href="{{ path ('front.index')}}"><i class="fas fa-home"></i> ACCUEIL
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path ('trintar.produit')}}">Nos produits</a>
+                    <a class="nav-link" href="{{ path ('trintar.produit')}}">PRODUITS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path ('trintar.magasin')}}">Nos magasins</a>
+                    <a class="nav-link" href="{{ path ('trintar.magasin')}}">MAGASINS</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Catégorie
+                       aria-haspopup="true" aria-expanded="false">CATEGORIE
                     </a>
                     <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
                         <a class="dropdown-item" href="#">Shonen</a>
@@ -58,28 +61,26 @@
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path ('panier')}}">Panier</a>
+                    <a class="nav-link" href="{{ path ('panier')}}"><i class="fas fa-cart-arrow-down"></i></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Mon compte
+                       aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle"></i> COMPTE
                     </a>
                     <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <a class="dropdown-item" href="{{ path ('user.profil')}}">Profil</a>
-                        <a class="dropdown-item" href="{{ path ('app_logout')}}">Déconnexion</a>
+                        <a class="dropdown-item" href="{{ path ('user.profil')}}">PROFIL</a>
+                        <a class="dropdown-item" href="{{ path ('app_logout')}}">SE DECONNECTER</a>
                         {% else %}
-                        <a class="dropdown-item" href="{{ path ('app_register')}}">Inscription</a>
-                        <a class="dropdown-item" href="{{ path ('app_login')}}">Connexion</a>
+                        <a class="dropdown-item" href="{{ path ('app_register')}}">S'INSCRIRE</a>
+                        <a class="dropdown-item" href="{{ path ('app_login')}}">SE CONNECTER</a>
                         {% endif %}
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Paramètres</a>
                     </div>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">Interface Administration
+                           aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-lock"></i> ADMINISTRATION
                         </a>
                         <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
                                 <a class="dropdown-item" href="{{ path ('admin.produit.index')}}">Gestion - Produit</a>
@@ -108,7 +109,7 @@
     <!-- Footer -->
     <footer class="page-footer font-small unique-color-dark">
 
-        <div class="purple-gradient">
+        <div class="red darken-4">
             <div class="container">
 
                 <!-- Grid row-->

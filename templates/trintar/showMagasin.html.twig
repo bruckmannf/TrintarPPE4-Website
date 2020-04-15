@@ -5,74 +5,77 @@
 {% block body %}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
     <div class="jumbotron">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    {% if magasin.filename %}
-                        <img src="../images/magasins/{{ magasin.filename }}" alt="Symfony!" style="width: 100%; height:auto;">
-                    {% else %}
-                        <img src="{{ '../images/magasins/db.jpg' }}" alt="Symfony!" class="image-display" style="width: 100%; height:auto;" />
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="jumbotron">
-        <div class="container">
-            <div class="row">
-                <strong>Intitulé :&nbsp;</strong><br> {{ magasin.nom | nl2br }}
-            </div>
-            <br>
-            <div class="row">
-                <strong>Adresse :&nbsp;</strong><br> {{ magasin.adresse | nl2br }}, {{ magasin.codePostal | nl2br }}, {{ magasin.ville | nl2br }}
-            </div>
-            <br>
-            <div class="row">
-                <strong>Département :&nbsp;</strong><br> {{ magasin.departement | nl2br }}
-            </div>
-            <br>
-            <div class="row">
-                <strong>Pays :&nbsp;</strong><br> {{ magasin.pays | nl2br }}
-            </div>
-            <br>
-            <div class="row">
-                <strong>Téléphone :&nbsp;</strong><br> {{ magasin.telephone | nl2br }}
-            </div>
-            <br>
-            <div class="row">
-                <strong>Courriel :&nbsp;</strong><br> {{ magasin.courriel | nl2br }}
-            </div>
-            <br>
-            <div class="row">
-                <strong>Option(s) du magasin :&nbsp;</strong><br>{% for optionMagasin in magasin.idOptionMagasin %} {{ optionMagasin.libelle | nl2br }},{% endfor %}
-            </div>
-            <br>
-            <div class="row">
-                <strong>Licence(s) disponible dans ce magasin :&nbsp;</strong><br>
-                {% for produit in magasin.idProduit %}
-                    <a href="{{ path('produit.show', {id: produit.id, slug: produit.slug}) }}">{{ produit.libelle | nl2br }}</a>,
-                {% endfor %}
-            </div>
-            <br>
-        </div>
-    </div>
-    <br>
-    <div class="jumbotron">
         <div class="container-fluid">
-            <div id="map"></div>
-        </div>
-    </div>
-    <div class="jumbotron">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-3">
-                    <a href="{{ path ('trintar.magasin')}}" class="btn btn-primary">Revenir à la page des magasins</a>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="jumbotron">
+                            {% if magasin.filename %}
+                                <img src="../images/magasins/{{ magasin.filename }}" alt="Symfony!" style="width: 100%; height:auto;">
+                            {% else %}
+                                <img src="{{ '../images/magasins/db.jpg' }}" alt="Symfony!" class="image-display" style="width: 100%; height:auto;" />
+                            {% endif %}
+                            <br>
+                            <br>
+                            <div class="row">
+                                <strong>Intitulé :&nbsp;</strong><br> {{ magasin.nom | nl2br }}
+                            </div>
+                            <br>
+                            <div class="row">
+                                <strong>Téléphone :&nbsp;</strong><br> {{ magasin.telephone | nl2br }}
+                            </div>
+                            <br>
+                            <div class="row">
+                                <strong>Courriel :&nbsp;</strong><br> {{ magasin.courriel | nl2br }}
+                            </div>
+                            <br>
+                            <div class="row">
+                                <strong>Option(s) du magasin :&nbsp;</strong><br>{% for optionMagasin in magasin.idOptionMagasin %} {{ optionMagasin.libelle | nl2br }},{% endfor %}
+                            </div>
+                            <br>
+                            <div class="row">
+                                <strong>Adresse :&nbsp;</strong><br> {{ magasin.adresse | nl2br }}, {{ magasin.codePostal | nl2br }}, {{ magasin.ville | nl2br }}
+                            </div>
+                            <br>
+                            <div id="map"></div>
+                            <br>
+                            <a href="{{ path ('trintar.magasin')}}" class="btn btn-primary">Revenir à la page des magasins</a>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <strong>Produit(s) disponible(s) dans {{ magasin.nom | nl2br }} :&nbsp</strong><br>
+                            <br>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Nom</th>
+                                    <th>Prix</th>
+                                    <th>Stock</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for produit in magasin.idProduit %}
+                                    <tr>
+                                        <td>
+                                            {% if produit.filename %}
+                                                <img src="../images/produits/{{ produit.filename }}" alt="Symfony!" style="width: 20%; height:auto; ">
+                                            {% else %}
+                                                <img src="{{ '../images/produits/db.jpg' }}" alt="Symfony!" class="image-display" style="width: 20%; height:auto;" />
+                                            {% endif %}
+                                        </td>
+                                        <td><a href="{{ path('produit.show', {id: produit.id, slug: produit.slug}) }}">{{ produit.libelle }}</a></td>
+                                        <td>{{ produit.prixht }}</td>
+                                        <td>{{ produit.stock }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <a href="" class="btn btn-secondary">Commander un produit</a>
-                </div>
-                <div class="col-md-3"></div>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="jumbotron">
-        <div class="container">
+        <div class="container-fluid">
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-4">
@@ -13,8 +13,13 @@
                         {% else %}
                             <img src="{{ '../images/produits/db.jpg' }}" alt="Symfony!" class="image-display" style="width: 100%; height:auto;" />
                         {% endif %}
+                        <br>
+                        <br>
+                        <div class="text-center">
+                            <a href="{{ path('trintar.produit') }}">< continuer l'achat des produits</a>
+                        </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <div class="row">
                             <strong>Nom :&nbsp;</strong>{{ produit.libelle | nl2br }}
                         </div>
@@ -48,27 +53,16 @@
                         <div class="row">
                             <strong>Magasin(s) disposant cet/ces article(s) :&nbsp;</strong><br>
                             {% for magasin in produit.idMagasin %}
-                                <a href="{{ path('magasin.show', {id: magasin.id, slug: magasin.slug}) }}">{{ magasin.nom | nl2br }}</a>,
+                                <a href="{{ path('magasin.show', {id: magasin.id, slug: magasin.slug}) }}">{{ magasin.nom | nl2br }}</a>,&nbsp;
                             {% endfor %}
                         </div>
                         <br>
+                        <div class="row">
+                            <a href="{{ path ('panier.add', {'id': produit.id}) }}" style="float: left" class="btn btn-secondary">Ajouter au panier</a>
+                        </div>
                     </div>
+                    <div class="col-md-2"></div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="jumbotron">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-3">
-                    <a href="{{ path ('trintar.produit')}}" class="btn btn-primary">Revenir à la page produit</a>
-                </div>
-                <div class="col-md-3">
-                    <a href="{{ path ('panier.add', {'id': produit.id}) }}" class="btn btn-secondary">Ajouter au panier</a>
-                </div>
-                <div class="col-md-3"></div>
             </div>
         </div>
     </div>

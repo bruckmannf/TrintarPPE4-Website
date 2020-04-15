@@ -4,96 +4,72 @@
 
 
 {% block body %}
-    <div class="jumbotron">
-        <div class="container">
-            <div class="col-md-12">
-            </div>
-        </div>
-    </div>
-    <div class="container margin-top : 4;">
-        <div class="row">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
+<div class="jumbotron">
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <div class="jumbotron">
+                        {% if app.user.filename %}
+                            <img src="../images/utilisateurs/{{ app.user.filename }}" alt="Symfony!" style="width: 80%; height:auto;">
+                        {% else %}
+                            <img src="{{ '../images/utilisateurs/pp.jpg' }}" alt="Symfony!" class="image-display" style="width: 50%;" />
+                        {% endif %}
+                        <br>
+                        <br>
                         <div class="row">
-                        <div class="col-md-6">
-                            <table class="table table-striped">
-                                <tr>
-                                    <td>NOM ET PRENOM</td>
-                                    <td>{{ app.user.nom }} {{ app.user.prenom }}</td>
-                                </tr>
-                                <tr>
-                                    <td>EMAIL</td>
-                                    <td>{{ app.user.email }}</td>
-                                </tr>
-                                <tr>
-                                    <td>TELEPHONE</td>
-                                    <td>{{ app.user.telephone }}</td>
-                                </tr>
-                                <tr>
-                                    <td>DATE DE NAISSANCE</td>
-                                    <td>{{ app.user.dateNaissance|date("m/d/Y") }}</td>
-                                </tr>
-                                <tr>
-                                    <td>DESCRIPTION</td>
-                                    <td>{{ app.user.description }}</td>
-                                </tr>
-                                <tr>
-                                    <td>ADRESSE</td>
-                                    <td>{{ app.user.adresse }}</td>
-                                </tr>
-                                <tr>
-                                    <td>CODE POSTAL</td>
-                                    <td>{{ app.user.codePostal }}</td>
-                                </tr>
-                                <tr>
-                                    <td>VILLE</td>
-                                    <td>{{ app.user.ville }}</td>
-                                </tr>
-                                <tr>
-                                    <td>DEPARTEMENT</td>
-                                    <td>{{ app.user.departement }}</td>
-                                </tr>
-                                <tr>
-                                    <td>PAYS</td>
-                                    <td>{{ app.user.pays }}</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            {% if app.user.filename %}
-                                <img src="../images/utilisateurs/{{ app.user.filename }}" alt="Symfony!" style="width: 60%; height:auto;">
-                            {% else %}
-                                <img src="{{ '../images/utilisateurs/pp.jpg' }}" alt="Symfony!" class="image-display" style="width: 50%;" />
-                            {% endif %}
-                        </div>
+                            <strong>Nom & prénom :&nbsp;</strong><br> {{ app.user.nom }} {{ app.user.prenom }}
                         </div>
                         <br>
+                        <div class="row">
+                            <strong>Description :&nbsp;</strong><br> {{ app.user.description }}
+                        </div>
+                        <br>
+                        <div class="row">
+                            <strong>Date de naissance :&nbsp;</strong><br> {{ app.user.dateNaissance|date("m/d/Y") }}
+                        </div>
+                        <br>
+                        <div class="row">
+                            <strong>Courriel :&nbsp;</strong><br> {{ app.user.email }}
+                        </div>
+                        <br>
+                        <div class="row">
+                            <strong>Numéro de téléphone :&nbsp;</strong><br> {{ app.user.telephone }}
+                        </div>
+                        <br>
+                        <div class="row">
+                            <strong>Adresse postale :&nbsp;</strong><br> {{ app.user.adresse }}
+                        </div>
                     </div>
-                    </div>
+                    <br>
+                    <a href="{{ path('trintar.produit') }}" style="float:left;">< continuer mes achats</a>
                 </div>
-            </div>
-        </div>
-        <div class="jumbotron">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-3">
+                <div class="col-md-5">
+                    <div class="jumbotron">
+                        <div class="text-center">
+                            <p style="font-weight: bold;">Souhaitez-vous modifier votre compte client ?</p>
+                            <br>
+                        </div>
                         <form method="post" action="{{ path('user.deleteProfil', {id: app.user.id}) }}" style="float: left;" onsubmit="return confirm('Êtes-vous certain(e) de supprimer votre compte ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.id) }}">
                             <button class="btn btn-outline-danger my-2 my-sm-0">Supprimer votre compte</button>
                         </form>
-                    </div>
-                    <div class="col-md-3">
                         <a href="{{ path('user.editProfil', {id : app.user.id}) }}" class="btn btn-outline-primary my-2 my-sm-0" style="float: right;">Modifier mes informations</a>
                     </div>
-                    <div class="col-md-3"></div>
+                    <div class="jumbotron">
+                        <div class="text-center">
+                            <p style="font-weight: bold;">Une question ? Contactez-nous au 06.11.36.50.07</p>
+                        </div>
+                    </div>
                 </div>
+                <div class="col-md-1"></div>
             </div>
+            <br>
         </div>
-        <br>
     </div>
+</div>
 {% endblock %}
 
 
