@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Entity\Utilisateur;
+use App\Repository\MagasinRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\UtilisateurRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,25 +18,31 @@ class PanierController extends AbstractController
     /**
      * @Route ("/panier", name="panier")
      */
-    public function index(SessionInterface $session, ProduitRepository $produitRepository)
+    public function index(MagasinRepository $magasinRepository, SessionInterface $session, ProduitRepository $produitRepository)
     {
         $panier = $session->get('panier', []);
+        $livraison = 3.99;
         $panierWithData = [];
         foreach ($panier as $id => $quantity){
             $panierWithData[] = [
                 'produit' => $produitRepository->find($id),
+                'livraison' => $livraison,
                 'quantity' => $quantity
             ];
         }
         $total = 0;
 
         foreach ($panierWithData as $item) {
-            $totalItem = $item['produit']->getPrixht() * $item['quantity'];
+            $totalItem = $item['produit']->getPrixht() * $item['quantity'] + $item['livraison'];
+            $totalTest = 0;
             $total += $totalItem;
         }
+        $magasins = $magasinRepository->findAll();
 
         return $this->render('panier/index.html.twig', [
             'items' => $panierWithData,
+            'livraison' => $livraison,
+            'magasins' => $magasins,
              'total' => $total
         ]);
     }
@@ -89,6 +98,13 @@ class PanierController extends AbstractController
         $session->set('panier', $panier);
 
         return $this->redirectToRoute("panier");
+    }
+
+    /**
+     * @Route("panier/unAjout/{id}", name="panier.unAjout")
+     */
+    public function ajoutAdresse($id, SessionInterface $session, Produit $produit)
+    {
     }
 
     /**
