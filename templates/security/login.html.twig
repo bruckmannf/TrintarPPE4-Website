@@ -4,48 +4,58 @@
 
 {% block body %}
     <div class="jumbotron">
-        <div class="container py-5">
-            <div class="headline">
-                <h1>ACCEDER A SON COMPTE</h1>
-                <br>
-                <p>Vous n'avez pas encore de compte ? <a href="{{ path('app_register') }}">Créez-vous un compte !</a></p>
-                <br>
-            </div>
-            <form method="post">
-                {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
+        <div class="col-md-12">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="jumbotron">
+                            <div class="headline">
+                                <div class="text-center">
+                                    <h1>CONNEXION</h1>
+                                </div>
+                                <br>
+                            </div>
+                            <form method="post">
+                                {% if error %}
+                                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                {% endif %}
 
-                {% if app.user %}
-                    <div class="mb-3">
-                        Vous êtes déjà connecté en tant que {{ app.user.email }}, <a href="{{ path('app_logout') }}">Se deconnecter</a>
-                    </div>
-                {% endif %}
-                <div class="form-row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-ld-12 form-group">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-ld-12 form-group">
-                        <label for="inputPassword">Mot de passe</label>
-                        <input type="password" name="password" id="inputPassword" class="form-control" required>
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-ld-12 form-group">
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    </div>
+                                {% if app.user %}
+                                    <div class="mb-3">
+                                        Vous êtes déjà connecté en tant que {{ app.user.email }}, <a href="{{ path('app_logout') }}">Se deconnecter</a>
+                                    </div>
+                                {% endif %}
+                                <div class="form-row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-ld-12 form-group">
+                                        <label for="inputEmail">Email</label>
+                                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-ld-12 form-group">
+                                        <label for="inputPassword">Mot de passe</label>
+                                        <input type="password" name="password" id="inputPassword" class="form-control" required>
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                    </div>
+                                    <div class="col-md-12form-group">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                    </div>
+                                    <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6Lc-uugUAAAAAHsZpSImqirF53barFSHu7blZ5tW"></div>
+                                    <input id='recaptcha_check_empty' required tabindex='-1', style='width:50px; height:0; opacity:0; pointer-events:none;position:absolute;bottom:39%;'>
 
-                    <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6Lc-uugUAAAAAHsZpSImqirF53barFSHu7blZ5tW"></div>
-                    <input id='recaptcha_check_empty' required tabindex='-1', style='width:50px; height:0; opacity:0; pointer-events:none;position:absolute;bottom:39%;'>
+                                    <div class="col-md-12 form-group">
+                                        <br>
+                                        <button id="submitBtn" class="btn btn-lg btn-outline-primary" type="submit">
+                                            Se connecter
+                                        </button>
+                                    </div>
+                                    <p>Vous n'avez pas encore de compte ? <a href="{{ path('app_register') }}">Créez-vous un compte !</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div><div class="col-md-3"></div>
 
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-ld-12 form-group">
-                        <br>
-                        <button id="submitBtn" class="btn btn-lg btn-outline-primary" type="submit">
-                            Se connecter
-                        </button>
-                    </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
     <script>

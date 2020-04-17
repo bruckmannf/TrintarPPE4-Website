@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Magasin;
 use App\Entity\Produit;
 use App\Entity\Utilisateur;
 use App\Repository\MagasinRepository;
@@ -21,13 +22,13 @@ class PanierController extends AbstractController
     public function index(MagasinRepository $magasinRepository, SessionInterface $session, ProduitRepository $produitRepository)
     {
         $panier = $session->get('panier', []);
-        $livraison = 3.99;
+        $livraison = 4.99;
         $panierWithData = [];
         foreach ($panier as $id => $quantity){
             $panierWithData[] = [
                 'produit' => $produitRepository->find($id),
                 'livraison' => $livraison,
-                'quantity' => $quantity
+                'quantity' => $quantity,
             ];
         }
         $total = 0;
@@ -37,13 +38,14 @@ class PanierController extends AbstractController
             $totalTest = 0;
             $total += $totalItem;
         }
+
         $magasins = $magasinRepository->findAll();
 
         return $this->render('panier/index.html.twig', [
             'items' => $panierWithData,
             'livraison' => $livraison,
             'magasins' => $magasins,
-             'total' => $total
+             'total' => $total,
         ]);
     }
 
@@ -98,13 +100,6 @@ class PanierController extends AbstractController
         $session->set('panier', $panier);
 
         return $this->redirectToRoute("panier");
-    }
-
-    /**
-     * @Route("panier/unAjout/{id}", name="panier.unAjout")
-     */
-    public function ajoutAdresse($id, SessionInterface $session, Produit $produit)
-    {
     }
 
     /**
