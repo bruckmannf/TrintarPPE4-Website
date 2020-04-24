@@ -32,7 +32,7 @@ class optionMagasin
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Magasin", mappedBy="options")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Magasin", inversedBy="options", orphanRemoval=true)
      */
     private $idMagasin;
 

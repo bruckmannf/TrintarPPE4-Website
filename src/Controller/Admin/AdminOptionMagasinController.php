@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\optionMagasin;
+use App\Entity\Produit;
 use App\Form\OptionMagasinType;
 use App\Repository\OptionMagasinRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +11,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class AdminOptionMagasinController extends AbstractController
 {
@@ -39,6 +44,29 @@ class AdminOptionMagasinController extends AbstractController
 
     public function index()
     {
+        $lesClients=$this->getDoctrine()->getRepository(optionMagasin::class)->findAll();
+
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $reponse = new Response();
+        $reponse2 = new Response();
+
+        $reponse->setContent($serializer->serialize($lesClients, 'json'));
+        $reponse->headers->set('Content-Type', 'application/json');
+
+        $reponse2->setContent($serializer->serialize($lesClients, 'xml'));
+        $reponse2->headers->set('Content-Type', 'application/xml');
+
+        $fp = fopen('resultsOption.json', 'w');
+        fwrite($fp, $serializer->serialize($lesClients, 'json'));
+        fclose($fp);
+
+        $fp2 = fopen('resultsOption.xml', 'w');
+        fwrite($fp2, $serializer->serialize($lesClients, 'xml'));
+        fclose($fp2);
+
         $options = $this->OMrepository->findAll();
         return $this->render('admin/optionMagasin/index.html.twig', compact('options'));
     }

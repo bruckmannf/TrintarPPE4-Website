@@ -45,7 +45,9 @@
         </tbody>
     </table>
     <div class="text-right">
-        <a href="{{ path('admin.produit.new') }}" class="btn btn-primary">Créer un nouveau produit</a>
+        <a href="{{ path('admin.produit.new') }}" class="btn btn-green">Créer un nouveau produit</a>
+        <a class="btn btn-primary" href="resultsProduit.json" download="Trintar.com - Produit.json"><i class="fa fa-download"></i> Information en JSON</a>
+        <a class="btn btn-primary" href="resultsProduit.xml" download="Trintar.com - Produit.xml"><i class="fa fa-download"></i> Information en XML</a>
     </div>
     </div>
 {% endblock %}

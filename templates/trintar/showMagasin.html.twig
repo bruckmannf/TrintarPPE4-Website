@@ -18,23 +18,23 @@
                             <br>
                             <br>
                             <div class="row">
-                                <strong>Intitulé :&nbsp;</strong><br> {{ magasin.nom | nl2br }}
+                                <strong>Intitulé :&nbsp;</strong>{{ magasin.nom | nl2br }}
                             </div>
                             <br>
                             <div class="row">
-                                <strong>Téléphone :&nbsp;</strong><br> {{ magasin.telephone | nl2br }}
+                                <strong>Téléphone :&nbsp;</strong>{{ magasin.telephone | nl2br }}
                             </div>
                             <br>
                             <div class="row">
-                                <strong>Courriel :&nbsp;</strong><br> {{ magasin.courriel | nl2br }}
+                                <strong>Courriel :&nbsp;</strong>{{ magasin.courriel | nl2br }}
                             </div>
                             <br>
                             <div class="row">
-                                <strong>Option(s) du magasin :&nbsp;</strong><br>{% for optionMagasin in magasin.idOptionMagasin %} {{ optionMagasin.libelle | nl2br }},{% endfor %}
+                                <strong>Option(s) du magasin :&nbsp;</strong>{% for optionMagasin in magasin.idOptionMagasin %} {{ optionMagasin.libelle | nl2br }},{% endfor %}
                             </div>
                             <br>
                             <div class="row">
-                                <strong>Adresse :&nbsp;</strong><br> {{ magasin.adresse | nl2br }}, {{ magasin.codePostal | nl2br }}, {{ magasin.ville | nl2br }}
+                                <strong>Adresse :&nbsp;</strong>{{ magasin.adresse | nl2br }}, {{ magasin.codePostal | nl2br }}, {{ magasin.ville | nl2br }}
                             </div>
                             <br>
                             <div id="map"></div>

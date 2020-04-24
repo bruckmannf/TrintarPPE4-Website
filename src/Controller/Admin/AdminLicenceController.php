@@ -2,13 +2,19 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Auteur;
 use App\Entity\Licence;
 use App\Form\LicenceType;
 use App\Repository\LicenceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class AdminLicenceController extends AbstractController
 {
@@ -38,6 +44,28 @@ class AdminLicenceController extends AbstractController
 
     public function index()
     {
+        $lesClients=$this->getDoctrine()->getRepository(Licence::class)->findAll();
+
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $reponse = new Response();
+        $reponse2 = new Response();
+
+        $reponse->setContent($serializer->serialize($lesClients, 'json'));
+        $reponse->headers->set('Content-Type', 'application/json');
+
+        $reponse2->setContent($serializer->serialize($lesClients, 'xml'));
+        $reponse2->headers->set('Content-Type', 'application/xml');
+
+        $fp = fopen('resultsLicence.json', 'w');
+        fwrite($fp, $serializer->serialize($lesClients, 'json'));
+        fclose($fp);
+
+        $fp2 = fopen('resultsLicence.xml', 'w');
+        fwrite($fp2, $serializer->serialize($lesClients, 'xml'));
+        fclose($fp2);
         $licences = $this->Lrepository->findAll();
         return $this->render('admin/licence/index.html.twig', compact('licences'));
     }

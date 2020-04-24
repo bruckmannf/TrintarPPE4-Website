@@ -26,12 +26,12 @@
                         <br>
                         {% for auteur in produit.idAuteur %}
                             <div class="row">
-                                <strong>Auteur(s) :&nbsp;</strong><br> {{ auteur.libelle | nl2br }}
+                                <strong>Auteur(s) :&nbsp;</strong>{{ auteur.libelle | nl2br }}
                             </div>
                         {% endfor %}
                         <br>
                         <div class="row">
-                            <strong>Licence :&nbsp;</strong><br>{% for licence in produit.idLicence %} {{ licence.libelle | nl2br }}{% endfor %}
+                            <strong>Licence :&nbsp;</strong>{% for licence in produit.idLicence %} {{ licence.libelle | nl2br }}{% endfor %}
                         </div>
                         <br>
                         <div class="row">
@@ -39,15 +39,15 @@
                         </div>
                         <br>
                         <div class="row">
-                            <strong>Synopsis :</strong> {{ produit.synopsis | nl2br }}
+                            <strong>Synopsis :</strong>{{ produit.synopsis | nl2br }}
                         </div>
                         <br>
                         <div class="row">
-                            <strong>Stock disponible :&nbsp;</strong><br> {{ produit.stock | nl2br }}
+                            <strong>Stock disponible :&nbsp;</strong>{{ produit.stock | nl2br }}
                         </div>
                         <br>
                         <div class="row">
-                            <strong>Prix du tome :&nbsp;</strong><br> {{ produit.prixht | nl2br }} €
+                            <strong>Prix du tome :&nbsp;</strong>{{ produit.prixht | nl2br }} €
                         </div>
                         <br>
                         <div class="row">

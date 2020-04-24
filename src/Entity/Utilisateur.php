@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -149,6 +147,13 @@ class Utilisateur implements UserInterface, \Serializable
      * @ORM\Column(name="pays", type="string", length=50, nullable=true)
      */
     private $pays;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="confirmation_token", type="string", length=50, nullable=true)
+     */
+    private $confirmationToken;
 
     public function getId(): ?int
     {
@@ -438,6 +443,18 @@ class Utilisateur implements UserInterface, \Serializable
     public function setPays(?string $pays): self
     {
         $this->pays = $pays;
+
+        return $this;
+    }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): self
+    {
+        $this->confirmationToken = $confirmationToken;
 
         return $this;
     }

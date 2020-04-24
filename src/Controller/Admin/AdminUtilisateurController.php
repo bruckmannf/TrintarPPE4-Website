@@ -2,16 +2,20 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\optionMagasin;
+use App\Entity\Magasin;
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class AdminUtilisateurController extends AbstractController
 {
@@ -39,8 +43,31 @@ class AdminUtilisateurController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    public function index()
+    public function index(): Response
     {
+        $lesClients=$this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
+
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $reponse = new Response();
+        $reponse2 = new Response();
+
+        $reponse->setContent($serializer->serialize($lesClients, 'json'));
+        $reponse->headers->set('Content-Type', 'application/json');
+
+        $reponse2->setContent($serializer->serialize($lesClients, 'xml'));
+        $reponse2->headers->set('Content-Type', 'application/xml');
+
+        $fp = fopen('resultsUtilisateur.json', 'w');
+        fwrite($fp, $serializer->serialize($lesClients, 'json'));
+        fclose($fp);
+
+        $fp2 = fopen('resultsUtilisateur.xml', 'w');
+        fwrite($fp2, $serializer->serialize($lesClients, 'xml'));
+        fclose($fp2);
+
         $utilisateurs = $this->Urepository->findAll();
         return $this->render('admin/utilisateur/index.html.twig', compact('utilisateurs'));
     }
@@ -119,5 +146,22 @@ class AdminUtilisateurController extends AbstractController
             $this->addFlash('success', 'Bien supprimé avec succès !');
         }
         return $this->redirectToRoute('admin.utilisateur.index');
+    }
+
+    /**
+     * @Route("/apiallXML", name="apiall_client_showXML")
+     */
+    public function webserviceAllXML(): Response
+    {
+        $lesClients=$this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
+
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $reponse = new Response();
+        $reponse->setContent($serializer->serialize($lesClients, 'xml'));
+        $reponse->headers->set('Content-Type', 'application/xml');
+        return $reponse;
     }
 }
