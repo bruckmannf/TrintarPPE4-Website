@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -14,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="utilisateur", indexes={@ORM\Index(name="id_image", columns={"id_image"}), @ORM\Index(name="id_role", columns={"id_role"})})
  * @ORM\Entity
+ * @UniqueEntity("email")
  * @Vich\Uploadable()
  */
 class Utilisateur implements UserInterface, \Serializable
@@ -154,6 +157,11 @@ class Utilisateur implements UserInterface, \Serializable
      * @ORM\Column(name="confirmation_token", type="string", length=50, nullable=true)
      */
     private $confirmationToken;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sexe", inversedBy="utilisateurs")
+     */
+    private $idSexe;
 
     public function getId(): ?int
     {
@@ -458,5 +466,30 @@ class Utilisateur implements UserInterface, \Serializable
 
         return $this;
     }
+    /**
+     * @return Collection|Sexe[]
+     */
+    public function getIdSexe(): ?Collection
+    {
+        return $this->idSexe;
+    }
+
+    public function setIdSexe(?Collection $idSexe): self
+    {
+        $this->idSexe = $idSexe;
+
+        return $this;
+    }
+
+    public function removeIdSexe(Sexe $sexe): self
+    {
+        if ($this->idSexe->contains($sexe)) {
+            $this->idSexe->removeElement($sexe);
+            $sexe->removeIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
 
 }

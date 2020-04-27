@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Sexe;
 use App\Entity\Utilisateur;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -37,6 +39,12 @@ class UtilisateurType extends AbstractType
             ->add('ville')
             ->add('departement')
             ->add('pays')
+            ->add('idSexe', EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'class' => Sexe::class,
+                'multiple' => true
+            ])
         ;
     }
 

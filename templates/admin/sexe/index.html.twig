@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR.com : Administration - accueil' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="text-center">
+                <h1>ADMINISTRATION DES GENRES</h1>
+            </div>
+    </div>
+    <br>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for sexe in sexes %}
+                <tr>
+                    <td>{{ sexe.id }}</td>
+                    <td>{{ sexe.libelle }}</td>
+                    <td>
+                        <a href="{{ path('admin.sexe.edit', {id : sexe.id}) }}" class="btn btn-secondary">Editer</a>
+                        <form method="post" action="{{ path('admin.sexe.delete', {id: sexe.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ sexe.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-right">
+            <a href="{{ path('admin.sexe.new') }}" class="btn btn-green">Créer un nouveau genre</a>
+            <a class="btn btn-primary" href="resultsSexe.json" download="Trintar.com - Sexe.json"><i class="fa fa-download"></i> Information en JSON</a>
+            <a class="btn btn-primary" href="resultsSexe.xml" download="Trintar.com - Sexe.xml"><i class="fa fa-download"></i> Information en XML</a>
+        </div>
+    </div>
+{% endblock %}

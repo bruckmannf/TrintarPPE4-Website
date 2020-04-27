@@ -2,20 +2,19 @@
 
 namespace App\Entity;
 
-use App\Entity\Magasin;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
- * Categorie
+ * Sexe
  *
- * @ORM\Table(name="optionMagasin")
+ * @ORM\Table(name="sexe")
  * @UniqueEntity("libelle")
- * @ORM\Entity(repositoryClass="App\Repository\OptionMagasinRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\SexeRepository")
  */
-class optionMagasin
+class Sexe
 {
     /**
      * @var int
@@ -34,9 +33,9 @@ class optionMagasin
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Magasin", inversedBy="options", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Utilisateur", inversedBy="sexes")
      */
-    private $idMagasin;
+    private $idUtilisateur;
 
     public function getId(): ?int
     {
@@ -56,16 +55,16 @@ class optionMagasin
     }
 
     /**
-     * @return Collection|Produit[]
+     * @return Collection|Utilisateur[]
      */
-    public function getIdMagasin(): Collection
+    public function getIdUtilisateur(): Collection
     {
-        return $this->idMagasin;
+        return $this->idUtilisateur;
     }
 
-    public function setIdMagasin(?Collection $idMagasin): self
+    public function setIdUtilisateur(?Collection $idUtilisateur): self
     {
-        $this->idMagasin = $idMagasin;
+        $this->idUtilisateur = $idUtilisateur;
 
         return $this;
     }
@@ -75,13 +74,12 @@ class optionMagasin
         return $this->getLibelle();
     }
 
-    public function removeIdMagasin(Magasin $magasin): self
+    public function removeIdUtilisateur(Utilisateur $utilisateur): self
     {
-        if ($this->idMagasin->contains($magasin)) {
-            $this->idMagasin->removeElement($magasin);
-            $magasin->removeOptionMagasin($this);
+        if ($this->idUtilisateur->contains($utilisateur)) {
+            $this->idUtilisateur->removeElement($utilisateur);
+            $utilisateur->removeIdSexe($this);
         }
-
         return $this;
     }
 }

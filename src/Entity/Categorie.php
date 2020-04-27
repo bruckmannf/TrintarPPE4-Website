@@ -5,12 +5,14 @@ namespace App\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Produit;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * Categorie
  *
  * @ORM\Table(name="categorie")
+ * @UniqueEntity("libelle")
  * @ORM\Entity(repositoryClass="App\Repository\CategorieRepository")
  */
 class Categorie
@@ -27,7 +29,7 @@ class Categorie
     /**
      * @var string|null
      *
-     * @ORM\Column(name="libelle", type="string", length=50, nullable=true)
+     * @ORM\Column(name="libelle", type="string", length=50, nullable=true, unique=true)
      */
     private $libelle;
 

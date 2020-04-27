@@ -5,6 +5,7 @@ namespace App\Entity;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -16,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Table(name="magasin", indexes={@ORM\Index(name="id_image", columns={"id_image"}), @ORM\Index(name="id_adresse", columns={"id_adresse"})})
  * @ORM\Entity
+ * @UniqueEntity("nom")
  * @Vich\Uploadable()
  */
 class Magasin
@@ -84,7 +86,7 @@ class Magasin
     /**
      * @var string|null
      *
-     * @ORM\Column(name="nom", type="string", length=50, nullable=true)
+     * @ORM\Column(name="nom", type="string", length=50, nullable=true, unique=true)
      */
     private $nom;
 
@@ -276,7 +278,7 @@ class Magasin
     }
 
     /**
-     * @return Collection|Categorie[]
+     * @return Collection|optionMagasin[]
      */
     public function getIdOptionMagasin(): ?Collection
     {

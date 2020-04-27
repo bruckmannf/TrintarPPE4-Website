@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * Licence
  *
  * @ORM\Table(name="licence")
+ * @UniqueEntity("libelle")
  * @ORM\Entity(repositoryClass="App\Repository\LicenceRepository")
  */
 class Licence
@@ -26,7 +28,7 @@ class Licence
     /**
      * @var string|null
      *
-     * @ORM\Column(name="libelle", type="string", length=50, nullable=true)
+     * @ORM\Column(name="libelle", type="string", length=50, nullable=true, unique=true)
      */
     private $libelle;
 
