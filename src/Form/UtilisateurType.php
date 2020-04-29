@@ -36,9 +36,6 @@ class UtilisateurType extends AbstractType
             ->add('lng', HiddenType::class)
             ->add('lat', HiddenType::class)
             ->add('codePostal')
-            ->add('ville')
-            ->add('departement')
-            ->add('pays')
             ->add('idSexe', EntityType::class, [
                 'required' => false,
                 'label' => false,

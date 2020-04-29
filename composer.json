@@ -42,7 +42,9 @@
         "vich/uploader-bundle": "^1.13",
       "ext-http": "*",
       "ext-json": "*",
-        "ext-mysql": "*"
+        "ext-mysql": "*",
+        "ext-simplexml": "*",
+        "ext-xml": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",

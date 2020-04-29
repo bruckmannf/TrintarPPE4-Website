@@ -147,21 +147,4 @@ class AdminUtilisateurController extends AbstractController
         }
         return $this->redirectToRoute('admin.utilisateur.index');
     }
-
-    /**
-     * @Route("/apiallXML", name="apiall_client_showXML")
-     */
-    public function webserviceAllXML(): Response
-    {
-        $lesClients=$this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
-
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $reponse = new Response();
-        $reponse->setContent($serializer->serialize($lesClients, 'xml'));
-        $reponse->headers->set('Content-Type', 'application/xml');
-        return $reponse;
-    }
 }

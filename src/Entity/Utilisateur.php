@@ -133,27 +133,6 @@ class Utilisateur implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="ville", type="string", length=250, nullable=true)
-     */
-    private $ville;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="departement", type="string", length=50, nullable=true)
-     */
-    private $departement;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="pays", type="string", length=50, nullable=true)
-     */
-    private $pays;
-
-    /**
-     * @var string|null
-     *
      * @ORM\Column(name="confirmation_token", type="string", length=50, nullable=true)
      */
     private $confirmationToken;
@@ -415,42 +394,6 @@ class Utilisateur implements UserInterface, \Serializable
     public function setCodePostal(?string $codePostal): self
     {
         $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(?string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getDepartement(): ?string
-    {
-        return $this->departement;
-    }
-
-    public function setDepartement(?string $departement): self
-    {
-        $this->departement = $departement;
-
-        return $this;
-    }
-
-    public function getPays(): ?string
-    {
-        return $this->pays;
-    }
-
-    public function setPays(?string $pays): self
-    {
-        $this->pays = $pays;
 
         return $this;
     }

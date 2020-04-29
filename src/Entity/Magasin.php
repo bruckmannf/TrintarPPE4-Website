@@ -65,27 +65,6 @@ class Magasin
     /**
      * @var string|null
      *
-     * @ORM\Column(name="ville", type="string", length=250, nullable=true)
-     */
-    private $ville;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="departement", type="string", length=50, nullable=true)
-     */
-    private $departement;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="pays", type="string", length=50, nullable=true)
-     */
-    private $pays;
-
-    /**
-     * @var string|null
-     *
      * @ORM\Column(name="nom", type="string", length=50, nullable=true, unique=true)
      */
     private $nom;
@@ -196,42 +175,6 @@ class Magasin
     public function setCodePostal(?string $codePostal): self
     {
         $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(?string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getDepartement(): ?string
-    {
-        return $this->departement;
-    }
-
-    public function setDepartement(?string $departement): self
-    {
-        $this->departement = $departement;
-
-        return $this;
-    }
-
-    public function getPays(): ?string
-    {
-        return $this->pays;
-    }
-
-    public function setPays(?string $pays): self
-    {
-        $this->pays = $pays;
 
         return $this;
     }

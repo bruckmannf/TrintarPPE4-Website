@@ -1,28 +1,28 @@
 {{ form_start(form) }}
 <div class="row">
-    <div class="col-md-3">{{ form_row(form.nom) }}</div>
-    <div class="col-md-3">{{ form_row(form.prenom) }}</div>
-    <div class="col-md-3">{{ form_row(form.email) }}</div>
-    <div class="col-md-3">{{ form_row(form.telephone) }}</div>
+    <div class="col-md-4">{{ form_row(form.nom) }}</div>
+    <div class="col-md-4">{{ form_row(form.prenom) }}</div>
+    <div class="col-md-4">{{ form_row(form.email) }}</div>
 </div>
 <div class="row">
-    <div class="col">{{ form_row(form.description) }}</div>
+    <div class="col-md-4">{{ form_row(form.telephone) }}</div>
+    <div class="col-md-4">{{ form_row(form.dateNaissance) }}</div>
+    <div class="col-md-4">{{ form_row(form.description) }}</div>
 </div>
 <div class="row">
-    <div class="col-md-6">{{ form_row(form.adresse) }}</div>
-    <div class="col-md-3">{{ form_row(form.ville) }}</div>
-    <div class="col-md-3">{{ form_row(form.departement) }}</div>
-</div>
-<div class="row">
-    <div class="col-md-3">{{ form_row(form.pays) }}</div>
-    <div class="col-md-3">{{ form_row(form.codePostal) }}</div>
+    <div class="col-md-4">{{ form_row(form.adresse) }}</div>
+    <div class="col-md-4">{{ form_row(form.codePostal) }}</div>
     <div class="col">{{ form_row(form.lng) }}</div>
     <div class="col">{{ form_row(form.lat) }}</div>
 </div>
 <div class="row">
-    <div class="col-md-4">{{ form_row(form.dateNaissance) }}</div>
     <div class="col-md-4">{{ form_row(form.password) }}</div>
     <div class="col-md-4">{{ form_row(form.imageFile) }}</div>
+</div>
+<div class="row">
+    <div class="col-md-4" style="width: 200px; flex: none; margin: 5px;">
+        <img src="../images/utilisateurs/{{ utilisateur.filename }}" alt="Symfony!" style="width: 80%; height:auto;">
+    </div>
 </div>
 {{ form_rest(form) }}
 <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>

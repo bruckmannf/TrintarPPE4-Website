@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upload d'un fichier json ou xml!{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            {{ form_start(form) }}
+            {{ form_row(form.uploadXML) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

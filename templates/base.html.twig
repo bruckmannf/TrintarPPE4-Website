@@ -230,9 +230,6 @@
                 container: inputAddress
             })
             placesAutocomplete.on('change', e => {
-                document.querySelector('#magasin_ville').value = e.suggestion.city
-                document.querySelector('#magasin_departement').value = e.suggestion.county
-                document.querySelector('#magasin_pays').value = e.suggestion.country
                 document.querySelector('#magasin_codePostal').value = e.suggestion.postcode
                 document.querySelector('#magasin_lat').value = e.suggestion.latlng.lat
                 document.querySelector('#magasin_lng').value = e.suggestion.latlng.lng
@@ -247,9 +244,6 @@
                 container: inputAddress2
             })
             placesAutocomplete.on('change', e => {
-                document.querySelector('#utilisateur_ville').value = e.suggestion.city
-                document.querySelector('#utilisateur_departement').value = e.suggestion.county
-                document.querySelector('#utilisateur_pays').value = e.suggestion.country
                 document.querySelector('#utilisateur_codePostal').value = e.suggestion.postcode
                 document.querySelector('#utilisateur_lat').value = e.suggestion.latlng.lat
                 document.querySelector('#utilisateur_lng').value = e.suggestion.latlng.lng

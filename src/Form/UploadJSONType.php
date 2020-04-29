@@ -2,26 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
-class CategorieType extends AbstractType
+class UploadJSONType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('libelle')
-        ;
+            ->add('uploadJSON', FileType::class, [
+                'label' => "Sélectionner le fichier JSON",
+                'mapped' => false,
+            ])
+            ->add("televerser", SubmitType::class, ['label'=>'Téléverser le fichier']);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Categorie::class,
+            // Configure your form options here
         ]);
     }
 }

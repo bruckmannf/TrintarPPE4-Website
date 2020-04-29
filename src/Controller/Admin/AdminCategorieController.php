@@ -67,6 +67,7 @@ class AdminCategorieController extends AbstractController
         fwrite($fp2, $serializer->serialize($lesClients, 'xml'));
         fclose($fp2);
         $categories = $this->Crepository->findAll();
+
         return $this->render('admin/categorie/index.html.twig', compact('categories'));
     }
 
@@ -91,6 +92,27 @@ class AdminCategorieController extends AbstractController
             'form' => $form->createView()
         ]);
 
+    }
+    /**
+     * @Route("/adminCategorie/import", name="admin.categorie.import")
+     * @param Request $request
+     */
+    public function import (Request $request) {
+        $upload = new Categorie();
+        $form = $this->createForm(CategorieType::class, $upload);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $file = $upload->getFile();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move($this->getParameter('upload_directory'), $fileName);
+            $upload->setFile($fileName);
+
+            return $this->redirectToRoute('admin.categorie.index');
+        }
+        return $this->render('admin/categorie/import.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
