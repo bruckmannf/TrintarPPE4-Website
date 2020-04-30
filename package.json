@@ -2,7 +2,7 @@
   "name": "webMarchandSymfony",
   "version": "1.0.0",
   "dependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "leaflet": "^1.6.0",
     "places.js": "^1.18.1",
     "select2": "^4.0.13"
