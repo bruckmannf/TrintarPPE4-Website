@@ -148,7 +148,7 @@ class Magasin
         return $this->lng;
     }
 
-    public function setLng(?float $lng): self
+    public function setLng( $lng): self
     {
         $this->lng = $lng;
 
@@ -160,7 +160,7 @@ class Magasin
         return $this->lat;
     }
 
-    public function setLat(?float $lat): self
+    public function setLat( $lat): self
     {
         $this->lat = $lat;
 

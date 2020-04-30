@@ -41,8 +41,10 @@
         </table>
         <div class="text-right">
             <a href="{{ path('admin.sexe.new') }}" class="btn btn-green">Créer un nouveau genre</a>
-            <a class="btn btn-primary" href="resultsSexe.json" download="Trintar.com - Sexe.json"><i class="fa fa-download"></i> Information en JSON</a>
-            <a class="btn btn-primary" href="resultsSexe.xml" download="Trintar.com - Sexe.xml"><i class="fa fa-download"></i> Information en XML</a>
+            <a href="{{ path('upload.sexeJSON') }}" class="btn btn-red">Import JSON</a>
+            <a href="{{ path('upload.sexeXML') }}" class="btn btn-red">Import XML</a>
+            <a class="btn btn-primary" href="resultsSexe.json" download="Trintar.com - Sexe.json"><i class="fa fa-download"></i> Export JSON</a>
+            <a class="btn btn-primary" href="resultsSexe.xml" download="Trintar.com - Sexe.xml"><i class="fa fa-download"></i> Export XML</a>
         </div>
     </div>
 {% endblock %}

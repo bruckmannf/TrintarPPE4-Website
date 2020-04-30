@@ -46,8 +46,10 @@
     </table>
     <div class="text-right">
         <a href="{{ path('admin.produit.new') }}" class="btn btn-green">Créer un nouveau produit</a>
-        <a class="btn btn-primary" href="resultsProduit.json" download="Trintar.com - Produit.json"><i class="fa fa-download"></i> Information en JSON</a>
-        <a class="btn btn-primary" href="resultsProduit.xml" download="Trintar.com - Produit.xml"><i class="fa fa-download"></i> Information en XML</a>
+        <a href="{{ path('upload.produitJSON') }}" class="btn btn-red">Import JSON</a>
+        <a href="{{ path('upload.produitXML') }}" class="btn btn-red">Import XML</a>
+        <a class="btn btn-primary" href="resultsProduit.json" download="Trintar.com - Produit.json"><i class="fa fa-download"></i> Export JSON</a>
+        <a class="btn btn-primary" href="resultsProduit.xml" download="Trintar.com - Produit.xml"><i class="fa fa-download"></i> Export XML</a>
     </div>
     </div>
 {% endblock %}

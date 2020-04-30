@@ -367,7 +367,7 @@ class Utilisateur implements UserInterface, \Serializable
         return $this->lng;
     }
 
-    public function setLng(?float $lng): self
+    public function setLng ($lng): self
     {
         $this->lng = $lng;
 
@@ -379,7 +379,7 @@ class Utilisateur implements UserInterface, \Serializable
         return $this->lat;
     }
 
-    public function setLat(?float $lat): self
+    public function setLat($lat): self
     {
         $this->lat = $lat;
 
