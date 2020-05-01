@@ -12,10 +12,7 @@ use App\Entity\Utilisateur;
 use App\Form\UploadJSONType;
 use App\Form\UploadXMLType;
 use App\Repository\CategorieRepository;
-use Cassandra\Collection;
-use Cassandra\Float_;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -366,11 +363,14 @@ class UploadController extends AbstractController
                         $user->setPrenom($v['prenom']);
                         $user->setDescription($v['description']);
                         $user->setEmail($v['email']);
+                        $user->setLat($v['lat']);
+                        $user->setLng($v['lng']);
                         $user->setTelephone($v['telephone']);
                         $user->setPassword($v['password']);
                         $user->setAdresse($v['adresse']);
                         $user->setCodePostal($v['codePostal']);
                         $user->setConfirmationToken($v['confirmationToken']);
+                        $user->setEnabled($v['enabled']);
                         $this->em->persist($user);
                         $this->em->flush();
                     }
@@ -404,11 +404,14 @@ class UploadController extends AbstractController
                         $user->setPrenom($v->prenom);
                         $user->setDescription($v->description);
                         $user->setEmail($v->email);
+                        $user->setLat($v->lat);
+                        $user->setLng($v->lng);
                         $user->setTelephone($v->telephone);
                         $user->setPassword($v->password);
                         $user->setAdresse($v->adresse);
                         $user->setCodePostal($v->codePostal);
                         $user->setConfirmationToken($v->confirmationToken);
+                        $user->setEnabled($v->enabled);
                         $this->em->persist($user);
                         $this->em->flush();
                     }

@@ -138,6 +138,13 @@ class Utilisateur implements UserInterface, \Serializable
     private $confirmationToken;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="enabled", type="string", length=50)
+     */
+    private $enabled;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Sexe", inversedBy="utilisateurs")
      */
     private $idSexe;
@@ -434,5 +441,16 @@ class Utilisateur implements UserInterface, \Serializable
         return $this;
     }
 
+    public function getEnabled(): ?string
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(?string $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
 
 }

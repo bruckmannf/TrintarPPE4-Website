@@ -16,7 +16,7 @@ class UserChecker implements UserCheckerInterface
         if (!$user instanceof AppUser) {
             return;
         }
-        if ($user->getEnabled() == 0) {
+        if ($user->getEnabled() ==! true) {
             throw new CustomUserMessageAuthenticationException(
                 'Votre compte n\'est pas encore actif, veuiller verifier vos email et activer votre compte.');
         }
