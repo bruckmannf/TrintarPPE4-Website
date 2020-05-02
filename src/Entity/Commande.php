@@ -46,19 +46,38 @@ class Commande
     private $dateLivraison;
 
     /**
-     * @var \Utilisateur
+     * @var string|null
      *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_utilisateur", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="quantite_totale", type="string", length=255, nullable=true)
      */
-    private $idUtilisateur;
+    private $quantiteTotale;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="prix_total", type="string", length=255, nullable=true)
+     */
+    private $prixTotal;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Produit", inversedBy="commandes")
      */
     private $idProduit;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Magasin", inversedBy="commandes")
+     */
+    private $idMagasin;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Utilisateur", inversedBy="commandes")
+     */
+    private $idUtilisateur;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\infoCommande", inversedBy="commandes")
+     */
+    private $idInfoCommande;
 
     public function getId(): ?int
     {
@@ -89,6 +108,30 @@ class Commande
         return $this;
     }
 
+    public function getQuantiteTotale(): ?string
+    {
+        return $this->quantiteTotale;
+    }
+
+    public function setQuantiteTotale(?string $quantiteTotale): self
+    {
+        $this->quantiteTotale = $quantiteTotale;
+
+        return $this;
+    }
+
+    public function getPrixTotal(): ?string
+    {
+        return $this->prixTotal;
+    }
+
+    public function setPrixTotal(?string $prixTotal): self
+    {
+        $this->prixTotal = $prixTotal;
+
+        return $this;
+    }
+
     public function getDateLivraison(): ?\DateTimeInterface
     {
         return $this->dateLivraison;
@@ -101,44 +144,104 @@ class Commande
         return $this;
     }
 
-    public function getIdUtilisateur(): ?Utilisateur
+    /**
+     * @return Collection|Produit[]
+     */
+    public function getIdProduit(): ?Collection
+    {
+        return $this->idProduit;
+    }
+
+    public function setIdProduit(?Collection $idProduit): self
+    {
+        $this->idProduit = $idProduit;
+
+        return $this;
+    }
+
+    public function removeIdProduit(Produit $produit): self
+    {
+        if ($this->idProduit->contains($produit)) {
+            $this->idProduit->removeElement($produit);
+            $produit->removeIdCommande($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Magasin[]
+     */
+    public function getIdMagasin(): ?Collection
+    {
+        return $this->idMagasin;
+    }
+
+    public function setIdMagasin(?Collection $idMagasin): self
+    {
+        $this->idMagasin = $idMagasin;
+
+        return $this;
+    }
+
+    public function removeIdMagasin(Magasin $magasin): self
+    {
+        if ($this->idMagasin->contains($magasin)) {
+            $this->idMagasin->removeElement($magasin);
+            $magasin->removeIdCommande($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Utilisateur[]
+     */
+    public function getIdUtilisateur(): ?Collection
     {
         return $this->idUtilisateur;
     }
 
-    public function setIdUtilisateur(?Utilisateur $idUtilisateur): self
+    public function setIdUtilisateur(?Collection $idUtilisateur): self
     {
         $this->idUtilisateur = $idUtilisateur;
 
         return $this;
     }
+
+    public function removeIdUtilisateur(Utilisateur $utilisateur): self
+    {
+        if ($this->idUtilisateur->contains($utilisateur)) {
+            $this->idUtilisateur->removeElement($utilisateur);
+            $utilisateur->removeIdCommande($this);
+        }
+
+        return $this;
+    }
+
     /**
-     * @return Collection|Produit[]
+     * @return Collection|infoCommande[]
      */
-    public function getIdProduit(): Collection
+    public function getIdInfoCommande(): ?Collection
     {
-        return $this->idProduit;
+        return $this->idInfoCommande;
     }
 
-    public function addIdProduit(Produit $idProduit): self
+    public function setIdInfoCommande(?Collection $idInfoCommande): self
     {
-        if (!$this->idProduit->contains($idProduit)) {
-            $this->idProduit[] = $idProduit;
-            $idProduit->addCategorie($this);
-        }
+        $this->idInfoCommande = $idInfoCommande;
 
         return $this;
     }
 
-    public function removeIdProduit(Produit $idProduit): self
+    public function removeIdInfoCommande(infoCommande $infoCommande): self
     {
-        if ($this->idProduit->contains($idProduit)) {
-            $this->idProduit->removeElement($idProduit);
-            $idProduit->removeProduit($this);
+        if ($this->idInfoCommande->contains($infoCommande)) {
+            $this->idInfoCommande->removeElement($infoCommande);
+            $infoCommande->removeIdCommande($this);
         }
 
         return $this;
     }
-
 
 }

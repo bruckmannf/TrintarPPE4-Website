@@ -2,15 +2,16 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LigneReservation
+ * infoCommande
  *
- * @ORM\Table(name="ligne_reservation", indexes={@ORM\Index(name="id_produit", columns={"id_produit"}), @ORM\Index(name="id_commande", columns={"id_commande"})})
+ * @ORM\Table(name="info_commande")
  * @ORM\Entity
  */
-class LigneReservation
+class infoCommande
 {
     /**
      * @var int
@@ -36,24 +37,15 @@ class LigneReservation
     private $prixUnitaire;
 
     /**
-     * @var \Produit
-     *
-     * @ORM\ManyToOne(targetEntity="Produit")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_produit", referencedColumnName="id")
-     * })
+     * @ORM\ManyToMany(targetEntity="App\Entity\Produit", inversedBy="infocommandes")
      */
     private $idProduit;
 
     /**
-     * @var \Commande
-     *
-     * @ORM\ManyToOne(targetEntity="Commande")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_commande", referencedColumnName="id")
-     * })
+     * @ORM\ManyToMany(targetEntity="App\Entity\Commande", inversedBy="infocommandes")
      */
     private $idCommande;
+
 
     public function getId(): ?int
     {
@@ -84,26 +76,52 @@ class LigneReservation
         return $this;
     }
 
-    public function getIdProduit(): ?Produit
+    /**
+     * @return Collection|Produit[]
+     */
+    public function getIdProduit(): ?Collection
     {
         return $this->idProduit;
     }
 
-    public function setIdProduit(?Produit $idProduit): self
+    public function setIdProduit(?Collection $idProduit): self
     {
         $this->idProduit = $idProduit;
 
         return $this;
     }
 
-    public function getIdCommande(): ?Commande
+    public function removeIdProduit(Produit $produit): self
+    {
+        if ($this->idProduit->contains($produit)) {
+            $this->idProduit->removeElement($produit);
+            $produit->removeIdInfoCommande($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getIdCommande(): ?Collection
     {
         return $this->idCommande;
     }
 
-    public function setIdCommande(?Commande $idCommande): self
+    public function setIdCommande(?Collection $idCommande): self
     {
         $this->idCommande = $idCommande;
+
+        return $this;
+    }
+
+    public function removeIdCommande(Commande $commande): self
+    {
+        if ($this->idCommande->contains($commande)) {
+            $this->idCommande->removeElement($commande);
+            $commande->removeIdInfoCommande($this);
+        }
 
         return $this;
     }

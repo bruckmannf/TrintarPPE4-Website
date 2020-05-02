@@ -68,33 +68,11 @@
                             <p style="float: right">{{ livraison }} €</p><br><br>
                             <p style="font-weight: bold; float: left;">Total : </p>
                             <p style="float: right;">{{ total }} €</p><br><br>
-                            <p style="font-weight: bold; float: left;">Adresse de livraison :</p>
-                            <p style="float: right;"></p><br><br><br>
                             <div class="text-center">
                                 <td>
-                                    <a href="" class="btn btn-green">Valider ma commande</a>
+                                    <a href="" class="btn btn-green">Poursuivre ma commande</a>
                                 </td>
                             </div>
-                        </div>
-                        <div class="jumbotron">
-                            <div class="text-center">
-                                <p style="font-weight: bold;">Selectionnez une adresse de livraison</p>
-                            </div>
-                            <br>
-                            {% for magasin in magasins %}
-                                <table class="table">
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <a href="" style="float: left;" class="btn btn-blue btn-sm"> +
-                                            </a>
-                                        </td>
-                                        <td>{{ magasin.nom }}</td>
-                                        <td>{{ magasin.adresse }}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            {% endfor %}
                         </div>
                         <div class="jumbotron">
                             <div class="text-center">
