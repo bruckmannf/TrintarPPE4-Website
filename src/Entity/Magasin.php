@@ -318,7 +318,9 @@ class Magasin
 
     public function __toString()
     {
-        return $this->getNom();
+        $nomReturn = $this->getNom();
+        $adresseReturn = $this->getAdresse();
+        return "$nomReturn : $adresseReturn";
     }
 
     public function removeIdProduit(Produit $produit): self

@@ -12,16 +12,32 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CommandeType extends AbstractType
+class PaiementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('dateCde')
+            ->add('facturePdf')
+            ->add('dateLivraison')
+            ->add('prixTotal')
             ->add('idMagasin', EntityType::class, [
                 'required' => false,
                 'label' => false,
                 'class' => Magasin::class,
                 'multiple' => false
+            ])
+            ->add('idProduit', EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'class' => Produit::class,
+                'multiple' => true
+            ])
+            ->add('idInfoCommande', EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'class' => infoCommande::class,
+                'multiple' => true
             ])
         ;
     }

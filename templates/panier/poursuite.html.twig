@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR.com : au royaume des mangas' %}
+
+{% block body %}
+        <div class="jumbotron">
+            <div class="container text-center">
+                <p style="font-weight: bold; font-size : 2rem;">Livraison</p><br><br><br>
+            </div>
+            <div class="container">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="jumbotron">
+                            <div class="text-center">
+                                <p style="font-weight: bold;">Information de facturation</p>
+                            </div>
+                            <strong>Nom & Prénom :&nbsp;</strong>{{ app.user.nom }} {{ app.user.prenom }}<br><br>
+                            <strong style="float: left;">Adresse de livraison :&nbsp;</strong>
+                            {% if adresse | length > 0 %}<p>{{ adresse }}</p>{% endif %}
+                            <strong>Adresse de facturation :&nbsp;</strong>{{ app.user.adresse }}<br><br>
+                            <strong>Email de facturation :&nbsp;</strong>{{ app.user.email }}<br><br>
+                        </div>
+                        <a href="{{ path('panier') }}" style="float:left;">< revenir au panier</a>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="jumbotron">
+                            <div class="text-center">
+                                <p style="font-weight: bold;">Adresse de livraison</p>
+                                {% for magasin in magasins %}
+                                    <a>{{ magasin.nom }} : {{ magasin.adresse }}</a>
+                                    <a href="{{ path('commande.add.livraison', {'id': magasin.id, 'nom': magasin.nom, 'adresse': magasin.adresse}) }}" style="float: left;" class="btn btn-green btn-sm"> +</a>
+                                    <br><br>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="jumbotron">
+                            <div class="text-center">
+                                <p style="font-weight: bold;">Réglement de l'achat</p>
+                                <div class="text-center">
+                                    <td>
+                                        <a href="{{ path('paiement', {'id': item.produit.id}) }}" class="btn btn-green">Poursuivre ma commande</a>
+                                    </td>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

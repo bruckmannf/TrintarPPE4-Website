@@ -48,13 +48,6 @@ class Commande
     /**
      * @var string|null
      *
-     * @ORM\Column(name="quantite_totale", type="string", length=255, nullable=true)
-     */
-    private $quantiteTotale;
-
-    /**
-     * @var string|null
-     *
      * @ORM\Column(name="prix_total", type="string", length=255, nullable=true)
      */
     private $prixTotal;
@@ -104,18 +97,6 @@ class Commande
     public function setFacturePdf(?string $facturePdf): self
     {
         $this->facturePdf = $facturePdf;
-
-        return $this;
-    }
-
-    public function getQuantiteTotale(): ?string
-    {
-        return $this->quantiteTotale;
-    }
-
-    public function setQuantiteTotale(?string $quantiteTotale): self
-    {
-        $this->quantiteTotale = $quantiteTotale;
 
         return $this;
     }

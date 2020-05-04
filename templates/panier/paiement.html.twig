@@ -7,51 +7,46 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="jumbotron">
             <div class="container text-center">
-                <p style="font-weight: bold; font-size : 2rem;">Récapitulatif de mon panier</p><br><br><br>
+                <p style="font-weight: bold; font-size : 2rem;">Paiement</p><br><br><br>
             </div>
-        <div class="container">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-danger">
-                        {{ message }}
-                    </div>
-                {% endfor %}
+            <div class="container">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-2"></div>
             </div>
-            <div class="col-md-2"></div>
-        </div>
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-5">
                         <div class="jumbotron">
                             {% if items | length > 0 %}
                                 <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Nom</th>
+                                        <th>Quantite</th>
+                                        <th>Prix unitaire</th>
+                                    </tr>
+                                    </thead>
                                     <tbody>
                                     {% for item in items %}
                                         <tr>
                                             <td>
                                                 {% if item.produit.filename %}
-                                                    <img src="images/produits/{{ item.produit.filename }}" alt="Symfony!" style="width: 120px; height:auto; float: left;">
+                                                    <img src="../../images/produits/{{ item.produit.filename }}" alt="Symfony!" style="width: 120px; height:auto; float: left;">
                                                 {% else %}
                                                     <img src="{{ '../images/produits/db.jpg' }}" alt="Symfony!" class="image-display" style="width: 20%; height:auto;" />
                                                 {% endif %}
                                             </td>
                                             <td style="font-weight: bold;">{{ item.produit.libelle }}</td>
                                             <td>{{ item.quantity }}</td>
-                                            <td>
-                                                <a href="{{ path('panier.unAjout', {'id': item.produit.id}) }}" style="float: left;" class="btn btn-green btn-sm"> +
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ path('panier.uneSuppresion', {'id': item.produit.id}) }}" style="float: left;" class="btn btn-primary btn-sm"> -
-                                                </a>
-                                            </td>
-                                            <td>{{ item.produit.prixht * item.quantity }} €</td>
-                                            <td>
-                                                <a href="{{ path('panier.remove', {'id': item.produit.id}) }}" class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </td>
+                                            <td>{{ item.produit.prixht * item.quantity }}</td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -60,17 +55,26 @@
                                 <p>Surprise, c'est vide !</p>
                             {% endif %}
                         </div>
-                        <a href="{{ path('trintar.produit') }}" style="float:left;">< continuer mes achats</a>
+                        <a href="{{ path('commande', {'id': item.produit.id}) }}" style="float:left;">< revenir à la page des livraisons</a>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="jumbotron">
+                            <strong>Nom & Prénom :&nbsp;</strong>{{ app.user.nom }} {{ app.user.prenom }}<br><br>
+                            <strong>Email :&nbsp;</strong>{{ app.user.email }}<br><br>
+                            <strong style="float: left;">Adresse de livraison :&nbsp;</strong>
+                            {% if adresse | length > 0 %}<p>{{ adresse }}</p>{% endif %}
+                            <strong>Adresse de facturation :&nbsp;</strong>{{ app.user.adresse }}<br><br>
+                            <strong>Date commande :&nbsp;</strong>{{ date }}<br><br>
+                            <strong>Date livraison :&nbsp;</strong>{{ dateLivraison }}<br><br>
+                            <strong>Prix livraison :&nbsp;</strong>{{ livraison }} €<br><br>
+                            <strong>Total :&nbsp;</strong>{{ total }} €<br><br>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="jumbotron">
-                            <p style="font-weight: bold; float: left;">Livraison : </p>
-                            <p style="float: right">{{ livraison }} €</p><br><br>
-                            <p style="font-weight: bold; float: left;">Total : </p>
-                            <p style="float: right;">{{ total }} €</p><br><br>
                             <div class="text-center">
                                 <td>
-                                    <a href="{{ path('commande', {'id': item.produit.id})}}" class="btn btn-green">Poursuivre ma commande</a>
+                                    <a href="{{ path('commande', {'id': item.produit.id})}}" class="btn btn-green">Paiement</a>
                                 </td>
                             </div>
                         </div>

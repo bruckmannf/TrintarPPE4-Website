@@ -473,6 +473,11 @@ class Utilisateur implements UserInterface, \Serializable
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
     public function removeIdCommande(Commande $commande): self
     {
         if ($this->idCommande->contains($commande)) {

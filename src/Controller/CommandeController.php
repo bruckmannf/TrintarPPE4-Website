@@ -3,11 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Entity\Magasin;
 use App\Form\CommandeType;
 use App\Repository\CommandeRepository;
+use App\Repository\MagasinRepository;
+use App\Repository\ProduitRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -16,79 +22,154 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommandeController extends AbstractController
 {
     /**
-     * @Route("/", name="commande_index", methods={"GET"})
+     * @var MagasinRepository
      */
-    public function index(CommandeRepository $commandeRepository): Response
+
+    private $magasinRepository;
+
+    /**
+     * @var CommandeRepository
+     */
+
+    private $Crepository;
+
+    /**
+     * @var EntityManagerInterface
+     */
+
+    private $em;
+
+    public function __construct(EntityManagerInterface $em, CommandeRepository $Crepository, MagasinRepository $magasinRepository)
     {
-        return $this->render('commande/produit.html.twig', [
-            'commandes' => $commandeRepository->findAll(),
-        ]);
+        $this->Crepository = $Crepository;
+        $this->magasinRepository = $magasinRepository;
+        $this->em = $em;
     }
 
     /**
-     * @Route("/new", name="commande_new", methods={"GET","POST"})
+     * @Route("/{id}", name="commande")
+     * @param Request $request
      */
-    public function new(Request $request): Response
-    {
-        $commande = new Commande();
-        $form = $this->createForm(CommandeType::class, $commande);
-        $form->handleRequest($request);
+    public function poursuite($id, SessionInterface $session, ProduitRepository $produitRepository, Request $request, MagasinRepository $magasinRepository){
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($commande);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('commande_index');
+        $panier = $session->get('panier', []);
+        $adresse = $session->get('adresse', []);
+        $livraison = 4.99;
+        $panierWithData = [];
+        foreach ($panier as $id => $quantity){
+            $panierWithData[] = [
+                'produit' => $produitRepository->find($id),
+                'livraison' => $livraison,
+                'quantity' => $quantity,
+                'adresse' => $adresse,
+            ];
+        }
+        $total = 0;
+        foreach ($panierWithData as $item) {
+            $totalItem = $item['produit']->getPrixht() * $item['quantity'] + $item['livraison'];
+            $total += $totalItem;
         }
 
-        return $this->render('commande/new.html.twig', [
-            'commande' => $commande,
-            'form' => $form->createView(),
+        $magasins = $this->magasinRepository->findAll();
+        $magasin = new Magasin();
+
+        return $this->render('panier/poursuite.html.twig', [
+            'items' => $panierWithData,
+            'livraison' => $livraison,
+            'magasins' => $magasins,
+            'total' => $total,
+            'item' => $item,
+            'adresse' => $adresse,
+            'magasin' => $magasin,
         ]);
     }
 
     /**
-     * @Route("/{id}", name="commande_show", methods={"GET"})
+     * @Route("/commande/addLivraison/{id}/{nom}/{adresse}", name="commande.add.livraison")
+     * @param $adresse
+     * @param $nom
+     * @return Response
      */
-    public function show(Commande $commande): Response
+    public function addLivraison($id, $adresse, $nom, SessionInterface $session, MagasinRepository $magasinRepository, ProduitRepository $produitRepository): Response
     {
-        return $this->render('commande/show.html.twig', [
-            'commande' => $commande,
-        ]);
-    }
+        $panier = $session->get('panier', []);
 
-    /**
-     * @Route("/{id}/edit", name="commande_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Commande $commande): Response
-    {
-        $form = $this->createForm(CommandeType::class, $commande);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('commande_index');
+        if(!empty($panier[$adresse])) {
+            $panier[$adresse] = $adresse;
         }
 
-        return $this->render('commande/edit.html.twig', [
-            'commande' => $commande,
-            'form' => $form->createView(),
+        $session->set('adresse', $adresse);
+        $magasins = $this->magasinRepository->findAll();
+        $magasin = new Magasin();
+
+        $livraison = 4.99;
+        $panierWithData = [];
+        foreach ($panier as $id => $quantity){
+            $panierWithData[] = [
+                'produit' => $produitRepository->find($id),
+                'livraison' => $livraison,
+                'quantity' => $quantity,
+            ];
+        }
+        $total = 0;
+
+        foreach ($panierWithData as $item) {
+            $totalItem = $item['produit']->getPrixht() * $item['quantity'] + $item['livraison'];
+            $total += $totalItem;
+        }
+        $magasins = $magasinRepository->findAll();
+
+        return $this->render('panier/poursuite.html.twig',[
+            'id' => $id,
+            'magasins' => $magasins,
+            'magasin' => $magasin,
+            'adresse' => $adresse,
+            'item' => $item
         ]);
     }
 
     /**
-     * @Route("/{id}", name="commande_delete", methods={"DELETE"})
+     * @Route("/paiement/{id}", name="paiement")
+     * @param Request $request
      */
-    public function delete(Request $request, Commande $commande): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($commande);
-            $entityManager->flush();
+    public function paiement($id, SessionInterface $session, ProduitRepository $produitRepository, Request $request, MagasinRepository $magasinRepository){
+        $panier = $session->get('panier', []);
+        $adresse = $session->get('adresse', []);
+        setlocale(LC_TIME, 'fra_fra');
+        $date = (strftime('%d/%m/%y'));
+        $dateLivraison = (strftime('%d/%m/%y', strtotime('+1 week')));
+        $livraison = 4.99;
+        $panierWithData = [];
+        foreach ($panier as $id => $quantity){
+            $panierWithData[] = [
+                'produit' => $produitRepository->find($id),
+                'livraison' => $livraison,
+                'quantity' => $quantity,
+                'adresse' => $adresse,
+                'date' => $date,
+                'dateLivraison' => $dateLivraison,
+            ];
+        }
+        $total = 0;
+        foreach ($panierWithData as $item) {
+            $totalItem = $item['produit']->getPrixht() * $item['quantity'] + $item['livraison'];
+            $total += $totalItem;
         }
 
-        return $this->redirectToRoute('commande_index');
+        $magasins = $this->magasinRepository->findAll();
+        $magasin = new Magasin();
+
+        return $this->render('panier/paiement.html.twig', [
+            'items' => $panierWithData,
+            'livraison' => $livraison,
+            'magasins' => $magasins,
+            'total' => $total,
+            'item' => $item,
+            'adresse' => $adresse,
+            'magasin' => $magasin,
+            'date' => $date,
+            'dateLivraison' => $dateLivraison
+        ]);
     }
+
 }

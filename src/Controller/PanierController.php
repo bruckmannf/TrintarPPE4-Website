@@ -37,7 +37,6 @@ class PanierController extends AbstractController
             $totalItem = $item['produit']->getPrixht() * $item['quantity'] + $item['livraison'];
             $total += $totalItem;
         }
-
         $magasins = $magasinRepository->findAll();
 
         return $this->render('panier/index.html.twig', [
@@ -45,6 +44,7 @@ class PanierController extends AbstractController
             'livraison' => $livraison,
             'magasins' => $magasins,
              'total' => $total,
+            'item' => $item
         ]);
     }
 
