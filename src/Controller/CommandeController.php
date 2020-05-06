@@ -2,19 +2,30 @@
 
 namespace App\Controller;
 
-use App\Entity\Commande;
 use App\Entity\Magasin;
-use App\Form\CommandeType;
+use App\Entity\Utilisateur;
+use App\Form\RegistrationFormType;
 use App\Repository\CommandeRepository;
 use App\Repository\MagasinRepository;
 use App\Repository\ProduitRepository;
+use App\Security\LoginAuthenticator;
+use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\MakerBundle\Str;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @Route("/commande")
@@ -38,12 +49,17 @@ class CommandeController extends AbstractController
      */
 
     private $em;
+    /**
+     * @var \Swift_Mailer
+     */
+    private $mailer;
 
-    public function __construct(EntityManagerInterface $em, CommandeRepository $Crepository, MagasinRepository $magasinRepository)
+    public function __construct(EntityManagerInterface $em, CommandeRepository $Crepository, MagasinRepository $magasinRepository, \Swift_Mailer $mailer)
     {
         $this->Crepository = $Crepository;
         $this->magasinRepository = $magasinRepository;
         $this->em = $em;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -54,7 +70,7 @@ class CommandeController extends AbstractController
 
         $panier = $session->get('panier', []);
         $adresse = $session->get('adresse', []);
-        $livraison = 4.99;
+        $livraison = 0;
         $panierWithData = [];
         foreach ($panier as $id => $quantity){
             $panierWithData[] = [
@@ -102,7 +118,7 @@ class CommandeController extends AbstractController
         $magasins = $this->magasinRepository->findAll();
         $magasin = new Magasin();
 
-        $livraison = 4.99;
+        $livraison = 3.99;
         $panierWithData = [];
         foreach ($panier as $id => $quantity){
             $panierWithData[] = [
@@ -132,13 +148,15 @@ class CommandeController extends AbstractController
      * @Route("/paiement/{id}", name="paiement")
      * @param Request $request
      */
-    public function paiement($id, SessionInterface $session, ProduitRepository $produitRepository, Request $request, MagasinRepository $magasinRepository){
+    public function paiement($id, SessionInterface $session, ProduitRepository $produitRepository, Request $request, MagasinRepository $magasinRepository)
+    {
+
         $panier = $session->get('panier', []);
         $adresse = $session->get('adresse', []);
         setlocale(LC_TIME, 'fra_fra');
         $date = (strftime('%d/%m/%y'));
         $dateLivraison = (strftime('%d/%m/%y', strtotime('+1 week')));
-        $livraison = 4.99;
+        $livraison = 3.99;
         $panierWithData = [];
         foreach ($panier as $id => $quantity){
             $panierWithData[] = [
@@ -168,7 +186,7 @@ class CommandeController extends AbstractController
             'adresse' => $adresse,
             'magasin' => $magasin,
             'date' => $date,
-            'dateLivraison' => $dateLivraison
+            'dateLivraison' => $dateLivraison,
         ]);
     }
 

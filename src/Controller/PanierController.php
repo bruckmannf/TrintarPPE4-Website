@@ -22,7 +22,7 @@ class PanierController extends AbstractController
     public function index(MagasinRepository $magasinRepository, SessionInterface $session, ProduitRepository $produitRepository)
     {
         $panier = $session->get('panier', []);
-        $livraison = 4.99;
+        $livraison = 3.99;
         $panierWithData = [];
         foreach ($panier as $id => $quantity){
             $panierWithData[] = [
@@ -32,6 +32,7 @@ class PanierController extends AbstractController
             ];
         }
         $total = 0;
+        $item = 0;
 
         foreach ($panierWithData as $item) {
             $totalItem = $item['produit']->getPrixht() * $item['quantity'] + $item['livraison'];

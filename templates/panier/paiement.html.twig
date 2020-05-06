@@ -57,7 +57,7 @@
                         </div>
                         <a href="{{ path('commande', {'id': item.produit.id}) }}" style="float:left;">< revenir à la page des livraisons</a>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="jumbotron">
                             <strong>Nom & Prénom :&nbsp;</strong>{{ app.user.nom }} {{ app.user.prenom }}<br><br>
                             <strong>Email :&nbsp;</strong>{{ app.user.email }}<br><br>
@@ -70,18 +70,50 @@
                             <strong>Total :&nbsp;</strong>{{ total }} €<br><br>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="jumbotron">
-                            <div class="text-center">
-                                <td>
-                                    <a href="{{ path('commande', {'id': item.produit.id})}}" class="btn btn-green">Paiement</a>
-                                </td>
-                            </div>
-                        </div>
-                        <div class="jumbotron">
-                            <div class="text-center">
-                                <p style="font-weight: bold;">Une question ? Contactez-nous au 06.11.36.50.07</p>
-                            </div>
+                            <form method="post">
+                                <fieldset class="credit-card-group">
+                                    <div class="text-center">
+                                        <legend>Informations bancaires</legend>
+                                    </div>
+                                    <br>
+                                    <label for="card-number">Numéro bancaire : </label>
+                                    <input id="txtCardNumber" class="card-number" name="card-number" placeholder="0123 4567 8901 2345" minlength="0000 0000 0000 0000" required>
+                                    <br>
+                                    <br>
+                                    <label for="card-number">Date d'expiration : </label>
+                                    <select name="month" required>
+                                        <script language="JavaScript" type="text/javascript">
+                                            var month = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec");
+                                            for (var m=0; m<month.length; m++)
+                                            {
+                                                document.write("<option>" +month[m]+ "</option>");
+                                            }
+                                        </script>
+                                    </select>
+                                    <select name="year" required>
+                                        <script language="JavaScript" type="text/javascript">
+                                            var year = new Date();
+                                            var year2 = year.getFullYear();
+                                            for (y=0; y<6; y++)
+                                            {
+                                                document.write("<option>" +(year2+y)+ "</option>");
+                                                document.write("<br />");
+                                            }
+
+                                        </script>
+                                    </select>
+                                    <br>
+                                    <br>
+                                    <label for="card-number">Nombre CVV : </label>
+                                    <input placeholder="CVV" pattern="[0-9]*" type="text" class="card-cvv" name="card-cvv" id="CVVCardNumber" required>
+                                </fieldset>
+                                <br>
+                                <div class="text-center">
+                                    <input type="submit" href="" class="btn btn-blue" value="Confirmation paiement">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -94,4 +126,58 @@
             </div>
         </div>
     {% endif %}
+{% endblock %}
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        var CVVCardNumber = document.querySelector("#CVVCardNumber");
+        CVVCardNumber.addEventListener("input", onChangeCVVCardNumber);
+
+        function onChangeCVVCardNumber(e) {
+            var cardNumber = CVVCardNumber.value;
+            var formattedCardNumber = cardNumber.replace(/[^\d]/g, "");
+            formattedCardNumber = formattedCardNumber.substring(0, 3);
+            var cardNumberSections = formattedCardNumber.match(/\d{3,3}/g);
+            if (cardNumberSections !== null) {
+                formattedCardNumber = cardNumberSections.join(' ');
+            }
+            console.log("'"+ cardNumber + "' to '" + formattedCardNumber + "'");
+            if (cardNumber !== formattedCardNumber) {
+                CVVCardNumber.value = formattedCardNumber;
+            }
+        }
+
+        var txtCardNumber = document.querySelector("#txtCardNumber");
+        txtCardNumber.addEventListener("input", onChangeTxtCardNumber);
+        function onChangeTxtCardNumber(e) {
+            var cardNumber = txtCardNumber.value;
+            var formattedCardNumber = cardNumber.replace(/[^\d]/g, "");
+            formattedCardNumber = formattedCardNumber.substring(0, 16);
+            var cardNumberSections = formattedCardNumber.match(/\d{1,4}/g);
+            if (cardNumberSections !== null) {
+                formattedCardNumber = cardNumberSections.join(' ');
+            }
+            console.log("'"+ cardNumber + "' to '" + formattedCardNumber + "'");
+            if (cardNumber !== formattedCardNumber) {
+                txtCardNumber.value = formattedCardNumber;
+            }
+        }
+
+        function ValidateExpDate()
+        {
+            var ccExpYear = 20 + $F('<%= txtCCExpirationYear.ClientID%>');
+            var ccExpMonth = $F('<%= txtCCExpirationMonth.ClientID%>');
+            var expDate=new Date();
+            expDate.setFullYear(ccExpYear, ccExpMonth, 1);
+            var today = new Date();
+            if (expDate<today)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    </script>
 {% endblock %}
