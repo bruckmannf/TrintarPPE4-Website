@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR.com : au royaume des mangas' %}
+
+{% block body %}
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="jumbotron">
+                    <div class="container text-center">
+                        <p style="font-weight: bold; font-size : 2rem;">PAIEMENT TERMINE</p><br><br>
+                    </div>
+                        <p>{{ app.user.nom }} {{ app.user.prenom }}, votre commande à hauteur de {{ total }} euros à été effectuée avec succès.<br>
+                        Vous allez recevoir email sur votre courriel {{ app.user.email }} confirmant la commande avec la facture en pièce jointe.<br>
+                        Vous pouvez continuer votre visite du site sur : <a href="{{ url('trintar.produit') }}">Retour à la page produit</a>.
+                        </p>
+                        <br>
+                    <div class="container">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            {% for message in app.flashes('success') %}
+                                <div class="alert alert-danger">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+{% endblock %}

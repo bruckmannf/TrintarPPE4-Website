@@ -90,9 +90,9 @@ class PanierController extends AbstractController
         $resultQuantite = $panier[$id];
         $resultStock = $produit->getStock();
 
-        if ($resultQuantite <= $resultStock) {
+        if ($resultQuantite < $resultStock) {
             $panier[$id]++;
-        } elseif ($resultQuantite > $resultStock) {
+        } elseif ($resultQuantite >= $resultStock) {
             $panier[$id];
             $this->addFlash('success', 'Erreur, votre quantité ne peut pas dépasser le stock maximal.');
         }

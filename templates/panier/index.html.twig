@@ -69,9 +69,11 @@
                             <p style="font-weight: bold; float: left;">Total : </p>
                             <p style="float: right;">{{ total }} €</p><br><br>
                             <div class="text-center">
+                                {% if items | length > 0 %}
                                 <td>
                                     <a href="{{ path('commande', {'id': item.produit.id})}}" class="btn btn-green">Poursuivre ma commande</a>
                                 </td>
+                            {% endif %}
                             </div>
                         </div>
                         <div class="jumbotron">

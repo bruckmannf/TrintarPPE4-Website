@@ -78,11 +78,16 @@
                                         <legend>Informations bancaires</legend>
                                     </div>
                                     <br>
-                                    <label for="card-number">Numéro bancaire : </label>
+                                    <label for="card-number">Numéro de la carte</label>
+                                    <br>
                                     <input id="txtCardNumber" class="card-number" name="card-number" placeholder="0123 4567 8901 2345" minlength="0000 0000 0000 0000" required>
                                     <br>
                                     <br>
-                                    <label for="card-number">Date d'expiration : </label>
+                                    <label for="card-number">Titulaire de la carte</label><br>
+                                    <input placeholder="Nom Prenom"  type="text" class="card-titulaire" name="card-cvv" id="TitulaireCardNumber" required>
+                                    <br>
+                                    <br>
+                                    <label for="card-number">Date d'expiration</label><br>
                                     <select name="month" required>
                                         <script language="JavaScript" type="text/javascript">
                                             var month = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec");
@@ -106,12 +111,14 @@
                                     </select>
                                     <br>
                                     <br>
-                                    <label for="card-number">Nombre CVV : </label>
-                                    <input placeholder="CVV" pattern="[0-9]*" type="text" class="card-cvv" name="card-cvv" id="CVVCardNumber" required>
+                                    <label for="card-number">Cryptogramme</label><br>
+                                    <input placeholder="CVC" pattern="[0-9]*" type="text" class="card-cvv" name="card-cvv" id="CVVCardNumber" required>
+                                    <br>
+                                    <br>
                                 </fieldset>
                                 <br>
                                 <div class="text-center">
-                                    <input type="submit" href="" class="btn btn-blue" value="Confirmation paiement">
+                                    <a id="submit-button" href="{{ path('apresPaiement', {'id': item.produit.id}) }}" class="btn btn-orange">Payer {{ total }} €</a>
                                 </div>
                             </form>
                         </div>
@@ -128,8 +135,11 @@
     {% endif %}
 {% endblock %}
 {% block javascripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
+        function doFancyStuff() {
+            $("#submit-button").click();
+        }
+
         var CVVCardNumber = document.querySelector("#CVVCardNumber");
         CVVCardNumber.addEventListener("input", onChangeCVVCardNumber);
 

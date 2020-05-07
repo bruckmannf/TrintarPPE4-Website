@@ -53,6 +53,13 @@ class Commande
     private $prixTotal;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="numero_commande", type="string", length=255, nullable=true)
+     */
+    private $numeroCommande;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Produit", inversedBy="commandes")
      */
     private $idProduit;
@@ -109,6 +116,18 @@ class Commande
     public function setPrixTotal(?string $prixTotal): self
     {
         $this->prixTotal = $prixTotal;
+
+        return $this;
+    }
+
+    public function getNumeroCommande(): ?string
+    {
+        return $this->numeroCommande;
+    }
+
+    public function setNumeroCommande(?string $numeroCommande): self
+    {
+        $this->numeroCommande = $numeroCommande;
 
         return $this;
     }

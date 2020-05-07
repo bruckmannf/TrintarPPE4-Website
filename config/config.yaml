@@ -1,0 +1,7 @@
+# app/config/config.yml
+knp_snappy:
+  pdf:
+    # ...
+    options:
+      - { name: 'viewport-size', value: ‘1024x768’ }
+      - { name: 'page-size', value: 'A4' }

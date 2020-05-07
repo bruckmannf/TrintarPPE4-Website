@@ -1,12 +1,69 @@
-{# ./templates/default/mypdf.html.twig #}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Title of the PDF</title>
-</head>
-<body>
-<h4>{{ title }}</h4>
-<p>Lorem Ipsum</p>
-</body>
-</html>
+<p style="font-weight: bold; font-size : 2rem;">FACTURE</p><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <p style="font-weight: bold;">{{ app.user.nom }} {{ app.user.prenom }}</p>
+            <p>{{ app.user.adresse }}</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+        <div class="row">
+            <div class="col-md-4" style="float: left;">
+                <p style="font-weight: bold;">FACTURE A</p>
+                <p>{{ app.user.adresse }}</p>
+            </div>
+            <div class="col-md-4">
+                <p style="font-weight: bold;">ENVOYE A</p>
+                <p>{{ adresse }}</p>
+            </div>
+            <div class="col-md-4">
+                <p style="font-weight: bold;">FACTURE N° {{ token }}</p>
+                <p style="font-weight: bold;">DATE COMMANDE : {{ date }}</p>
+                <p style="font-weight: bold;">DATE LIVRAISON : {{ dateLivraison }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Quantité</th>
+                                <th>Désignation</th>
+                                <th>Prix Unitaire HT</th>
+                                <th>Montant HT</th>
+                                <th>Montant TTC</th>
+                            </tr>
+                            </thead>
+                            {{ app.user.nom }}
+                            <tbody>
+                            {% for item in items %}
+                                <tr>
+                                    <td>{{ item.quantity }}</td>
+                                    <td style="font-weight: bold;">{{ item.produit.libelle }}</td>
+                                    <td>{{ item.produit.prixht }}</td>
+                                    <td>{{ item.produit.prixht * item.quantity }}</td>
+                                    <td>{{ item.produit.prixht * 0.80 }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <p style="font-weight: bold;">TVA : 20%</p>
+            <p style="font-weight: bold;">Livraison : {{ livraison }} €</p>
+            <p style="font-weight: bold;">Total : {{ total }} €</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <p style="font-weight: bold;">MERCI | TRINTAR.COM</p>
+</div>

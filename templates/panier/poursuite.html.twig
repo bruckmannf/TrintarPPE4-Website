@@ -25,11 +25,12 @@
                             <div class="text-center">
                                 <p style="font-weight: bold;">Information de facturation</p>
                             </div>
-                            <strong>Nom & Prénom :&nbsp;</strong>{{ app.user.nom }} {{ app.user.prenom }}<br><br>
-                            <strong style="float: left;">Adresse de livraison :&nbsp;</strong>
+                            <strong>Nom & Prénom :&nbsp;</strong><br>{{ app.user.nom }} {{ app.user.prenom }}<br><br>
+                            <strong >Adresse de livraison :&nbsp;</strong>
                             {% if adresse | length > 0 %}<p>{{ adresse }}</p>{% endif %}
-                            <strong>Adresse de facturation :&nbsp;</strong>{{ app.user.adresse }}<br><br>
-                            <strong>Email de facturation :&nbsp;</strong>{{ app.user.email }}<br><br>
+                            <br><br>
+                            <strong>Adresse de facturation :&nbsp;</strong><br>{{ app.user.adresse }}<br><br>
+                            <strong>Email de facturation :<br></strong>{{ app.user.email }}
                         </div>
                         <a href="{{ path('panier') }}" style="float:left;">< revenir au panier</a>
                     </div>
@@ -44,16 +45,18 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="jumbotron">
-                            <div class="text-center">
-                                <p style="font-weight: bold;">Réglement de l'achat</p>
+                        {% if adresse | length > 0 %}
+                            <div class="jumbotron">
                                 <div class="text-center">
-                                    <td>
-                                        <a href="{{ path('paiement', {'id': item.produit.id}) }}" class="btn btn-green">Poursuivre ma commande</a>
-                                    </td>
+                                    <p style="font-weight: bold;">Réglement de l'achat</p>
+                                    <div class="text-center">
+                                        <td>
+                                            <a href="{{ path('paiement', {'id': item.produit.id}) }}" class="btn btn-green">Poursuivre ma commande</a>
+                                        </td>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
