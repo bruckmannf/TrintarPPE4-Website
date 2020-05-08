@@ -25,9 +25,9 @@ class Commande
     private $id;
 
     /**
-     * @var \DateTime|null
+     * @var string|null
      *
-     * @ORM\Column(name="date_cde", type="date", nullable=true)
+     * @ORM\Column(name="date_cde", type="string", nullable=true)
      */
     private $dateCde;
 
@@ -39,9 +39,9 @@ class Commande
     private $facturePdf;
 
     /**
-     * @var \DateTime|null
+     * @var string|null
      *
-     * @ORM\Column(name="date_livraison", type="date", nullable=true)
+     * @ORM\Column(name="date_livraison", type="string", nullable=true)
      */
     private $dateLivraison;
 
@@ -84,12 +84,12 @@ class Commande
         return $this->id;
     }
 
-    public function getDateCde(): ?\DateTimeInterface
+    public function getDateCde(): ?string
     {
         return $this->dateCde;
     }
 
-    public function setDateCde(?\DateTimeInterface $dateCde): self
+    public function setDateCde(?string $dateCde): self
     {
         $this->dateCde = $dateCde;
 
@@ -132,12 +132,12 @@ class Commande
         return $this;
     }
 
-    public function getDateLivraison(): ?\DateTimeInterface
+    public function getDateLivraison(): ?string
     {
         return $this->dateLivraison;
     }
 
-    public function setDateLivraison(?\DateTimeInterface $dateLivraison): self
+    public function setDateLivraison(?string $dateLivraison): self
     {
         $this->dateLivraison = $dateLivraison;
 

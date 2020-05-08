@@ -110,11 +110,6 @@ class Magasin
     private $idProduit;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Commande", inversedBy="magasins")
-     */
-    private $idCommande;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
@@ -332,31 +327,4 @@ class Magasin
 
         return $this;
     }
-
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getIdCommande(): ?Collection
-    {
-        return $this->idCommande;
-    }
-
-    public function setIdCommande(?Collection $idCommande): self
-    {
-        $this->idCommande = $idCommande;
-
-        return $this;
-    }
-
-    public function removeIdCommande(Commande $commande): self
-    {
-        if ($this->idCommande->contains($commande)) {
-            $this->idCommande->removeElement($commande);
-            $commande->removeIdMagasin($this);
-        }
-
-        return $this;
-    }
-
-
 }

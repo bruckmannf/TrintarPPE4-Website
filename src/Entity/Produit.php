@@ -93,16 +93,6 @@ class Produit
     private $idMagasin;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Commande", inversedBy="produits")
-     */
-    private $idCommande;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\infoCommande", inversedBy="commandes")
-     */
-    private $idInfoCommande;
-
-    /**
      * @var string|null
      * @ORM\Column(name="filename", type="string", length=255)
      */
@@ -359,55 +349,4 @@ class Produit
 
         return $this;
     }
-
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getIdCommande(): ?Collection
-    {
-        return $this->idCommande;
-    }
-
-    public function setIdCommande(?Collection $idCommande): self
-    {
-        $this->idCommande = $idCommande;
-
-        return $this;
-    }
-
-    public function removeIdCommande(Commande $commande): self
-    {
-        if ($this->idCommande->contains($commande)) {
-            $this->idCommande->removeElement($commande);
-            $commande->removeIdProduit($this);
-        }
-
-        return $this;
-    }
-    /**
-     * @return Collection|infoCommande[]
-     */
-    public function getIdInfoCommande(): ?Collection
-    {
-        return $this->idInfoCommande;
-    }
-
-    public function setIdInfoCommande(?Collection $idInfoCommande): self
-    {
-        $this->idInfoCommande = $idInfoCommande;
-
-        return $this;
-    }
-
-    public function removeIdInfoCommande(infoCommande $infoCommande): self
-    {
-        if ($this->idInfoCommande->contains($infoCommande)) {
-            $this->idInfoCommande->removeElement($infoCommande);
-            $infoCommande->removeIdProduit($this);
-        }
-
-        return $this;
-    }
-
-
 }

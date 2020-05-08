@@ -149,11 +149,6 @@ class Utilisateur implements UserInterface, \Serializable
      */
     private $idSexe;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Commande", inversedBy="utilisateurs")
-     */
-    private $idCommande;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -458,34 +453,9 @@ class Utilisateur implements UserInterface, \Serializable
         return $this;
     }
 
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getIdCommande(): ?Collection
-    {
-        return $this->idCommande;
-    }
-
-    public function setIdCommande(?Collection $idCommande): self
-    {
-        $this->idCommande = $idCommande;
-
-        return $this;
-    }
-
     public function __toString()
     {
         return $this->getNom();
-    }
-
-    public function removeIdCommande(Commande $commande): self
-    {
-        if ($this->idCommande->contains($commande)) {
-            $this->idCommande->removeElement($commande);
-            $commande->removeIdUtilisateur($this);
-        }
-
-        return $this;
     }
 
 }

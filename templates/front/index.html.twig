@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-        <div class="jumbotron">
+    <div class="jumbotron">
     <div class="section col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
         <div id="section-local">
             <div class="section-headline">
@@ -53,26 +53,25 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
                 <h2 style="font-weight: bold;">
-                    Les dernières annonces
+                    Les dernières produits
                 </h2>
                 </div>
                 <div class="col-md-3">
                     <a href="{{ path('trintar.produit') }}" style="float:right;">Voir plus de produits</a>
                 </div>
-                <br>
-                    <br>
             </div>
             </div>
+            <br>
             <div class="row flex">
                 {% for produit in produits %}
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         {% include 'trintar/_produit.html.twig' %}
                     </div>
                 {% endfor %}
             </div>
         </div>
     </div>
-        </div>
+    </div>
     </div>
     </div>
 

@@ -29,7 +29,8 @@ class ProduitRepository extends ServiceEntityRepository
     public function findLatest(): array
     {
         return $this->findVisibleQuery()
-            ->setMaxResults(6)
+            ->orderBy("p.id", "DESC")
+            ->setMaxResults(4)
             ->getQuery()
             ->getResult();
     }
