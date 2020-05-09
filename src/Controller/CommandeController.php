@@ -7,6 +7,7 @@ use App\Entity\infoCommande;
 use App\Entity\Informer;
 use App\Entity\Magasin;
 use App\Entity\commander;
+use App\Form\BancaireType;
 use App\Repository\CommandeRepository;
 use App\Repository\MagasinRepository;
 use App\Repository\ProduitRepository;
@@ -151,6 +152,7 @@ class CommandeController extends AbstractController
      */
     public function paiement($id, SessionInterface $session, ProduitRepository $produitRepository, Request $request, MagasinRepository $magasinRepository)
     {
+
         $panier = $session->get('panier', []);
         $adresse = $session->get('adresse', []);
         setlocale(LC_TIME, 'fra_fra');

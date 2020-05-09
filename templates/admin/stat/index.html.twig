@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR.com : Administration - accueil' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="text-center">
+                <h1>STATISTIQUE TOTALE</h1>
+            </div>
+        </div>
+    <br>
+        <br>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-8">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Produit disponible</th>
+                            <th>Magasin disponible</th>
+                            <th>Licence partenaire</th>
+                            <th>Personne inscrite</th>
+                            <th>Commande effectuée</th>
+                            <th>Produit vendu</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ produit }}</td>
+                            <td>{{ magasin }}</td>
+                            <td>{{ licence }}</td>
+                            <td>{{ totalInscrit }}</td>
+                            <td>{{ totalFacture }}</td>
+                            <td>{{ totalProduit }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <div class="jumbotron">
+                        <div class="text-center">
+                            <p>FILTRE</p>
+                            <br>
+                            <a href="{{ path ('admin.stat.mois')}}" class="btn btn-secondary">Stat / Mois</a>
+                            <a href="{{ path ('admin.stat.semaine')}}" class="btn btn-secondary">Stat / Semaine</a>
+                            <a href="{{ path ('admin.stat.jour')}}" class="btn btn-secondary">Stat / Jours</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

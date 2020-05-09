@@ -29,7 +29,7 @@
                             <strong >Adresse de livraison :&nbsp;</strong>
                             {% if adresse | length > 0 %}<p>{{ adresse }}</p>{% endif %}
                             <br><br>
-                            <strong>Adresse de facturation :&nbsp;</strong><br>{{ app.user.adresse }}<br><br>
+                            <strong>Adresse de facturation :&nbsp;</strong><br>{% if app.user.adresse | length > 0 %}<p>{{ app.user.adresse }}</p>{% else %}<p style="color: red;">Veuillez inscrire votre adresse sur votre <a href="{{ path ('user.profil')}}">profil</a> pour continuer</p>{% endif %}<br><br>
                             <strong>Email de facturation :<br></strong>{{ app.user.email }}
                         </div>
                         <a href="{{ path('panier') }}" style="float:left;">< revenir au panier</a>
@@ -45,17 +45,19 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        {% if adresse | length > 0 %}
-                            <div class="jumbotron">
-                                <div class="text-center">
-                                    <p style="font-weight: bold;">Réglement de l'achat</p>
+                        {% if app.user.adresse | length > 0 %}
+                            {% if adresse | length > 0 %}
+                                <div class="jumbotron">
                                     <div class="text-center">
-                                        <td>
-                                            <a href="{{ path('paiement', {'id': item.produit.id}) }}" class="btn btn-green">Poursuivre ma commande</a>
-                                        </td>
+                                        <p style="font-weight: bold;">Réglement de l'achat</p>
+                                        <div class="text-center">
+                                            <td>
+                                                <a href="{{ path('paiement', {'id': item.produit.id}) }}" class="btn btn-green">Poursuivre ma commande</a>
+                                            </td>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>

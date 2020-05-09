@@ -43,7 +43,12 @@
                         </div>
                         <br>
                         <div class="row">
-                            <strong>Stock disponible :&nbsp;</strong>{{ produit.stock | nl2br }}
+                            <strong>Stock disponible :&nbsp;</strong>
+                            {% if produit.stock == 0 %}
+                                <strong style="color: red">RUPTURE DE STOCK</strong>
+                            {% else %}
+                                {{ produit.stock | nl2br }}
+                            {% endif %}
                         </div>
                         <br>
                         <div class="row">
@@ -58,7 +63,11 @@
                         </div>
                         <br>
                         <div class="row">
+                        {% if produit.stock == 0 %}
+
+                        {% else %}
                             <a href="{{ path ('panier.add', {'id': produit.id}) }}" style="float: left" class="btn btn-secondary">Ajouter au panier</a>
+                        {% endif %}
                         </div>
                     </div>
                     <div class="col-md-2"></div>

@@ -19,8 +19,6 @@
 </head>
 <body>
 {% block header %}
-
-    <!--Navbar -->
 <nav class="navbar justify-content-center black lighten-4 py-4">
     <a class="navbar-brand" href="#" style="color: white;"><i class="fas fa-headset"></i> SERVICE CLIENT : 06 11 36 50 07</a>
 </nav>
@@ -79,81 +77,46 @@
                                 <a class="dropdown-item" href="{{ path ('admin.utilisateur.index')}}">Gestion - Utilisateur</a>
                                 <a class="dropdown-item" href="{{ path ('admin.sexe.index')}}">Gestion - Sexe</a>
                             <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="">Statistique</a>
+                                <a class="dropdown-item" href="{{ path ('admin.stat.index')}}">Statistique</a>
                         </div>
                     </li>
                 {% endif %}
             </ul>
         </div>
     </nav>
-    <!--/.Navbar -->
 {% endblock %}
-
 {% block body %}
 {% endblock %}
-
 {% block footer %}
-
-    <!-- Footer -->
-    <footer class="page-footer font-small unique-color-dark">
-
+    <footer class="page-footer font-small unique-color-dark" style="">
         <div class="red darken-4">
             <div class="container">
-
-                <!-- Grid row-->
                 <div class="row py-4 d-flex align-items-center">
-
-                    <!-- Grid column -->
                     <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
                         <h6 class="mb-0">Restez connecté en nous rejoingnant sur les réseaux sociaux !</h6>
                     </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
                     <div class="col-md-6 col-lg-7 text-center text-md-right">
-                        <!-- Twitter -->
                         <a class="tw-ic" href="https://twitter.com/xGeleetz">
                             <i class="fab fa-twittconfig er white-text mr-4"> </i>
                         </a>
-                        <!--Linkedin -->
                         <a class="li-ic" href="https://www.linkedin.com/in/florian-bruckmann-4ba76b1a2/">
                             <i class="fab fa-linkedin-in white-text mr-4"> </i>
                         </a>
-                        <!--Instagram-->
                         <a class="ins-ic" href="https://www.instagram.com/xgeleetz/">
                             <i class="fab fa-instagram white-text"> </i>
                         </a>
-
                     </div>
-                    <!-- Grid column -->
-
                 </div>
-                <!-- Grid row-->
-
             </div>
         </div>
-
-        <!-- Footer Links -->
         <div class="container text-center text-md-left mt-5">
-
-            <!-- Grid row -->
             <div class="row mt-3">
-
-                <!-- Grid column -->
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-
-                    <!-- Content -->
                     <h6 class="text-uppercase font-weight-bold">TRINTAR.com</h6>
                     <hr class="red darken-4 accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>TRINTAR.com est un site web fictif réalisé pour le projet de PPE de la seconde année du BTS SIO. Son but est de simuler un site web marchand sur le thème de son choix.</p>
-
                 </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-
-                    <!-- Links -->
                     <h6 class="text-uppercase font-weight-bold">Produits</h6>
                     <hr class="red darken-4 accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
@@ -164,7 +127,6 @@
                     </p>
                 </div>
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <!-- Links -->
                     <h6 class="text-uppercase font-weight-bold">Liens utiles</h6>
                     <hr class="red darken-4 accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
@@ -174,12 +136,7 @@
                         <a href="{{ path ('front.index')}}">En apprendre plus sur TRINTAR.com</a>
                     </p>
                 </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-
-                    <!-- Links -->
                     <h6 class="text-uppercase font-weight-bold">Contact</h6>
                     <hr class="red darken-4 accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
@@ -189,25 +146,13 @@
                     <p>
                         <i class="fas fa-phone mr-3"></i> +33 6 11 36 50 07</p>
                 </div>
-                <!-- Grid column -->
-
             </div>
-            <!-- Grid row -->
-
         </div>
-        <!-- Footer Links -->
-
-        <!-- Copyright -->
         <div class="footer-copyright text-center py-3">© 2020 Copyright:
             <a href="https://mdbootstrap.com/">TRINTAR.com</a>
         </div>
-        <!-- Copyright -->
-
     </footer>
-    <!-- Footer -->
-
 {% endblock %}
-
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

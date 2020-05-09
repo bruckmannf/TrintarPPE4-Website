@@ -118,7 +118,7 @@
                                 </fieldset>
                                 <br>
                                 <div class="text-center">
-                                    <a id="submit-button" href="{{ path('apresPaiement', {'id': item.produit.id}) }}" class="btn btn-orange">Payer {{ total }} €</a>
+                                    <input type="submit" id="submit-button" formaction="{{ path('apresPaiement', {'id': item.produit.id}) }}" class="btn btn-orange" value="Payer {{ total }} €">
                                 </div>
                             </form>
                         </div>
