@@ -149,6 +149,13 @@ class Utilisateur implements UserInterface, \Serializable
      */
     private $idSexe;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="created_at", type="string", nullable=true)
+     */
+    private $createdAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -456,6 +463,18 @@ class Utilisateur implements UserInterface, \Serializable
     public function __toString()
     {
         return $this->getNom();
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(string $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 
 }

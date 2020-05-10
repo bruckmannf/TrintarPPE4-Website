@@ -17,6 +17,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Validator\Constraints\Date;
 
 class AdminProduitController extends AbstractController {
 
@@ -96,10 +97,14 @@ class AdminProduitController extends AbstractController {
     public function new (Request $request)
     {
         $produit = new Produit();
+        $date = (date('Y-m-d'));
+        $test = $produit->setCreatedAt($date);
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $test = $produit->setCreatedAt($date);
             $this->em->persist($produit);
+            $this->em->persist($test);
             $this->em->flush();
             $this->addFlash('success', 'Bien crée avec succès !');
             return $this->redirectToRoute('admin.produit.index');

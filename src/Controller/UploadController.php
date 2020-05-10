@@ -116,6 +116,7 @@ class UploadController extends AbstractController
                     foreach ($lesClients as $v){
                         $licence = new Licence();
                         $licence->setLibelle($v['libelle']);
+                        $licence->setCreatedAt($v['createdAt']);
                         $this->em->persist($licence);
                         $this->em->flush();
                     }
@@ -146,6 +147,7 @@ class UploadController extends AbstractController
                     foreach ($lesClients as $v){
                         $licence = new Licence();
                         $licence->setLibelle($v->libelle);
+                        $licence->setCreatedAt($v->createdAt);
                         $this->em->persist($licence);
                         $this->em->flush();
                     }
@@ -371,6 +373,7 @@ class UploadController extends AbstractController
                         $user->setCodePostal($v['codePostal']);
                         $user->setConfirmationToken($v['confirmationToken']);
                         $user->setEnabled($v['enabled']);
+                        $user->setCreatedAt($v['createdAt']);
                         $this->em->persist($user);
                         $this->em->flush();
                     }
@@ -404,14 +407,13 @@ class UploadController extends AbstractController
                         $user->setPrenom($v->prenom);
                         $user->setDescription($v->description);
                         $user->setEmail($v->email);
-                        $user->setLat($v->lat);
-                        $user->setLng($v->lng);
                         $user->setTelephone($v->telephone);
                         $user->setPassword($v->password);
                         $user->setAdresse($v->adresse);
                         $user->setCodePostal($v->codePostal);
                         $user->setConfirmationToken($v->confirmationToken);
                         $user->setEnabled($v->enabled);
+                        $user->setCreatedAt($v->createdAt);
                         $this->em->persist($user);
                         $this->em->flush();
                     }
@@ -450,6 +452,7 @@ class UploadController extends AbstractController
                         $magasin->setHoraireOuverture($v['horaireOuverture']);
                         $magasin->setAdresse($v['adresse']);
                         $magasin->setCodePostal($v['codePostal']);
+                        $magasin->setCreatedAt($v['createdAt']);
                         $this->em->persist($magasin);
                         $this->em->flush();
                     }
@@ -487,6 +490,7 @@ class UploadController extends AbstractController
                         $magasin->setNom($v->nom);
                         $magasin->setTelephone($v->telephone);
                         $magasin->setCourriel($v->courriel);
+                        $magasin->setCreatedAt($v->createdAt);
                         $this->em->persist($magasin);
                         $this->em->flush();
                     }
@@ -522,6 +526,7 @@ class UploadController extends AbstractController
                         $produit->setStock($v['stock']);
                         $produit->setDescription($v['description']);
                         $produit->setSynopsis($v['synopsis']);
+                        $produit->setCreatedAt($v['createdAt']);
                         $this->em->persist($produit);
                         $this->em->flush();
                     }
@@ -556,6 +561,7 @@ class UploadController extends AbstractController
                         $produit->setStock($v->stock);
                         $produit->setDescription($v->description);
                         $produit->setSynopsis($v->synopsis);
+                        $produit->setCreatedAt($v->createdAt);
                         $this->em->persist($produit);
                         $this->em->flush();
                     }

@@ -37,6 +37,14 @@ class Licence
      */
     private $idProduit;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="created_at", type="string", nullable=true)
+     */
+    private $createdAt;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,6 +88,18 @@ class Licence
             $this->idProduit->removeElement($produit);
             $produit->removeTomes($this);
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(string $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

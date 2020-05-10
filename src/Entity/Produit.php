@@ -2,21 +2,15 @@
 
 namespace App\Entity;
 
-use App\Form\ProduitType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
-use App\Entity\Categorie;
-use App\Entity\Commande;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
-
-
-
 
 /**
  * Produit
@@ -112,6 +106,13 @@ class Produit
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="created_at", type="string", nullable=true)
+     */
+    private $createdAt;
 
     public function __construct()
     {
@@ -346,6 +347,18 @@ class Produit
             $this->idMagasin->removeElement($magasin);
             $magasin->removeProduit($this);
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(string $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

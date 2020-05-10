@@ -99,10 +99,14 @@ class AdminMagasinController extends AbstractController {
     public function new (Request $request)
     {
         $magasin = new Magasin();
+        $date = (date('Y-m-d'));
+        $test = $magasin->setCreatedAt($date);
         $form = $this->createForm(MagasinType::class, $magasin);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $test = $magasin->setCreatedAt($date);
             $this->em->persist($magasin);
+            $this->em->persist($test);
             $this->em->flush();
             $this->addFlash('success', 'Bien crée avec succès !');
             return $this->redirectToRoute('admin.magasin.index');

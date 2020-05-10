@@ -80,6 +80,8 @@ class AdminUtilisateurController extends AbstractController
     public function new (Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $utilisateur = new Utilisateur();
+        $date = (date('Y-m-d'));
+        $test = $utilisateur->setCreatedAt($date);
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -89,7 +91,9 @@ class AdminUtilisateurController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
+            $test = $utilisateur->setCreatedAt($date);
             $this->em->persist($utilisateur);
+            $this->em->persist($test);
             $this->em->flush();
             $this->addFlash('success', 'Bien crée avec succès !');
             return $this->redirectToRoute('admin.utilisateur.index');

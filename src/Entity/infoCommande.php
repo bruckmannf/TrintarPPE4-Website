@@ -46,6 +46,13 @@ class infoCommande
      */
     private $idCommande;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="created_at", type="string", nullable=true)
+     */
+    private $createdAt;
+
 
     public function getId(): ?int
     {
@@ -126,5 +133,15 @@ class infoCommande
         return $this;
     }
 
+    public function getCreatedAt(): ?string
+    {
+        return $this->createdAt;
+    }
 
+    public function setCreatedAt(string $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
 }

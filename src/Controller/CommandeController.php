@@ -7,7 +7,6 @@ use App\Entity\infoCommande;
 use App\Entity\Informer;
 use App\Entity\Magasin;
 use App\Entity\commander;
-use App\Form\BancaireType;
 use App\Repository\CommandeRepository;
 use App\Repository\MagasinRepository;
 use App\Repository\ProduitRepository;
@@ -275,10 +274,14 @@ class CommandeController extends AbstractController
         $this->em->flush();
         foreach ($panierWithData as $item){
             $info = new infoCommande();
+            $date = (date('Y-m-d'));
+            $test = $info->setCreatedAt($date);
             $info1 = $item['quantity'];
             $info2 = $item['produit']->getPrixht();
             $info3 = $info->setQuantite($info1);
             $info3 = $info->setPrixUnitaire($info2);
+            $test = $info3->setCreatedAt($date);
+            $this->em->persist($test);
             $this->em->persist($info3);
             $this->em->flush();
         }

@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-
 /**
  * Magasin
  *
@@ -113,6 +112,13 @@ class Magasin
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="created_at", type="string", nullable=true)
+     */
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -324,6 +330,18 @@ class Magasin
             $this->idProduit->removeElement($produit);
             $produit->removeIdMagasin($this);
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(string $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

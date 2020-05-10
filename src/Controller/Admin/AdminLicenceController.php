@@ -78,10 +78,14 @@ class AdminLicenceController extends AbstractController
     public function new (Request $request)
     {
         $licence = new Licence();
+        $date = (date('Y-m-d'));
+        $test = $licence->setCreatedAt($date);
         $form = $this->createForm(LicenceType::class, $licence);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $test = $licence->setCreatedAt($date);
             $this->em->persist($licence);
+            $this->em->persist($test);
             $this->em->flush();
             $this->addFlash('success', 'Bien crée avec succès !');
             return $this->redirectToRoute('admin.licence.index');

@@ -25,6 +25,54 @@ class MagasinRepository extends ServiceEntityRepository
     /**
      * @return Magasin[]
      */
+    public function day(\Datetime $date)
+    {
+        $from = (Date($date->format("Y-m-d")." 00:00:00"));
+        $to   = (Date($date->format("Y-m-d")." 23:59:59"));
+
+        return $this->findVisibleQuery()
+            ->andWhere('m.createdAt BETWEEN :from AND :to')
+            ->setParameter('from', $from )
+            ->setParameter('to', $to)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Magasin[]
+     */
+    public function week(\Datetime $date)
+    {
+        $from = (Date("Y-m-d", strtotime("-1 week"))." 00:00:00" );
+        $to   = (Date($date->format("Y-m-d")." 23:59:59"));
+
+        return $this->findVisibleQuery()
+            ->andWhere('m.createdAt BETWEEN :from AND :to')
+            ->setParameter('from', $from )
+            ->setParameter('to', $to)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Magasin[]
+     */
+    public function month(\Datetime $date)
+    {
+        $from = (Date("Y-m-d", strtotime("-1 month"))." 00:00:00" );
+        $to   = (Date($date->format("Y-m-d")." 23:59:59"));
+
+        return $this->findVisibleQuery()
+            ->andWhere('m.createdAt BETWEEN :from AND :to')
+            ->setParameter('from', $from )
+            ->setParameter('to', $to)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Magasin[]
+     */
 
     public function findLatest(): array
     {
@@ -42,7 +90,6 @@ class MagasinRepository extends ServiceEntityRepository
     /**
      * @return Query
      */
-
     public function findAllVisibleQuery(MagasinSearch $search): Query
     {
         $query =  $this->findVisibleQuery();
