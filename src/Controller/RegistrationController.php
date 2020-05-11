@@ -53,10 +53,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $date = (date('Y-m-d'));
+            $test = $user->setCreatedAt($date);
             $user->setConfirmationToken($this->generateToken());
             $user->setEnabled(false);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
+            $entityManager->persist($test);
             $entityManager->flush();
             $token = $user->getConfirmationToken();
             $email = $user->getEmail();
