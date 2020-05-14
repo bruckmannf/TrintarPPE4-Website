@@ -63,11 +63,15 @@
                         </div>
                         <br>
                         <div class="row">
-                        {% if produit.stock == 0 %}
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                {% if produit.stock == 0 %}
 
-                        {% else %}
-                            <a href="{{ path ('panier.add', {'id': produit.id}) }}" style="float: left" class="btn btn-secondary">Ajouter au panier</a>
-                        {% endif %}
+                                {% else %}
+                                    <a href="{{ path ('panier.add', {'id': produit.id}) }}" style="float: left" class="btn btn-secondary">Ajouter au panier</a>
+                                {% endif %}
+                            {% else %}
+                                <p>Pour commander un produit, veuillez vous connecter : <a href="{{ path ('app_login')}}">Se connecter</a></p>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-md-2"></div>

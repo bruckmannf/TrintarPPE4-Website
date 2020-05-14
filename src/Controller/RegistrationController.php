@@ -4,11 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\RegistrationFormType;
-use App\Form\ResetPasswordType;
 use App\Security\LoginAuthenticator;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +20,7 @@ class RegistrationController extends AbstractController
      * @var \Swift_Mailer
      */
     private $mailer;
+
     public function __construct(\Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;

@@ -37,16 +37,6 @@ class infoCommande
     private $prixUnitaire;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Produit", inversedBy="infocommandes")
-     */
-    private $idProduit;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Commande", inversedBy="infocommandes")
-     */
-    private $idCommande;
-
-    /**
      * @var string|null
      *
      * @ORM\Column(name="created_at", type="string", nullable=true)
@@ -83,55 +73,6 @@ class infoCommande
         return $this;
     }
 
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getIdProduit(): ?Collection
-    {
-        return $this->idProduit;
-    }
-
-    public function setIdProduit(?Collection $idProduit): self
-    {
-        $this->idProduit = $idProduit;
-
-        return $this;
-    }
-
-    public function removeIdProduit(Produit $produit): self
-    {
-        if ($this->idProduit->contains($produit)) {
-            $this->idProduit->removeElement($produit);
-            $produit->removeIdInfoCommande($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getIdCommande(): ?Collection
-    {
-        return $this->idCommande;
-    }
-
-    public function setIdCommande(?Collection $idCommande): self
-    {
-        $this->idCommande = $idCommande;
-
-        return $this;
-    }
-
-    public function removeIdCommande(Commande $commande): self
-    {
-        if ($this->idCommande->contains($commande)) {
-            $this->idCommande->removeElement($commande);
-            $commande->removeIdInfoCommande($this);
-        }
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?string
     {

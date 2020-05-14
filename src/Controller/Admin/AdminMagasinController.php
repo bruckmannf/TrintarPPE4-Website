@@ -158,5 +158,4 @@ class AdminMagasinController extends AbstractController {
         return $this->redirectToRoute('admin.magasin.index');
     }
 
-
 }

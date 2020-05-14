@@ -16,6 +16,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 
@@ -82,6 +83,28 @@ class ProduitController extends AbstractController
             'produit' => $produit,
             'current_menu' => 'produits'
         ]);
+    }
+
+    /**
+     * @Route("/produit/apiall", name="apiall_client_show2")
+     */
+
+    public function webserviceAll(): Response
+    {
+        $lesClients=$this->getDoctrine()->getRepository(Produit::class)->findAll();
+
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $reponse = new Response();
+        $reponse->setContent($serializer->serialize($lesClients, 'json', [
+            'circular_reference_handler' => function ($magasin) {
+                return $magasin->getId();
+            }
+        ]));
+        $reponse->headers->set('Content-Type', 'application/json');
+        return $reponse;
     }
 
 }

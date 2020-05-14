@@ -17,18 +17,6 @@ class InfoCommandeType extends AbstractType
         $builder
             ->add('quantite')
             ->add('prixUnitaire')
-            ->add('idProduit', EntityType::class, [
-                'required' => false,
-                'label' => false,
-                'class' => Produit::class,
-                'multiple' => true
-            ])
-            ->add('idCommande', EntityType::class, [
-                'required' => false,
-                'label' => false,
-                'class' => Commande::class,
-                'multiple' => true
-            ])
         ;
     }
 
