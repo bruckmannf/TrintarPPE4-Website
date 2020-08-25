@@ -73,6 +73,7 @@
                             <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ path ('admin.magasin.index')}}">Gestion - Magasin</a>
                                 <a class="dropdown-item" href="{{ path ('admin.option.index')}}">Gestion - Options</a>
+                                <a class="dropdown-item" href="{{ path ('admin.masque.index')}}">Gestion - Masques</a>
                             <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ path ('admin.utilisateur.index')}}">Gestion - Utilisateur</a>
                                 <a class="dropdown-item" href="{{ path ('admin.sexe.index')}}">Gestion - Sexe</a>
@@ -195,6 +196,15 @@
                 document.querySelector('#utilisateur_codePostal').value = e.suggestion.postcode
                 document.querySelector('#utilisateur_lat').value = e.suggestion.latlng.lat
                 document.querySelector('#utilisateur_lng').value = e.suggestion.latlng.lng
+            })
+        }
+
+        let inputAddress3 = document.querySelector('#utilisateur_villeDeNaissance')
+        if (inputAddress3 !== null) {
+            let placesAutocomplete = places({
+                appId: 'plB1R5LFAXKE',
+                apiKey: '91053d35e44353cf6d622e910324ffb1',
+                container: inputAddress3
             })
         }
 

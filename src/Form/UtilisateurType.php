@@ -33,6 +33,7 @@ class UtilisateurType extends AbstractType
                 'required' => false
             ])
             ->add('adresse')
+            ->add('villeDeNaissance')
             ->add('lng', HiddenType::class)
             ->add('lat', HiddenType::class)
             ->add('codePostal')

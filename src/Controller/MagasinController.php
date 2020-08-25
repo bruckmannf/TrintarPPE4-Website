@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Contact;
 use App\Notification\ContactNotification;
 use App\Entity\Magasin;
 use App\Entity\MagasinSearch;
-use App\Form\ContactType;
 use App\Form\MagasinSearchType;
 use App\Repository\MagasinRepository;
 use Doctrine\ORM\EntityManagerInterface;

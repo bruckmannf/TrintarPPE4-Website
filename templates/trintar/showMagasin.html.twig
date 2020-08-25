@@ -37,6 +37,10 @@
                                 <strong>Adresse :&nbsp;</strong>{{ magasin.adresse | nl2br }}, {{ magasin.codePostal | nl2br }}
                             </div>
                             <br>
+                            <div class="row">
+                                <strong style="color: red;">PORT DU MASQUE {% for masque in magasin.idMasque %} {{ masque.libelle | nl2br }}{% endfor %}</strong>
+                            </div>
+                            <br>
                             <div id="map"></div>
                             <br>
                             <a href="{{ path ('trintar.magasin')}}" class="btn btn-primary">Revenir à la page des magasins</a>

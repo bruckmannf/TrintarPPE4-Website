@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR.com : Administration - accueil' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="text-center">
+                <h1>ADMINISTRATION DES MASQUES</h1>
+            </div>
+        </div>
+    <br>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for masque in masques %}
+                <tr>
+                    <td>{{ masque.id }}</td>
+                    <td>{{ masque.libelle }}</td>
+                    <td>
+                        <a href="{{ path('admin.masque.edit', {id : masque.id}) }}" class="btn btn-secondary">Editer</a>
+                        <form method="post" action="{{ path('admin.masque.delete', {id: masque.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ masque.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-right">
+            <a href="{{ path('admin.masque.new') }}" class="btn btn-green">Créer un nouveau masque</a>
+            <a href="{{ path('upload.optionJSON') }}" class="btn btn-red">Import JSON</a>
+            <a href="{{ path('upload.optionXML') }}" class="btn btn-red">Import XML</a>
+            <a class="btn btn-primary" href="resultsOption.json" download="Trintar.com - Masque.json"><i class="fa fa-download"></i> Export JSON</a>
+            <a class="btn btn-primary" href="resultsOption.xml" download="Trintar.com - Masque.xml"><i class="fa fa-download"></i> Export XML</a>
+        </div>
+    </div>
+{% endblock %}

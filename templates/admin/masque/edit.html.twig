@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'TRINTAR.com : Administration - modification' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="text-center">
+                <h1>MODIFICATION DES MASQUES</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        {{ include ('admin/masque/_form.html.twig', {form: form, button: 'Modifier un masque'}) }}
+    </div>
+    <br>
+{% endblock %}

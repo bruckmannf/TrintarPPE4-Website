@@ -88,6 +88,11 @@ class Magasin
     private $idOptionMagasin;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Masque", inversedBy="magasins")
+     */
+    private $idMasque;
+
+    /**
      * @var string|null
      * @ORM\Column(name="filename", type="string", length=255)
      */
@@ -246,6 +251,31 @@ class Magasin
         if ($this->idOptionMagasin->contains($optionMagasin)) {
             $this->idOptionMagasin->removeElement($optionMagasin);
             $optionMagasin->removeMagasin($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Masque[]
+     */
+    public function getIdMasque(): ?Collection
+    {
+        return $this->idMasque;
+    }
+
+    public function setIdMasque(?Collection $idMasque): self
+    {
+        $this->idMasque = $idMasque;
+
+        return $this;
+    }
+
+    public function removeIdMasque(Masque $masque): self
+    {
+        if ($this->idMasque->contains($masque)) {
+            $this->idMasque->removeElement($masque);
+            $masque->removeMasque($this);
         }
 
         return $this;

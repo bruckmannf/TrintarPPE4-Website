@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Magasin;
+use App\Entity\Masque;
 use App\Entity\optionMagasin;
 use App\Entity\Produit;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -30,6 +31,12 @@ class MagasinType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'class' => optionMagasin::class,
+                'multiple' => true
+            ])
+            ->add('idMasque', EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'class' => Masque::class,
                 'multiple' => true
             ])
             ->add('idProduit', EntityType::class, [

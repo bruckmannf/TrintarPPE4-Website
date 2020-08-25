@@ -109,6 +109,13 @@ class Utilisateur implements UserInterface, \Serializable
     /**
      * @var string|null
      *
+     * @ORM\Column(name="ville_de_naissance", type="string", length=255, nullable=true)
+     */
+    private $villeDeNaissance;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
      */
     private $adresse;
@@ -362,6 +369,18 @@ class Utilisateur implements UserInterface, \Serializable
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
         [$this->id, $this->email, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getVilleDeNaissance(): ?string
+    {
+        return $this->villeDeNaissance;
+    }
+
+    public function setVilleDeNaissance(?string $villeDeNaissance): self
+    {
+        $this->villeDeNaissance = $villeDeNaissance;
+
+        return $this;
     }
 
     public function getAdresse(): ?string
